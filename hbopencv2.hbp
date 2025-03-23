@@ -1,0 +1,13 @@
+-hblib
+
+-olib/${hb_plat}/${hb_comp}/hbopencv2
+
+{!xhb}-gc3
+
+-iinclude
+-i${OPENCV2_INC_DIR}
+
+source/core/core_c.cpp
+source/highgui/highgui_c.cpp
+source/imgproc/imgproc_c.cpp
+source/photo/photo_c.cpp
