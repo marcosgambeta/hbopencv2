@@ -12,7 +12,7 @@
 /*
 CVAPI(void) cvInpaint( const CvArr* src, const CvArr* inpaint_mask, CvArr* dst, double inpaintRange, int flags )
 */
-HB_FUNC( CVINPAINT )
+HB_FUNC(CVINPAINT)
 {
-  cvInpaint( ( const CvArr* ) hb_parptr( 1 ), ( const CvArr* ) hb_parptr( 2 ), ( CvArr* ) hb_parptr( 3 ), hb_parnd( 4 ), hb_parni( 5 ) );
+  cvInpaint((const CvArr *)hb_parptr(1), (const CvArr *)hb_parptr(2), (CvArr *)hb_parptr(3), hb_parnd(4), hb_parni(5));
 }
