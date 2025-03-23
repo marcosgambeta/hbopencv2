@@ -1,6 +1,6 @@
 /*
 
-  OpenCV 2 for [x]Harbour - Bindings libraries for [x]Harbour and OpenCV 2
+  OpenCV 2 para [x]Harbour - Biblioteca de ligação para [x]Harbour e OpenCV 2
 
   Copyright (C) 2021 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
 
@@ -108,9 +108,9 @@
 #define CV_GRAPH_SEARCH_TREE_NODE_FLAG                    ( 1 << 29 )
 #define CV_GRAPH_FORWARD_EDGE_FLAG                        ( 1 << 28 )
 
-#define CV_FILLED -1
+#define CV_FILLED                                          -1
 
-#define CV_AA 16
+#define CV_AA                                              16
 
 #define CV_FONT_HERSHEY_SIMPLEX                            0
 #define CV_FONT_HERSHEY_PLAIN                              1
