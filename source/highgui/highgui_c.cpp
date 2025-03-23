@@ -1,6 +1,6 @@
 /*
 
-  OpenCV 2 for [x]Harbour - Bindings libraries for [x]Harbour and OpenCV 2
+  OpenCV 2 para [x]Harbour - Biblioteca de ligação para [x]Harbour e OpenCV 2
 
   Copyright (C) 2021 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
 
@@ -178,11 +178,27 @@ HB_FUNC( CVLOADIMAGEM )
 }
 
 /*
-CVAPI(int) cvSaveImage( const char* filename, const CvArr* image )
+CVAPI(int) cvSaveImage( const char* filename, const CvArr* image, const int* params CV_DEFAULT(0) )
 */
 HB_FUNC( CVSAVEIMAGE )
 {
-  hb_retni( cvSaveImage( hb_parc( 1 ), ( const CvArr* ) hb_parptr( 2 ) ) );
+  PHB_ITEM a3 = hb_param( 3, HB_IT_ARRAY );
+  int* values3;
+  if( a3 )
+  {
+    const int lenght = hb_arrayLen( a3 );
+    values3 = new int[ lenght + 1 ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values3[ i ] = hb_arrayGetNI( a3, i + 1 );
+    }
+    values3[ lenght ] = 0;
+  }
+  hb_retni( cvSaveImage( hb_parc( 1 ), ( const CvArr* ) hb_parptr( 2 ), ISNIL( 3 ) ? 0 : ( const int* ) values3 ) );
+  if( a3 )
+  {
+    delete[] values3;
+  }
 }
 
 /*
@@ -202,11 +218,27 @@ HB_FUNC( CVDECODEIMAGEM )
 }
 
 /*
-CVAPI(CvMat*) cvEncodeImage( const char* ext, const CvArr* image )
+CVAPI(CvMat*) cvEncodeImage( const char* ext, const CvArr* image, const int* params CV_DEFAULT(0) )
 */
 HB_FUNC( CVENCODEIMAGE )
 {
-  hb_retptr( ( CvMat* ) cvEncodeImage( hb_parc( 1 ), ( const CvArr* ) hb_parptr( 2 ) ) );
+  PHB_ITEM a3 = hb_param( 3, HB_IT_ARRAY );
+  int* values3;
+  if( a3 )
+  {
+    const int lenght = hb_arrayLen( a3 );
+    values3 = new int[ lenght + 1 ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values3[ i ] = hb_arrayGetNI( a3, i + 1 );
+    }
+    values3[ lenght ] = 0;
+  }
+  hb_retptr( ( CvMat* ) cvEncodeImage( hb_parc( 1 ), ( const CvArr* ) hb_parptr( 2 ), ISNIL( 3 ) ? 0 : ( const int* ) values3 ) );
+  if( a3 )
+  {
+    delete[] values3;
+  }
 }
 
 /*
@@ -328,7 +360,7 @@ HB_FUNC( CVCREATEVIDEOWRITER )
 {
   PHB_ITEM pSize4 = hb_param( 4, HB_IT_ARRAY );
   CvSize size4;
-  size4.width = hb_arrayGetNI( pSize4, 1 );
+  size4.width  = hb_arrayGetNI( pSize4, 1 );
   size4.height = hb_arrayGetNI( pSize4, 2 );
   hb_retptr( ( CvVideoWriter* ) cvCreateVideoWriter( hb_parc( 1 ), hb_parni( 2 ), hb_parnd( 3 ), size4, ISNIL( 5 ) ? 1 : hb_parni( 5 ) ) );
 }

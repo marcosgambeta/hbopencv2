@@ -1,6 +1,6 @@
 /*
 
-  OpenCV 2 for [x]Harbour - Bindings libraries for [x]Harbour and OpenCV 2
+  OpenCV 2 para [x]Harbour - Biblioteca de ligação para [x]Harbour e OpenCV 2
 
   Copyright (C) 2021 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
 

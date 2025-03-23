@@ -1,6 +1,6 @@
 /*
 
-  OpenCV 2 for [x]Harbour - Bindings libraries for [x]Harbour and OpenCV 2
+  OpenCV 2 para [x]Harbour - Biblioteca de ligação para [x]Harbour e OpenCV 2
 
   Copyright (C) 2021 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
 
@@ -32,7 +32,7 @@ HB_FUNC( CVCREATEIMAGEHEADER )
 {
   PHB_ITEM pSize1 = hb_param( 1, HB_IT_ARRAY );
   CvSize size1;
-  size1.width = hb_arrayGetNI( pSize1, 1 );
+  size1.width  = hb_arrayGetNI( pSize1, 1 );
   size1.height = hb_arrayGetNI( pSize1, 2 );
   hb_retptr( ( IplImage* ) cvCreateImageHeader( size1, hb_parni( 2 ), hb_parni( 3 ) ) );
 }
@@ -44,7 +44,7 @@ HB_FUNC( CVINITIMAGEHEADER )
 {
   PHB_ITEM pSize2 = hb_param( 2, HB_IT_ARRAY );
   CvSize size2;
-  size2.width = hb_arrayGetNI( pSize2, 1 );
+  size2.width  = hb_arrayGetNI( pSize2, 1 );
   size2.height = hb_arrayGetNI( pSize2, 2 );
   hb_retptr( ( IplImage* ) cvInitImageHeader( ( IplImage* ) hb_parptr( 1 ), size2, hb_parni( 3 ), hb_parni( 4 ), ISNIL( 5 ) ? 0 : hb_parni( 5 ), ISNIL( 6 ) ? 4 : hb_parni( 6 ) ) );
 }
@@ -56,7 +56,7 @@ HB_FUNC( CVCREATEIMAGE )
 {
   PHB_ITEM pSize1 = hb_param( 1, HB_IT_ARRAY );
   CvSize size1;
-  size1.width = hb_arrayGetNI( pSize1, 1 );
+  size1.width  = hb_arrayGetNI( pSize1, 1 );
   size1.height = hb_arrayGetNI( pSize1, 2 );
   hb_retptr( ( IplImage* ) cvCreateImage( size1, hb_parni( 2 ), hb_parni( 3 ) ) );
 }
@@ -108,9 +108,9 @@ HB_FUNC( CVSETIMAGEROI )
 {
   PHB_ITEM pRect2 = hb_param( 2, HB_IT_ARRAY );
   CvRect rect2;
-  rect2.x = hb_arrayGetNI( pRect2, 1 );
-  rect2.y = hb_arrayGetNI( pRect2, 2 );
-  rect2.width = hb_arrayGetNI( pRect2, 3 );
+  rect2.x      = hb_arrayGetNI( pRect2, 1 );
+  rect2.y      = hb_arrayGetNI( pRect2, 2 );
+  rect2.width  = hb_arrayGetNI( pRect2, 3 );
   rect2.height = hb_arrayGetNI( pRect2, 4 );
   cvSetImageROI( ( IplImage* ) hb_parptr( 1 ), rect2 );
 }
@@ -207,9 +207,9 @@ HB_FUNC( CVGETSUBRECT )
 {
   PHB_ITEM pRect3 = hb_param( 3, HB_IT_ARRAY );
   CvRect rect3;
-  rect3.x = hb_arrayGetNI( pRect3, 1 );
-  rect3.y = hb_arrayGetNI( pRect3, 2 );
-  rect3.width = hb_arrayGetNI( pRect3, 3 );
+  rect3.x      = hb_arrayGetNI( pRect3, 1 );
+  rect3.y      = hb_arrayGetNI( pRect3, 2 );
+  rect3.width  = hb_arrayGetNI( pRect3, 3 );
   rect3.height = hb_arrayGetNI( pRect3, 4 );
   hb_retptr( ( CvMat* ) cvGetSubRect( ( const CvArr* ) hb_parptr( 1 ), ( CvMat* ) hb_parptr( 2 ), rect3 ) );
 }
@@ -255,6 +255,75 @@ HB_FUNC( CVGETDIAG )
 }
 
 /*
+CVAPI(CvMatND*) cvCreateMatNDHeader( int dims, const int* sizes, int type )
+*/
+HB_FUNC( CVCREATEMATNDHEADER )
+{
+  PHB_ITEM a2 = hb_param( 2, HB_IT_ARRAY );
+  int* values2;
+  if( a2 )
+  {
+    const int lenght = hb_arrayLen( a2 );
+    values2 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values2[ i ] = hb_arrayGetNI( a2, i + 1 );
+    }
+  }
+  hb_retptr( ( CvMatND* ) cvCreateMatNDHeader( hb_parni( 1 ), ( const int* ) values2, hb_parni( 3 ) ) );
+  if( a2 )
+  {
+    delete[] values2;
+  }
+}
+
+/*
+CVAPI(CvMatND*) cvCreateMatND( int dims, const int* sizes, int type )
+*/
+HB_FUNC( CVCREATEMATND )
+{
+  PHB_ITEM a2 = hb_param( 2, HB_IT_ARRAY );
+  int* values2;
+  if( a2 )
+  {
+    const int lenght = hb_arrayLen( a2 );
+    values2 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values2[ i ] = hb_arrayGetNI( a2, i + 1 );
+    }
+  }
+  hb_retptr( ( CvMatND* ) cvCreateMatND( hb_parni( 1 ), ( const int* ) values2, hb_parni( 3 ) ) );
+  if( a2 )
+  {
+    delete[] values2;
+  }
+}
+
+/*
+CVAPI(CvMatND*) cvInitMatNDHeader( CvMatND* mat, int dims, const int* sizes, int type, void* data CV_DEFAULT(NULL) )
+*/
+HB_FUNC( CVINITMATNDHEADER )
+{
+  PHB_ITEM a3 = hb_param( 3, HB_IT_ARRAY );
+  int* values3;
+  if( a3 )
+  {
+    const int lenght = hb_arrayLen( a3 );
+    values3 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values3[ i ] = hb_arrayGetNI( a3, i + 1 );
+    }
+  }
+  hb_retptr( ( CvMatND* ) cvInitMatNDHeader( ( CvMatND* ) hb_parptr( 1 ), hb_parni( 2 ), ( const int* ) values3, hb_parni( 4 ), ISNIL( 5 ) ? NULL : ( void* ) hb_parptr( 5 ) ) );
+  if( a3 )
+  {
+    delete[] values3;
+  }
+}
+
+/*
 CV_INLINE void cvReleaseMatND( CvMatND** mat )
 */
 HB_FUNC( CVRELEASEMATND )
@@ -268,6 +337,29 @@ CVAPI(CvMatND*) cvCloneMatND( const CvMatND* mat )
 HB_FUNC( CVCLONEMATND )
 {
   hb_retptr( ( CvMatND* ) cvCloneMatND( ( const CvMatND* ) hb_parptr( 1 ) ) );
+}
+
+/*
+CVAPI(CvSparseMat*) cvCreateSparseMat( int dims, const int* sizes, int type )
+*/
+HB_FUNC( CVCREATESPARSEMAT )
+{
+  PHB_ITEM a2 = hb_param( 2, HB_IT_ARRAY );
+  int* values2;
+  if( a2 )
+  {
+    const int lenght = hb_arrayLen( a2 );
+    values2 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values2[ i ] = hb_arrayGetNI( a2, i + 1 );
+    }
+  }
+  hb_retptr( ( CvSparseMat* ) cvCreateSparseMat( hb_parni( 1 ), ( const int* ) values2, hb_parni( 3 ) ) );
+  if( a2 )
+  {
+    delete[] values2;
+  }
 }
 
 /*
@@ -398,6 +490,42 @@ HB_FUNC( CVGET3D )
 }
 
 /*
+CVAPI(CvScalar) cvGetND( const CvArr* arr, const int* idx )
+*/
+HB_FUNC( CVGETND )
+{
+  CvScalar scalar;
+  PHB_ITEM a2 = hb_param( 2, HB_IT_ARRAY );
+  int* values2;
+  if( a2 )
+  {
+    const int lenght = hb_arrayLen( a2 );
+    values2 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values2[ i ] = hb_arrayGetNI( a2, i + 1 );
+    }
+  }
+  scalar = cvGetND( ( const CvArr* ) hb_parptr( 1 ), ( const int* ) values2 );
+  PHB_ITEM a = hb_itemArrayNew( 4 );
+  PHB_ITEM t = hb_itemNew( NULL );
+  hb_itemPutND( t, scalar.val[ 0 ] );
+  hb_itemArrayPut( a, 1, t );
+  hb_itemPutND( t, scalar.val[ 1 ] );
+  hb_itemArrayPut( a, 2, t );
+  hb_itemPutND( t, scalar.val[ 2 ] );
+  hb_itemArrayPut( a, 3, t );
+  hb_itemPutND( t, scalar.val[ 3 ] );
+  hb_itemArrayPut( a, 4, t );
+  hb_itemRelease( t );
+  hb_itemReturnRelease( a );
+  if( a2 )
+  {
+    delete[] values2;
+  }
+}
+
+/*
 CVAPI(double) cvGetReal1D( const CvArr* arr, int idx0 )
 */
 HB_FUNC( CVGETREAL1D )
@@ -419,6 +547,29 @@ CVAPI(double) cvGetReal3D( const CvArr* arr, int idx0, int idx1, int idx2 )
 HB_FUNC( CVGETREAL3D )
 {
   hb_retnd( cvGetReal3D( ( const CvArr* ) hb_parptr( 1 ), hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ) ) );
+}
+
+/*
+CVAPI(double) cvGetRealND( const CvArr* arr, const int* idx )
+*/
+HB_FUNC( CVGETREALND )
+{
+  PHB_ITEM a2 = hb_param( 2, HB_IT_ARRAY );
+  int* values2;
+  if( a2 )
+  {
+    const int lenght = hb_arrayLen( a2 );
+    values2 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values2[ i ] = hb_arrayGetNI( a2, i + 1 );
+    }
+  }
+  hb_retnd( cvGetRealND( ( const CvArr* ) hb_parptr( 1 ), ( const int* ) values2 ) );
+  if( a2 )
+  {
+    delete[] values2;
+  }
 }
 
 /*
@@ -464,6 +615,35 @@ HB_FUNC( CVSET3D )
 }
 
 /*
+CVAPI(void) cvSetND( CvArr* arr, const int* idx, CvScalar value )
+*/
+HB_FUNC( CVSETND )
+{
+  PHB_ITEM a2 = hb_param( 2, HB_IT_ARRAY );
+  int* values2;
+  if( a2 )
+  {
+    const int lenght = hb_arrayLen( a2 );
+    values2 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values2[ i ] = hb_arrayGetNI( a2, i + 1 );
+    }
+  }
+  PHB_ITEM pScalar3 = hb_param( 3, HB_IT_ARRAY );
+  CvScalar scalar3;
+  scalar3.val[ 0 ] = hb_arrayGetND( pScalar3, 1 );
+  scalar3.val[ 1 ] = hb_arrayGetND( pScalar3, 2 );
+  scalar3.val[ 2 ] = hb_arrayGetND( pScalar3, 3 );
+  scalar3.val[ 3 ] = hb_arrayGetND( pScalar3, 4 );
+  cvSetND( ( CvArr* ) hb_parptr( 1 ), ( const int* ) values2, scalar3 );
+  if( a2 )
+  {
+    delete[] values2;
+  }
+}
+
+/*
 CVAPI(void) cvSetReal1D( CvArr* arr, int idx0, double value )
 */
 HB_FUNC( CVSETREAL1D )
@@ -485,6 +665,52 @@ CVAPI(void) cvSetReal3D( CvArr* arr, int idx0, int idx1, int idx2, double value 
 HB_FUNC( CVSETREAL3D )
 {
   cvSetReal3D( ( CvArr* ) hb_parptr( 1 ), hb_parni( 2 ), hb_parni( 3 ), hb_parni( 4 ), hb_parnd( 5 ) );
+}
+
+/*
+CVAPI(void) cvSetRealND( CvArr* arr, const int* idx, double value )
+*/
+HB_FUNC( CVSETREALND )
+{
+  PHB_ITEM a2 = hb_param( 2, HB_IT_ARRAY );
+  int* values2;
+  if( a2 )
+  {
+    const int lenght = hb_arrayLen( a2 );
+    values2 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values2[ i ] = hb_arrayGetNI( a2, i + 1 );
+    }
+  }
+  cvSetRealND( ( CvArr* ) hb_parptr( 1 ), ( const int* ) values2, hb_parnd( 3 ) );
+  if( a2 )
+  {
+    delete[] values2;
+  }
+}
+
+/*
+CVAPI(void) cvClearND( CvArr* arr, const int* idx )
+*/
+HB_FUNC( CVCLEARND )
+{
+  PHB_ITEM a2 = hb_param( 2, HB_IT_ARRAY );
+  int* values2;
+  if( a2 )
+  {
+    const int lenght = hb_arrayLen( a2 );
+    values2 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values2[ i ] = hb_arrayGetNI( a2, i + 1 );
+    }
+  }
+  cvClearND( ( CvArr* ) hb_parptr( 1 ), ( const int* ) values2 );
+  if( a2 )
+  {
+    delete[] values2;
+  }
 }
 
 /*
@@ -599,6 +825,29 @@ HB_FUNC( CVMERGE )
 }
 
 /*
+CVAPI(void) cvMixChannels( const CvArr** src, int src_count, CvArr** dst, int dst_count, const int* from_to, int pair_count )
+*/
+HB_FUNC( CVMIXCHANNELS )
+{
+  PHB_ITEM a5 = hb_param( 5, HB_IT_ARRAY );
+  int* values5;
+  if( a5 )
+  {
+    const int lenght = hb_arrayLen( a5 );
+    values5 = new int[ lenght ];
+    for( int i = 0; i < lenght; ++i )
+    {
+      values5[ i ] = hb_arrayGetNI( a5, i + 1 );
+    }
+  }
+  cvMixChannels( ( const CvArr** ) hb_parptr( 1 ), hb_parni( 2 ), ( CvArr** ) hb_parptr( 3 ), hb_parni( 4 ), ( const int* ) values5, hb_parni( 6 ) );
+  if( a5 )
+  {
+    delete[] values5;
+  }
+}
+
+/*
 CVAPI(void) cvConvertScale( const CvArr* src, CvArr* dst, double scale CV_DEFAULT(1), double shift CV_DEFAULT(0) )
 */
 HB_FUNC( CVCONVERTSCALE )
@@ -622,9 +871,9 @@ HB_FUNC( CVCHECKTERMCRITERIA )
   CvTermCriteria tc;
   PHB_ITEM pTC1 = hb_param( 1, HB_IT_ARRAY );
   CvTermCriteria tc1;
-  tc1.type = hb_arrayGetNI( pTC1, 1 );
+  tc1.type     = hb_arrayGetNI( pTC1, 1 );
   tc1.max_iter = hb_arrayGetNI( pTC1, 2 );
-  tc1.epsilon = hb_arrayGetND( pTC1, 3 );
+  tc1.epsilon  = hb_arrayGetND( pTC1, 3 );
   tc = cvCheckTermCriteria( tc1, hb_parnd( 2 ), hb_parni( 3 ) );
   PHB_ITEM a = hb_itemArrayNew( 3 );
   PHB_ITEM t = hb_itemNew( NULL );
@@ -633,7 +882,7 @@ HB_FUNC( CVCHECKTERMCRITERIA )
   hb_itemPutNI( t, tc.max_iter );
   hb_itemArrayPut( a, 2, t );
   hb_itemPutND( t, tc.epsilon );
-  hb_itemArrayPut( a, 2, t );
+  hb_itemArrayPut( a, 3, t );
   hb_itemRelease( t );
   hb_itemReturnRelease( a );
 }
@@ -1311,7 +1560,7 @@ HB_FUNC( CVSLICELENGTH )
   PHB_ITEM pSlice1 = hb_param( 1, HB_IT_ARRAY );
   CvSlice slice1;
   slice1.start_index = hb_arrayGetNI( pSlice1, 1 );
-  slice1.end_index = hb_arrayGetNI( pSlice1, 2 );
+  slice1.end_index   = hb_arrayGetNI( pSlice1, 2 );
   hb_retni( cvSliceLength( slice1, ( const CvSeq* ) hb_parptr( 2 ) ) );
 }
 
@@ -1527,7 +1776,7 @@ HB_FUNC( CVSEQSLICE )
   PHB_ITEM pSlice2 = hb_param( 2, HB_IT_ARRAY );
   CvSlice slice2;
   slice2.start_index = hb_arrayGetNI( pSlice2, 1 );
-  slice2.end_index = hb_arrayGetNI( pSlice2, 2 );
+  slice2.end_index   = hb_arrayGetNI( pSlice2, 2 );
   hb_retptr( ( CvSeq* ) cvSeqSlice( ( const CvSeq* ) hb_parptr( 1 ), slice2, ISNIL( 3 ) ? NULL : ( CvMemStorage* ) hb_parptr( 3 ), ISNIL( 4 ) ? 0 : hb_parni( 4 ) ) );
 }
 
@@ -1547,7 +1796,7 @@ HB_FUNC( CVSEQREMOVESLICE )
   PHB_ITEM pSlice2 = hb_param( 2, HB_IT_ARRAY );
   CvSlice slice2;
   slice2.start_index = hb_arrayGetNI( pSlice2, 1 );
-  slice2.end_index = hb_arrayGetNI( pSlice2, 2 );
+  slice2.end_index   = hb_arrayGetNI( pSlice2, 2 );
   cvSeqRemoveSlice( ( CvSeq* ) hb_parptr( 1 ), slice2 );
 }
 
@@ -1826,9 +2075,9 @@ HB_FUNC( CVRECTANGLER )
 {
   PHB_ITEM pRect2 = hb_param( 2, HB_IT_ARRAY );
   CvRect rect2;
-  rect2.x = hb_arrayGetNI( pRect2, 1 );
-  rect2.y = hb_arrayGetNI( pRect2, 2 );
-  rect2.width = hb_arrayGetNI( pRect2, 3 );
+  rect2.x      = hb_arrayGetNI( pRect2, 1 );
+  rect2.y      = hb_arrayGetNI( pRect2, 2 );
+  rect2.width  = hb_arrayGetNI( pRect2, 3 );
   rect2.height = hb_arrayGetNI( pRect2, 4 );
   PHB_ITEM pScalar3 = hb_param( 3, HB_IT_ARRAY );
   CvScalar scalar3;
@@ -1868,7 +2117,7 @@ HB_FUNC( CVELLIPSE )
   point2.y = hb_arrayGetNI( pPoint2, 2 );
   PHB_ITEM pSize3 = hb_param( 3, HB_IT_ARRAY );
   CvSize size3;
-  size3.width = hb_arrayGetNI( pSize3, 1 );
+  size3.width  = hb_arrayGetNI( pSize3, 1 );
   size3.height = hb_arrayGetNI( pSize3, 2 );
   PHB_ITEM pScalar7 = hb_param( 7, HB_IT_ARRAY );
   CvScalar scalar7;

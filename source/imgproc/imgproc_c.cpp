@@ -1,6 +1,6 @@
 /*
 
-  OpenCV 2 for [x]Harbour - Bindings libraries for [x]Harbour and OpenCV 2
+  OpenCV 2 para [x]Harbour - Biblioteca de ligação para [x]Harbour e OpenCV 2
 
   Copyright (C) 2021 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
 
@@ -160,8 +160,8 @@ HB_FUNC( CV2DROTATIONMATRIX )
 {
   PHB_ITEM pPoint2D32f1 = hb_param( 1, HB_IT_ARRAY );
   CvPoint2D32f point2D32f1;
-  point2D32f1.x = (float) hb_arrayGetND( pPoint2D32f1, 1 );
-  point2D32f1.y = (float) hb_arrayGetND( pPoint2D32f1, 2 );
+  point2D32f1.x = ( float ) hb_arrayGetND( pPoint2D32f1, 1 );
+  point2D32f1.y = ( float ) hb_arrayGetND( pPoint2D32f1, 2 );
   hb_retptr( ( CvMat* ) cv2DRotationMatrix( point2D32f1, hb_parnd( 2 ), hb_parnd( 3 ), ( CvMat* ) hb_parptr( 4 ) ) );
 }
 
@@ -208,8 +208,8 @@ HB_FUNC( CVLOGPOLAR )
 {
   PHB_ITEM pPoint2D32f3 = hb_param( 3, HB_IT_ARRAY );
   CvPoint2D32f point2D32f3;
-  point2D32f3.x = (float) hb_arrayGetND( pPoint2D32f3, 1 );
-  point2D32f3.y = (float) hb_arrayGetND( pPoint2D32f3, 2 );
+  point2D32f3.x = ( float ) hb_arrayGetND( pPoint2D32f3, 1 );
+  point2D32f3.y = ( float ) hb_arrayGetND( pPoint2D32f3, 2 );
   cvLogPolar( ( const CvArr* ) hb_parptr( 1 ), ( CvArr* ) hb_parptr( 2 ), point2D32f3, hb_parnd( 4 ), ISNIL( 5 ) ? CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS : hb_parni( 5 ) );
 }
 
@@ -220,8 +220,8 @@ HB_FUNC( CVLINEARPOLAR )
 {
   PHB_ITEM pPoint2D32f3 = hb_param( 3, HB_IT_ARRAY );
   CvPoint2D32f point2D32f3;
-  point2D32f3.x = (float) hb_arrayGetND( pPoint2D32f3, 1 );
-  point2D32f3.y = (float) hb_arrayGetND( pPoint2D32f3, 2 );
+  point2D32f3.x = ( float ) hb_arrayGetND( pPoint2D32f3, 1 );
+  point2D32f3.y = ( float ) hb_arrayGetND( pPoint2D32f3, 2 );
   cvLinearPolar( ( const CvArr* ) hb_parptr( 1 ), ( CvArr* ) hb_parptr( 2 ), point2D32f3, hb_parnd( 4 ), ISNIL( 5 ) ? CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS : hb_parni( 5 ) );
 }
 
@@ -312,8 +312,8 @@ HB_FUNC( CVGETRECTSUBPIX )
 {
   PHB_ITEM pPoint2D32f3 = hb_param( 3, HB_IT_ARRAY );
   CvPoint2D32f point2D32f3;
-  point2D32f3.x = (float) hb_arrayGetND( pPoint2D32f3, 1 );
-  point2D32f3.y = (float) hb_arrayGetND( pPoint2D32f3, 2 );
+  point2D32f3.x = ( float ) hb_arrayGetND( pPoint2D32f3, 1 );
+  point2D32f3.y = ( float ) hb_arrayGetND( pPoint2D32f3, 2 );
   cvGetRectSubPix( ( const CvArr* ) hb_parptr( 1 ), ( CvArr* ) hb_parptr( 2 ), point2D32f3 );
 }
 
@@ -441,8 +441,8 @@ HB_FUNC( CVPOINTPOLYGONTEST )
 {
   PHB_ITEM pPoint2D32f2 = hb_param( 2, HB_IT_ARRAY );
   CvPoint2D32f point2D32f2;
-  point2D32f2.x = (float) hb_arrayGetND( pPoint2D32f2, 1 );
-  point2D32f2.y = (float) hb_arrayGetND( pPoint2D32f2, 2 );
+  point2D32f2.x = ( float ) hb_arrayGetND( pPoint2D32f2, 1 );
+  point2D32f2.y = ( float ) hb_arrayGetND( pPoint2D32f2, 2 );
   hb_retnd( cvPointPolygonTest( ( const CvArr* ) hb_parptr( 1 ), point2D32f2, hb_parni( 3 ) ) );
 }
 
@@ -533,7 +533,7 @@ HB_FUNC( CVCALCARRBACKPROJECTPATCH )
 {
   PHB_ITEM pSize3 = hb_param( 3, HB_IT_ARRAY );
   CvSize size3;
-  size3.width = hb_arrayGetNI( pSize3, 1 );
+  size3.width  = hb_arrayGetNI( pSize3, 1 );
   size3.height = hb_arrayGetNI( pSize3, 2 );
   cvCalcArrBackProjectPatch( ( CvArr** ) hb_parptr( 1 ), ( CvArr* ) hb_parptr( 2 ), size3, ( CvHistogram* ) hb_parptr( 4 ), hb_parni( 5 ), hb_parnd( 6 ) );
 }
