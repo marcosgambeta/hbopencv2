@@ -47,25 +47,25 @@ hbmk2 test1 ..\hbopencv2.hbc
 
 Requisites to run the tests:
 
-opencv_calib3d2413.dll
-opencv_contrib2413.dll
-opencv_core2413.dll
-opencv_features2d2413.dll
-opencv_ffmpeg2413.dll
-opencv_flann2413.dll
-opencv_gpu2413.dll
-opencv_highgui2413.dll
-opencv_imgproc2413.dll
-opencv_legacy2413.dll
-opencv_ml2413.dll
-opencv_nonfree2413.dll
-opencv_objdetect2413.dll
-opencv_ocl2413.dll
-opencv_photo2413.dll
-opencv_stitching2413.dll
-opencv_superres2413.dll
-opencv_video2413.dll
-opencv_videostab2413.dll
+opencv_calib3d2413.dll  
+opencv_contrib2413.dll  
+opencv_core2413.dll  
+opencv_features2d2413.dll  
+opencv_ffmpeg2413.dll  
+opencv_flann2413.dll  
+opencv_gpu2413.dll  
+opencv_highgui2413.dll  
+opencv_imgproc2413.dll  
+opencv_legacy2413.dll  
+opencv_ml2413.dll  
+opencv_nonfree2413.dll  
+opencv_objdetect2413.dll  
+opencv_ocl2413.dll  
+opencv_photo2413.dll  
+opencv_stitching2413.dll  
+opencv_superres2413.dll  
+opencv_video2413.dll  
+opencv_videostab2413.dll  
 
 ### Links
 
@@ -115,25 +115,25 @@ hbmk2 test1 ..\hbopencv2.hbc
 
 Requisitos para executar os testes:
 
-opencv_calib3d2413.dll
-opencv_contrib2413.dll
-opencv_core2413.dll
-opencv_features2d2413.dll
-opencv_ffmpeg2413.dll
-opencv_flann2413.dll
-opencv_gpu2413.dll
-opencv_highgui2413.dll
-opencv_imgproc2413.dll
-opencv_legacy2413.dll
-opencv_ml2413.dll
-opencv_nonfree2413.dll
-opencv_objdetect2413.dll
-opencv_ocl2413.dll
-opencv_photo2413.dll
-opencv_stitching2413.dll
-opencv_superres2413.dll
-opencv_video2413.dll
-opencv_videostab2413.dll
+opencv_calib3d2413.dll  
+opencv_contrib2413.dll  
+opencv_core2413.dll  
+opencv_features2d2413.dll  
+opencv_ffmpeg2413.dll  
+opencv_flann2413.dll  
+opencv_gpu2413.dll  
+opencv_highgui2413.dll  
+opencv_imgproc2413.dll  
+opencv_legacy2413.dll  
+opencv_ml2413.dll  
+opencv_nonfree2413.dll  
+opencv_objdetect2413.dll  
+opencv_ocl2413.dll  
+opencv_photo2413.dll  
+opencv_stitching2413.dll  
+opencv_superres2413.dll  
+opencv_video2413.dll  
+opencv_videostab2413.dll  
 
 ### Links
 
