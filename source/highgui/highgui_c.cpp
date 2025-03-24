@@ -12,7 +12,7 @@ CVAPI(void) cvDisplayOverlay( const char* name, const char* text, int delayms CV
 */
 HB_FUNC(CVDISPLAYOVERLAY)
 {
-  cvDisplayOverlay(hb_parc(1), hb_parc(2), ISNIL(3) ? 0 : hb_parni(3));
+  cvDisplayOverlay(hb_parc(1), hb_parc(2), HB_ISNIL(3) ? 0 : hb_parni(3));
 }
 
 /*
@@ -20,7 +20,7 @@ CVAPI(void) cvDisplayStatusBar( const char* name, const char* text, int delayms 
 */
 HB_FUNC(CVDISPLAYSTATUSBAR)
 {
-  cvDisplayStatusBar(hb_parc(1), hb_parc(2), ISNIL(3) ? 0 : hb_parni(3));
+  cvDisplayStatusBar(hb_parc(1), hb_parc(2), HB_ISNIL(3) ? 0 : hb_parni(3));
 }
 
 /*
@@ -60,7 +60,7 @@ CVAPI(int) cvNamedWindow( const char* name, int flags CV_DEFAULT(CV_WINDOW_AUTOS
 */
 HB_FUNC(CVNAMEDWINDOW)
 {
-  hb_retni(cvNamedWindow(hb_parc(1), ISNIL(2) ? CV_WINDOW_AUTOSIZE : hb_parni(2)));
+  hb_retni(cvNamedWindow(hb_parc(1), HB_ISNIL(2) ? CV_WINDOW_AUTOSIZE : hb_parni(2)));
 }
 
 /*
@@ -164,7 +164,7 @@ CVAPI(IplImage*) cvLoadImage( const char* filename, int iscolor CV_DEFAULT(CV_LO
 */
 HB_FUNC(CVLOADIMAGE)
 {
-  hb_retptr((IplImage *)cvLoadImage(hb_parc(1), ISNIL(2) ? CV_LOAD_IMAGE_COLOR : hb_parni(2)));
+  hb_retptr((IplImage *)cvLoadImage(hb_parc(1), HB_ISNIL(2) ? CV_LOAD_IMAGE_COLOR : hb_parni(2)));
 }
 
 /*
@@ -172,7 +172,7 @@ CVAPI(CvMat*) cvLoadImageM( const char* filename, int iscolor CV_DEFAULT(CV_LOAD
 */
 HB_FUNC(CVLOADIMAGEM)
 {
-  hb_retptr((CvMat *)cvLoadImageM(hb_parc(1), ISNIL(2) ? CV_LOAD_IMAGE_COLOR : hb_parni(2)));
+  hb_retptr((CvMat *)cvLoadImageM(hb_parc(1), HB_ISNIL(2) ? CV_LOAD_IMAGE_COLOR : hb_parni(2)));
 }
 
 /*
@@ -192,7 +192,7 @@ HB_FUNC(CVSAVEIMAGE)
     }
     values3[lenght] = 0;
   }
-  hb_retni(cvSaveImage(hb_parc(1), (const CvArr *)hb_parptr(2), ISNIL(3) ? 0 : (const int *)values3));
+  hb_retni(cvSaveImage(hb_parc(1), (const CvArr *)hb_parptr(2), HB_ISNIL(3) ? 0 : (const int *)values3));
   if (a3)
   {
     delete[] values3;
@@ -204,7 +204,7 @@ CVAPI(IplImage*) cvDecodeImage( const CvMat* buf, int iscolor CV_DEFAULT(CV_LOAD
 */
 HB_FUNC(CVDECODEIMAGE)
 {
-  hb_retptr((IplImage *)cvDecodeImage((const CvMat *)hb_parptr(1), ISNIL(2) ? CV_LOAD_IMAGE_COLOR : hb_parni(2)));
+  hb_retptr((IplImage *)cvDecodeImage((const CvMat *)hb_parptr(1), HB_ISNIL(2) ? CV_LOAD_IMAGE_COLOR : hb_parni(2)));
 }
 
 /*
@@ -212,7 +212,7 @@ CVAPI(CvMat*) cvDecodeImageM( const CvMat* buf, int iscolor CV_DEFAULT(CV_LOAD_I
 */
 HB_FUNC(CVDECODEIMAGEM)
 {
-  hb_retptr((CvMat *)cvDecodeImageM((const CvMat *)hb_parptr(1), ISNIL(2) ? CV_LOAD_IMAGE_COLOR : hb_parni(2)));
+  hb_retptr((CvMat *)cvDecodeImageM((const CvMat *)hb_parptr(1), HB_ISNIL(2) ? CV_LOAD_IMAGE_COLOR : hb_parni(2)));
 }
 
 /*
@@ -232,7 +232,7 @@ HB_FUNC(CVENCODEIMAGE)
     }
     values3[lenght] = 0;
   }
-  hb_retptr((CvMat *)cvEncodeImage(hb_parc(1), (const CvArr *)hb_parptr(2), ISNIL(3) ? 0 : (const int *)values3));
+  hb_retptr((CvMat *)cvEncodeImage(hb_parc(1), (const CvArr *)hb_parptr(2), HB_ISNIL(3) ? 0 : (const int *)values3));
   if (a3)
   {
     delete[] values3;
@@ -244,7 +244,7 @@ CVAPI(void) cvConvertImage( const CvArr* src, CvArr* dst, int flags CV_DEFAULT(0
 */
 HB_FUNC(CVCONVERTIMAGE)
 {
-  cvConvertImage((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? 0 : hb_parni(3));
+  cvConvertImage((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? 0 : hb_parni(3));
 }
 
 /*
@@ -252,7 +252,7 @@ CVAPI(int) cvWaitKey( int delay CV_DEFAULT(0) )
 */
 HB_FUNC(CVWAITKEY)
 {
-  hb_retni(cvWaitKey(ISNIL(1) ? 0 : hb_parni(1)));
+  hb_retni(cvWaitKey(HB_ISNIL(1) ? 0 : hb_parni(1)));
 }
 
 /*
@@ -300,7 +300,7 @@ CVAPI(IplImage*) cvRetrieveFrame( CvCapture* capture, int streamIdx CV_DEFAULT(0
 */
 HB_FUNC(CVRETRIEVEFRAME)
 {
-  hb_retptr((IplImage *)cvRetrieveFrame((CvCapture *)hb_parptr(1), ISNIL(2) ? 0 : hb_parni(2)));
+  hb_retptr((IplImage *)cvRetrieveFrame((CvCapture *)hb_parptr(1), HB_ISNIL(2) ? 0 : hb_parni(2)));
 }
 
 /*
@@ -362,7 +362,7 @@ HB_FUNC(CVCREATEVIDEOWRITER)
   size4.width = hb_arrayGetNI(pSize4, 1);
   size4.height = hb_arrayGetNI(pSize4, 2);
   hb_retptr(
-      (CvVideoWriter *)cvCreateVideoWriter(hb_parc(1), hb_parni(2), hb_parnd(3), size4, ISNIL(5) ? 1 : hb_parni(5)));
+      (CvVideoWriter *)cvCreateVideoWriter(hb_parc(1), hb_parni(2), hb_parnd(3), size4, HB_ISNIL(5) ? 1 : hb_parni(5)));
 }
 
 /*

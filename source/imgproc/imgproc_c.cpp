@@ -12,7 +12,7 @@ CVAPI(void) cvAcc( const CvArr* image, CvArr* sum, const CvArr* mask CV_DEFAULT(
 */
 HB_FUNC(CVACC)
 {
-  cvAcc((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? NULL : (const CvArr *)hb_parptr(3));
+  cvAcc((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? NULL : (const CvArr *)hb_parptr(3));
 }
 
 /*
@@ -20,7 +20,7 @@ CVAPI(void) cvSquareAcc( const CvArr* image, CvArr* sqsum, const CvArr* mask CV_
 */
 HB_FUNC(CVSQUAREACC)
 {
-  cvSquareAcc((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? NULL : (const CvArr *)hb_parptr(3));
+  cvSquareAcc((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? NULL : (const CvArr *)hb_parptr(3));
 }
 
 /*
@@ -29,7 +29,7 @@ CVAPI(void) cvMultiplyAcc( const CvArr* image1, const CvArr* image2, CvArr* acc,
 HB_FUNC(CVMULTIPLYACC)
 {
   cvMultiplyAcc((const CvArr *)hb_parptr(1), (const CvArr *)hb_parptr(2), (CvArr *)hb_parptr(3),
-                ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4));
+                HB_ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4));
 }
 
 /*
@@ -38,7 +38,7 @@ CVAPI(void) cvRunningAvg( const CvArr* image, CvArr* acc, double alpha, const Cv
 HB_FUNC(CVRUNNINGAVG)
 {
   cvRunningAvg((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parnd(3),
-               ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4));
+               HB_ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4));
 }
 
 /*
@@ -58,7 +58,7 @@ HB_FUNC(CVCOPYMAKEBORDER)
   scalar5.val[2] = hb_arrayGetND(pScalar5, 3);
   scalar5.val[3] = hb_arrayGetND(pScalar5, 4);
   cvCopyMakeBorder((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), point3, hb_parni(4),
-                   ISNIL(5) ? cvScalarAll(0) : scalar5);
+                   HB_ISNIL(5) ? cvScalarAll(0) : scalar5);
 }
 
 /*
@@ -67,9 +67,9 @@ size2 CV_DEFAULT(0), double sigma1 CV_DEFAULT(0), double sigma2 CV_DEFAULT(0) )
 */
 HB_FUNC(CVSMOOTH)
 {
-  cvSmooth((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? CV_GAUSSIAN : hb_parni(3),
-           ISNIL(4) ? 3 : hb_parni(4), ISNIL(5) ? 0 : hb_parni(5), ISNIL(6) ? 0 : hb_parnd(6),
-           ISNIL(7) ? 0 : hb_parnd(7));
+  cvSmooth((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? CV_GAUSSIAN : hb_parni(3),
+           HB_ISNIL(4) ? 3 : hb_parni(4), HB_ISNIL(5) ? 0 : hb_parni(5), HB_ISNIL(6) ? 0 : hb_parnd(6),
+           HB_ISNIL(7) ? 0 : hb_parnd(7));
 }
 
 /*
@@ -78,8 +78,8 @@ CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVINTEGRAL)
 {
-  cvIntegral((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? NULL : (CvArr *)hb_parptr(3),
-             ISNIL(4) ? NULL : (CvArr *)hb_parptr(4));
+  cvIntegral((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? NULL : (CvArr *)hb_parptr(3),
+             HB_ISNIL(4) ? NULL : (CvArr *)hb_parptr(4));
 }
 
 /*
@@ -87,7 +87,7 @@ CVAPI(void) cvPyrDown( const CvArr* src, CvArr* dst, int filter CV_DEFAULT(CV_GA
 */
 HB_FUNC(CVPYRDOWN)
 {
-  cvPyrDown((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? CV_GAUSSIAN_5x5 : hb_parni(3));
+  cvPyrDown((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? CV_GAUSSIAN_5x5 : hb_parni(3));
 }
 
 /*
@@ -95,7 +95,7 @@ CVAPI(void) cvPyrUp( const CvArr* src, CvArr* dst, int filter CV_DEFAULT(CV_GAUS
 */
 HB_FUNC(CVPYRUP)
 {
-  cvPyrUp((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? CV_GAUSSIAN_5x5 : hb_parni(3));
+  cvPyrUp((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? CV_GAUSSIAN_5x5 : hb_parni(3));
 }
 
 /*
@@ -119,7 +119,7 @@ CVAPI(void) cvSobel( const CvArr* src, CvArr* dst, int xorder, int yorder, int a
 */
 HB_FUNC(CVSOBEL)
 {
-  cvSobel((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parni(3), hb_parni(4), ISNIL(5) ? 3 : hb_parni(5));
+  cvSobel((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parni(3), hb_parni(4), HB_ISNIL(5) ? 3 : hb_parni(5));
 }
 
 /*
@@ -127,7 +127,7 @@ CVAPI(void) cvLaplace( const CvArr* src, CvArr* dst, int aperture_size CV_DEFAUL
 */
 HB_FUNC(CVLAPLACE)
 {
-  cvLaplace((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? 3 : hb_parni(3));
+  cvLaplace((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? 3 : hb_parni(3));
 }
 
 /*
@@ -143,7 +143,7 @@ CVAPI(void) cvResize( const CvArr* src, CvArr* dst, int interpolation CV_DEFAULT
 */
 HB_FUNC(CVRESIZE)
 {
-  cvResize((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? CV_INTER_LINEAR : hb_parni(3));
+  cvResize((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? CV_INTER_LINEAR : hb_parni(3));
 }
 
 /*
@@ -159,7 +159,7 @@ HB_FUNC(CVWARPAFFINE)
   scalar5.val[2] = hb_arrayGetND(pScalar5, 3);
   scalar5.val[3] = hb_arrayGetND(pScalar5, 4);
   cvWarpAffine((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), (const CvMat *)hb_parptr(3),
-               ISNIL(4) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(4), ISNIL(5) ? cvScalarAll(0) : scalar5);
+               HB_ISNIL(4) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(4), HB_ISNIL(5) ? cvScalarAll(0) : scalar5);
 }
 
 /*
@@ -187,8 +187,8 @@ HB_FUNC(CVWARPPERSPECTIVE)
   scalar5.val[2] = hb_arrayGetND(pScalar5, 3);
   scalar5.val[3] = hb_arrayGetND(pScalar5, 4);
   cvWarpPerspective((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), (const CvMat *)hb_parptr(3),
-                    ISNIL(4) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(4),
-                    ISNIL(5) ? cvScalarAll(0) : scalar5);
+                    HB_ISNIL(4) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(4),
+                    HB_ISNIL(5) ? cvScalarAll(0) : scalar5);
 }
 
 /*
@@ -204,7 +204,7 @@ HB_FUNC(CVREMAP)
   scalar6.val[2] = hb_arrayGetND(pScalar6, 3);
   scalar6.val[3] = hb_arrayGetND(pScalar6, 4);
   cvRemap((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), (const CvArr *)hb_parptr(3), (const CvArr *)hb_parptr(4),
-          ISNIL(5) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(5), ISNIL(6) ? cvScalarAll(0) : scalar6);
+          HB_ISNIL(5) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(5), HB_ISNIL(6) ? cvScalarAll(0) : scalar6);
 }
 
 /*
@@ -226,7 +226,7 @@ HB_FUNC(CVLOGPOLAR)
   point2D32f3.x = (float)hb_arrayGetND(pPoint2D32f3, 1);
   point2D32f3.y = (float)hb_arrayGetND(pPoint2D32f3, 2);
   cvLogPolar((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), point2D32f3, hb_parnd(4),
-             ISNIL(5) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(5));
+             HB_ISNIL(5) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(5));
 }
 
 /*
@@ -240,7 +240,7 @@ HB_FUNC(CVLINEARPOLAR)
   point2D32f3.x = (float)hb_arrayGetND(pPoint2D32f3, 1);
   point2D32f3.y = (float)hb_arrayGetND(pPoint2D32f3, 2);
   cvLinearPolar((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), point2D32f3, hb_parnd(4),
-                ISNIL(5) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(5));
+                HB_ISNIL(5) ? CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS : hb_parni(5));
 }
 
 /*
@@ -250,7 +250,7 @@ const CvMat* new_camera_matrix CV_DEFAULT(0) )
 HB_FUNC(CVUNDISTORT2)
 {
   cvUndistort2((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), (const CvMat *)hb_parptr(3),
-               (const CvMat *)hb_parptr(4), ISNIL(5) ? 0 : (const CvMat *)hb_parptr(5));
+               (const CvMat *)hb_parptr(4), HB_ISNIL(5) ? 0 : (const CvMat *)hb_parptr(5));
 }
 
 /*
@@ -279,8 +279,8 @@ CvMat* R CV_DEFAULT(0), const CvMat* P CV_DEFAULT(0) )
 HB_FUNC(CVUNDISTORTPOINTS)
 {
   cvUndistortPoints((const CvMat *)hb_parptr(1), (CvMat *)hb_parptr(2), (const CvMat *)hb_parptr(3),
-                    (const CvMat *)hb_parptr(4), ISNIL(5) ? 0 : (const CvMat *)hb_parptr(5),
-                    ISNIL(6) ? 0 : (const CvMat *)hb_parptr(6));
+                    (const CvMat *)hb_parptr(4), HB_ISNIL(5) ? 0 : (const CvMat *)hb_parptr(5),
+                    HB_ISNIL(6) ? 0 : (const CvMat *)hb_parptr(6));
 }
 
 /*
@@ -297,8 +297,8 @@ CVAPI(void) cvErode( const CvArr* src, CvArr* dst, IplConvKernel* element CV_DEF
 */
 HB_FUNC(CVERODE)
 {
-  cvErode((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? NULL : (IplConvKernel *)hb_parptr(3),
-          ISNIL(4) ? 1 : hb_parni(4));
+  cvErode((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? NULL : (IplConvKernel *)hb_parptr(3),
+          HB_ISNIL(4) ? 1 : hb_parni(4));
 }
 
 /*
@@ -307,8 +307,8 @@ CV_DEFAULT(1) )
 */
 HB_FUNC(CVDILATE)
 {
-  cvDilate((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? NULL : (IplConvKernel *)hb_parptr(3),
-           ISNIL(4) ? 1 : hb_parni(4));
+  cvDilate((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? NULL : (IplConvKernel *)hb_parptr(3),
+           HB_ISNIL(4) ? 1 : hb_parni(4));
 }
 
 /*
@@ -318,7 +318,7 @@ iterations CV_DEFAULT(1) )
 HB_FUNC(CVMORPHOLOGYEX)
 {
   cvMorphologyEx((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), (CvArr *)hb_parptr(3),
-                 (IplConvKernel *)hb_parptr(4), hb_parni(5), ISNIL(6) ? 1 : hb_parni(6));
+                 (IplConvKernel *)hb_parptr(4), hb_parni(5), HB_ISNIL(6) ? 1 : hb_parni(6));
 }
 
 /*
@@ -334,7 +334,7 @@ HB_FUNC(CVSAMPLELINE)
   CvPoint point3;
   point3.x = hb_arrayGetNI(pPoint3, 1);
   point3.y = hb_arrayGetNI(pPoint3, 2);
-  hb_retni(cvSampleLine((const CvArr *)hb_parptr(1), point2, point3, (void *)hb_parptr(4), ISNIL(5) ? 8 : hb_parni(5)));
+  hb_retni(cvSampleLine((const CvArr *)hb_parptr(1), point2, point3, (void *)hb_parptr(4), HB_ISNIL(5) ? 8 : hb_parni(5)));
 }
 
 /*
@@ -372,8 +372,8 @@ double parameter CV_DEFAULT(0), int minimal_perimeter CV_DEFAULT(0), int recursi
 HB_FUNC(CVAPPROXCHAINS)
 {
   hb_retptr((CvSeq *)cvApproxChains((CvSeq *)hb_parptr(1), (CvMemStorage *)hb_parptr(2),
-                                    ISNIL(3) ? CV_CHAIN_APPROX_SIMPLE : hb_parni(3), ISNIL(4) ? 0 : hb_parnd(4),
-                                    ISNIL(5) ? 0 : hb_parni(5), ISNIL(6) ? 0 : hb_parni(6)));
+                                    HB_ISNIL(3) ? CV_CHAIN_APPROX_SIMPLE : hb_parni(3), HB_ISNIL(4) ? 0 : hb_parnd(4),
+                                    HB_ISNIL(5) ? 0 : hb_parni(5), HB_ISNIL(6) ? 0 : hb_parni(6)));
 }
 
 /*
@@ -383,7 +383,7 @@ recursive CV_DEFAULT(0) )
 HB_FUNC(CVAPPROXPOLY)
 {
   hb_retptr((CvSeq *)cvApproxPoly((const void *)hb_parptr(1), hb_parni(2), (CvMemStorage *)hb_parptr(3), hb_parni(4),
-                                  hb_parnd(5), ISNIL(6) ? 0 : hb_parni(6)));
+                                  hb_parnd(5), HB_ISNIL(6) ? 0 : hb_parni(6)));
 }
 
 /*
@@ -395,7 +395,7 @@ HB_FUNC(CVARCLENGTH)
   CvSlice slice2;
   slice2.start_index = hb_arrayGetNI(pSlice2, 1);
   slice2.end_index = hb_arrayGetNI(pSlice2, 2);
-  hb_retnd(cvArcLength((const void *)hb_parptr(1), ISNIL(2) ? CV_WHOLE_SEQ : slice2, ISNIL(3) ? -1 : hb_parni(3)));
+  hb_retnd(cvArcLength((const void *)hb_parptr(1), HB_ISNIL(2) ? CV_WHOLE_SEQ : slice2, HB_ISNIL(3) ? -1 : hb_parni(3)));
 }
 
 /*
@@ -412,7 +412,7 @@ CVAPI(CvRect) cvBoundingRect( CvArr* points, int update CV_DEFAULT(0) )
 HB_FUNC(CVBOUNDINGRECT)
 {
   CvRect rect;
-  rect = cvBoundingRect((CvArr *)hb_parptr(1), ISNIL(2) ? 0 : hb_parni(2));
+  rect = cvBoundingRect((CvArr *)hb_parptr(1), HB_ISNIL(2) ? 0 : hb_parni(2));
   PHB_ITEM a = hb_itemArrayNew(4);
   PHB_ITEM t = hb_itemNew(NULL);
   hb_itemPutNI(t, rect.x);
@@ -436,7 +436,7 @@ HB_FUNC(CVCONTOURAREA)
   CvSlice slice2;
   slice2.start_index = hb_arrayGetNI(pSlice2, 1);
   slice2.end_index = hb_arrayGetNI(pSlice2, 2);
-  hb_retnd(cvContourArea((const CvArr *)hb_parptr(1), ISNIL(2) ? CV_WHOLE_SEQ : slice2, ISNIL(3) ? 0 : hb_parni(3)));
+  hb_retnd(cvContourArea((const CvArr *)hb_parptr(1), HB_ISNIL(2) ? CV_WHOLE_SEQ : slice2, HB_ISNIL(3) ? 0 : hb_parni(3)));
 }
 
 /*
@@ -445,7 +445,7 @@ CVAPI(double) cvMatchShapes( const void* object1, const void* object2, int metho
 HB_FUNC(CVMATCHSHAPES)
 {
   hb_retnd(
-      cvMatchShapes((const void *)hb_parptr(1), (const void *)hb_parptr(2), hb_parni(3), ISNIL(4) ? 0 : hb_parnd(4)));
+      cvMatchShapes((const void *)hb_parptr(1), (const void *)hb_parptr(2), hb_parni(3), HB_ISNIL(4) ? 0 : hb_parnd(4)));
 }
 
 /*
@@ -454,8 +454,8 @@ CV_DEFAULT(CV_CLOCKWISE), int return_points CV_DEFAULT(0) )
 */
 HB_FUNC(CVCONVEXHULL2)
 {
-  hb_retptr((CvSeq *)cvConvexHull2((const CvArr *)hb_parptr(1), ISNIL(2) ? NULL : (void *)hb_parptr(2),
-                                   ISNIL(3) ? CV_CLOCKWISE : hb_parni(3), ISNIL(4) ? 0 : hb_parni(4)));
+  hb_retptr((CvSeq *)cvConvexHull2((const CvArr *)hb_parptr(1), HB_ISNIL(2) ? NULL : (void *)hb_parptr(2),
+                                   HB_ISNIL(3) ? CV_CLOCKWISE : hb_parni(3), HB_ISNIL(4) ? 0 : hb_parni(4)));
 }
 
 /*
@@ -473,7 +473,7 @@ CVAPI(CvSeq*) cvConvexityDefects( const CvArr* contour, const CvArr* convexhull,
 HB_FUNC(CVCONVEXITYDEFECTS)
 {
   hb_retptr((CvSeq *)cvConvexityDefects((const CvArr *)hb_parptr(1), (const CvArr *)hb_parptr(2),
-                                        ISNIL(3) ? NULL : (CvMemStorage *)hb_parptr(3)));
+                                        HB_ISNIL(3) ? NULL : (CvMemStorage *)hb_parptr(3)));
 }
 
 /*
@@ -550,8 +550,8 @@ CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVCALCARRHIST)
 {
-  cvCalcArrHist((CvArr **)hb_parptr(1), (CvHistogram *)hb_parptr(2), ISNIL(3) ? 0 : hb_parni(3),
-                ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4));
+  cvCalcArrHist((CvArr **)hb_parptr(1), (CvHistogram *)hb_parptr(2), HB_ISNIL(3) ? 0 : hb_parni(3),
+                HB_ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4));
 }
 
 /*
@@ -560,8 +560,8 @@ CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVCALCHIST)
 {
-  cvCalcHist((IplImage **)hb_parptr(1), (CvHistogram *)hb_parptr(2), ISNIL(3) ? 0 : hb_parni(3),
-             ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4));
+  cvCalcHist((IplImage **)hb_parptr(1), (CvHistogram *)hb_parptr(2), HB_ISNIL(3) ? 0 : hb_parni(3),
+             HB_ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4));
 }
 
 /*
@@ -593,7 +593,7 @@ CV_DEFAULT(255) )
 HB_FUNC(CVCALCPROBDENSITY)
 {
   cvCalcProbDensity((const CvHistogram *)hb_parptr(1), (const CvHistogram *)hb_parptr(2), (CvHistogram *)hb_parptr(3),
-                    ISNIL(4) ? 255 : hb_parnd(4));
+                    HB_ISNIL(4) ? 255 : hb_parnd(4));
 }
 
 /*
@@ -620,8 +620,8 @@ double param1 CV_DEFAULT(5) )
 HB_FUNC(CVADAPTIVETHRESHOLD)
 {
   cvAdaptiveThreshold((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parnd(3),
-                      ISNIL(4) ? CV_ADAPTIVE_THRESH_MEAN_C : hb_parni(4), ISNIL(5) ? CV_THRESH_BINARY : hb_parni(5),
-                      ISNIL(6) ? 3 : hb_parni(6), ISNIL(7) ? 5 : hb_parnd(7));
+                      HB_ISNIL(4) ? CV_ADAPTIVE_THRESH_MEAN_C : hb_parni(4), HB_ISNIL(5) ? CV_THRESH_BINARY : hb_parni(5),
+                      HB_ISNIL(6) ? 3 : hb_parni(6), HB_ISNIL(7) ? 5 : hb_parnd(7));
 }
 
 /*
@@ -630,7 +630,7 @@ CV_DEFAULT(3) )
 */
 HB_FUNC(CVCANNY)
 {
-  cvCanny((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parnd(3), hb_parnd(4), ISNIL(5) ? 3 : hb_parni(5));
+  cvCanny((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parnd(3), hb_parnd(4), HB_ISNIL(5) ? 3 : hb_parni(5));
 }
 
 /*
@@ -638,7 +638,7 @@ CVAPI(void) cvPreCornerDetect( const CvArr* image, CvArr* corners, int aperture_
 */
 HB_FUNC(CVPRECORNERDETECT)
 {
-  cvPreCornerDetect((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), ISNIL(3) ? 3 : hb_parni(3));
+  cvPreCornerDetect((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), HB_ISNIL(3) ? 3 : hb_parni(3));
 }
 
 /*
@@ -647,7 +647,7 @@ CV_DEFAULT(3) )
 */
 HB_FUNC(CVCORNEREIGENVALSANDVECS)
 {
-  cvCornerEigenValsAndVecs((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parni(3), ISNIL(4) ? 3 : hb_parni(4));
+  cvCornerEigenValsAndVecs((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parni(3), HB_ISNIL(4) ? 3 : hb_parni(4));
 }
 
 /*
@@ -655,7 +655,7 @@ CVAPI(void) cvCornerMinEigenVal( const CvArr* image, CvArr* eigenval, int block_
 */
 HB_FUNC(CVCORNERMINEIGENVAL)
 {
-  cvCornerMinEigenVal((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parni(3), ISNIL(4) ? 3 : hb_parni(4));
+  cvCornerMinEigenVal((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parni(3), HB_ISNIL(4) ? 3 : hb_parni(4));
 }
 
 /*
@@ -664,8 +664,8 @@ double k CV_DEFAULT(0.04) )
 */
 HB_FUNC(CVCORNERHARRIS)
 {
-  cvCornerHarris((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parni(3), ISNIL(4) ? 3 : hb_parni(4),
-                 ISNIL(5) ? 0.04 : hb_parnd(5));
+  cvCornerHarris((const CvArr *)hb_parptr(1), (CvArr *)hb_parptr(2), hb_parni(3), HB_ISNIL(4) ? 3 : hb_parni(4),
+                 HB_ISNIL(5) ? 0.04 : hb_parnd(5));
 }
 
 /*
@@ -675,7 +675,7 @@ double param1 CV_DEFAULT(0), double param2 CV_DEFAULT(0) )
 HB_FUNC(CVHOUGHLINES2)
 {
   hb_retptr((CvSeq *)cvHoughLines2((CvArr *)hb_parptr(1), (void *)hb_parptr(2), hb_parni(3), hb_parnd(4), hb_parnd(5),
-                                   hb_parni(6), ISNIL(7) ? 0 : hb_parnd(7), ISNIL(8) ? 0 : hb_parnd(8)));
+                                   hb_parni(6), HB_ISNIL(7) ? 0 : hb_parnd(7), HB_ISNIL(8) ? 0 : hb_parnd(8)));
 }
 
 /*
@@ -685,6 +685,6 @@ CV_DEFAULT(100), double param2 CV_DEFAULT(100), int min_radius CV_DEFAULT(0), in
 HB_FUNC(CVHOUGHCIRCLES)
 {
   hb_retptr((CvSeq *)cvHoughCircles((CvArr *)hb_parptr(1), (void *)hb_parptr(2), hb_parni(3), hb_parnd(4), hb_parnd(5),
-                                    ISNIL(6) ? 100 : hb_parnd(6), ISNIL(7) ? 100 : hb_parnd(7),
-                                    ISNIL(8) ? 0 : hb_parni(8), ISNIL(9) ? 0 : hb_parni(9)));
+                                    HB_ISNIL(6) ? 100 : hb_parnd(6), HB_ISNIL(7) ? 100 : hb_parnd(7),
+                                    HB_ISNIL(8) ? 0 : hb_parni(8), HB_ISNIL(9) ? 0 : hb_parni(9)));
 }
