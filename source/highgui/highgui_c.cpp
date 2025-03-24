@@ -389,5 +389,6 @@ CVAPI(void) cvReleaseVideoWriter( CvVideoWriter** writer )
 */
 HB_FUNC(CVRELEASEVIDEOWRITER)
 {
-  cvReleaseVideoWriter((CvVideoWriter **)hb_parptr(1));
+  CvVideoWriter* writer = (CvVideoWriter *)hb_parptr(1);
+  cvReleaseVideoWriter(&writer);
 }

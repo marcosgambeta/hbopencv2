@@ -102,7 +102,7 @@ HB_FUNC(CVPYRUP)
 /*
 CVAPI(void) cvReleasePyramid( CvMat*** pyramid, int extra_layers )
 */
-HB_FUNC(CVRELEASEPYRAMID)
+HB_FUNC(CVRELEASEPYRAMID) // TODO: fix
 {
   cvReleasePyramid((CvMat ***)hb_parptr(1), hb_parni(2));
 }
@@ -289,7 +289,8 @@ CVAPI(void) cvReleaseStructuringElement( IplConvKernel** element )
 */
 HB_FUNC(CVRELEASESTRUCTURINGELEMENT)
 {
-  cvReleaseStructuringElement((IplConvKernel **)hb_parptr(1));
+  IplConvKernel* element = (IplConvKernel *)hb_parptr(1);
+  cvReleaseStructuringElement(&element);
 }
 
 /*
@@ -494,7 +495,8 @@ CVAPI(void) cvReleaseHist( CvHistogram** hist )
 */
 HB_FUNC(CVRELEASEHIST)
 {
-  cvReleaseHist((CvHistogram **)hb_parptr(1));
+  CvHistogram* hist = (CvHistogram *)hb_parptr(1);
+  cvReleaseHist(&hist);
 }
 
 /*

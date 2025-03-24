@@ -67,7 +67,8 @@ CVAPI(void) cvReleaseImageHeader( IplImage** image )
 */
 HB_FUNC(CVRELEASEIMAGEHEADER)
 {
-  cvReleaseImageHeader((IplImage **)hb_parptr(1));
+  IplImage* image = (IplImage *)hb_parptr(1);
+  cvReleaseImageHeader(&image);
 }
 
 /*
@@ -75,7 +76,8 @@ CVAPI(void) cvReleaseImage( IplImage** image )
 */
 HB_FUNC(CVRELEASEIMAGE)
 {
-  cvReleaseImage((IplImage **)hb_parptr(1));
+  IplImage* image = (IplImage *)hb_parptr(1);
+  cvReleaseImage(&image);
 }
 
 /*
@@ -176,7 +178,8 @@ CVAPI(void) cvReleaseMat( CvMat** mat )
 */
 HB_FUNC(CVRELEASEMAT)
 {
-  cvReleaseMat((CvMat **)hb_parptr(1));
+  CvMat* mat = (CvMat *)hb_parptr(1);
+  cvReleaseMat(&mat);
 }
 
 /*
@@ -333,7 +336,8 @@ CV_INLINE void cvReleaseMatND( CvMatND** mat )
 */
 HB_FUNC(CVRELEASEMATND)
 {
-  cvReleaseMatND((CvMatND **)hb_parptr(1));
+  CvMatND* mat = (CvMatND *)hb_parptr(1);
+  cvReleaseMatND(&mat);
 }
 
 /*
@@ -372,7 +376,8 @@ CVAPI(void) cvReleaseSparseMat( CvSparseMat** mat )
 */
 HB_FUNC(CVRELEASESPARSEMAT)
 {
-  cvReleaseSparseMat((CvSparseMat **)hb_parptr(1));
+  CvSparseMat* mat = (CvSparseMat *)hb_parptr(1);
+  cvReleaseSparseMat(&mat);
 }
 
 /*
@@ -1636,7 +1641,8 @@ CVAPI(void) cvReleaseMemStorage( CvMemStorage** storage )
 */
 HB_FUNC(CVRELEASEMEMSTORAGE)
 {
-  cvReleaseMemStorage((CvMemStorage **)hb_parptr(1));
+  CvMemStorage* storage = (CvMemStorage *)hb_parptr(1);
+  cvReleaseMemStorage(&storage);
 }
 
 /*
@@ -2075,7 +2081,8 @@ CVAPI(void) cvReleaseGraphScanner( CvGraphScanner** scanner )
 */
 HB_FUNC(CVRELEASEGRAPHSCANNER)
 {
-  cvReleaseGraphScanner((CvGraphScanner **)hb_parptr(1));
+  CvGraphScanner* scanner = (CvGraphScanner *)hb_parptr(1);
+  cvReleaseGraphScanner(&scanner);
 }
 
 /*
@@ -2334,7 +2341,8 @@ CVAPI(void) cvReleaseFileStorage( CvFileStorage** fs )
 */
 HB_FUNC(CVRELEASEFILESTORAGE)
 {
-  cvReleaseFileStorage((CvFileStorage **)hb_parptr(1));
+  CvFileStorage* fs = (CvFileStorage *)hb_parptr(1);
+  cvReleaseFileStorage(&fs);
 }
 
 /*
@@ -2572,7 +2580,8 @@ CVAPI(void) cvRelease( void** struct_ptr )
 */
 HB_FUNC(CVRELEASE)
 {
-  cvRelease((void **)hb_parptr(1));
+  void* struct_ptr = (void *)hb_parptr(1);
+  cvRelease(&struct_ptr);
 }
 
 /*
