@@ -73,7 +73,7 @@ https://opencv.org/
 
 ## Portuguese
 
-OpenCV2 para Harbour++, Harbour and xHarbour
+OpenCV2 para Harbour++, Harbour e xHarbour
 
 Esta biblioteca é um trabalho em progresso.
 
