@@ -1,7 +1,7 @@
 rem batch to compile the library using xHarbour and BCC64
 
 rem remove the library
-del lib\hbopencv2.lib
+del lib\hbopencv2.a
 
 rem compile the source code
 bcc64 -O2 -c -I%HB_PATH%\include -I%OPENCV2_INC_DIR% source\core\core_c.cpp
