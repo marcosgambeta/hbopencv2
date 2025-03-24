@@ -326,7 +326,8 @@ CVAPI(void) cvReleaseCapture( CvCapture** capture )
 */
 HB_FUNC(CVRELEASECAPTURE)
 {
-  cvReleaseCapture((CvCapture **)hb_parptr(1));
+  CvCapture* capture = (CvCapture *)hb_parptr(1);
+  cvReleaseCapture(&capture);
 }
 
 /*
