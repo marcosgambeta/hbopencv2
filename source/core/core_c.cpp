@@ -6,6 +6,7 @@
 
 #include <opencv2/core/core_c.h>
 #include <hbapi.h>
+#include <hbapiitm.h>
 
 /*
 CVAPI(void*) cvAlloc( size_t size )
