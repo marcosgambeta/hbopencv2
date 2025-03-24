@@ -1,3 +1,5 @@
+rem batch to compile the library using xHarbour and BCC64
+
 rem remove the library
 del lib\hbopencv2.lib
 
