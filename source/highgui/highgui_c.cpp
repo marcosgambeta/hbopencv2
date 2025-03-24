@@ -10,42 +10,52 @@
 /*
 CVAPI(void) cvDisplayOverlay( const char* name, const char* text, int delayms CV_DEFAULT(0) )
 */
+#if 0
 HB_FUNC(CVDISPLAYOVERLAY)
 {
   cvDisplayOverlay(hb_parc(1), hb_parc(2), HB_ISNIL(3) ? 0 : hb_parni(3));
 }
+#endif
 
 /*
 CVAPI(void) cvDisplayStatusBar( const char* name, const char* text, int delayms CV_DEFAULT(0) )
 */
+#if 0
 HB_FUNC(CVDISPLAYSTATUSBAR)
 {
   cvDisplayStatusBar(hb_parc(1), hb_parc(2), HB_ISNIL(3) ? 0 : hb_parni(3));
 }
+#endif
 
 /*
 CVAPI(void) cvSaveWindowParameters( const char* name )
 */
+#if 0
 HB_FUNC(CVSAVEWINDOWPARAMETERS)
 {
   cvSaveWindowParameters(hb_parc(1));
 }
+#endif
 
 /*
 CVAPI(void) cvLoadWindowParameters( const char* name )
 */
+#if 0
 HB_FUNC(CVLOADWINDOWPARAMETERS)
 {
   cvLoadWindowParameters(hb_parc(1));
 }
+#endif
 
 /*
 CVAPI(void) cvStopLoop( void )
 */
+#if 0
 HB_FUNC(CVSTOPLOOP)
 {
   cvStopLoop();
 }
+#endif
 
 /*
 CVAPI(int) cvStartWindowThread( void )
