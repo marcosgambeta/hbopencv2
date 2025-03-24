@@ -6,6 +6,7 @@
 
 #include <opencv2/imgproc/imgproc_c.h>
 #include <hbapi.h>
+#include <hbapiitm.h>
 
 /*
 CVAPI(void) cvAcc( const CvArr* image, CvArr* sum, const CvArr* mask CV_DEFAULT(NULL) )
