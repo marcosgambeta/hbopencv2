@@ -140,4 +140,4 @@
 #define CV_ErrModeParent                                   1
 #define CV_ErrModeSilent                                   2
 
-#endif /* OPENCV_CORE_CH */
+#endif // OPENCV_CORE_CH

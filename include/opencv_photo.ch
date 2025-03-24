@@ -10,4 +10,4 @@
 #define CV_INPAINT_NS                                      0
 #define CV_INPAINT_TELEA                                   1
 
-#endif /* OPENCV_PHOTO_CH */
+#endif // OPENCV_PHOTO_CH

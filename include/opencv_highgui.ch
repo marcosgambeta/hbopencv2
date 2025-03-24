@@ -290,4 +290,4 @@
 #define CV_FOURCC_PROMPT                                   -1
 #define CV_FOURCC_DEFAULT                                  CV_FOURCC( "I", "Y", "U", "V" )
 
-#endif /* OPENCV_HIGHGUI_CH */
+#endif // OPENCV_HIGHGUI_CH

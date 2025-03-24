@@ -11,4 +11,4 @@
 #include "opencv_highgui.ch"
 #include "opencv_photo.ch"
 
-#endif /* OPENCV_CH */
+#endif // OPENCV_CH
