@@ -1,7 +1,7 @@
 //
-// OpenCV 2 para [x]Harbour - Biblioteca de ligação para [x]Harbour e OpenCV 2
+// hbopencv2 - Binding library for Harbour++/Harbour/xHarbour and OpenCV2
 //
-// Copyright (C) 2021 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
+// Copyright (c) 2025 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
 //
 
 #ifndef OPENCV_PHOTO_CH
