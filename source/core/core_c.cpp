@@ -15,11 +15,41 @@
 #define cv_cpar_CvMat(n) (const CvMat *)hb_parptr(n)
 #define cv_par_CvArr(n) (CvArr *)hb_parptr(n)
 #define cv_cpar_CvArr(n) (const CvArr *)hb_parptr(n)
+#define cv_dpar_CvArr(n, def) HB_ISNIL(n) ? def : cv_par_CvArr(n)
 #define cv_par_double(n) hb_parnd(n)
 #define cv_dpar_double(n, def) HB_ISNIL(n) ? def : hb_parnd(n)
 #define cv_par_float(n) (float)hb_parnd(n)
 #define cv_par_int(n) hb_parni(n)
 #define cv_dpar_int(n, def) HB_ISNIL(n) ? def : hb_parni(n)
+#define cv_par_size_t(n) hb_parnl(n)
+#define cv_par_CvMatND(n) (CvMatND *)hb_parptr(n)
+#define cv_cpar_CvMatND(n) (const CvMatND *)hb_parptr(n)
+#define cv_par_CvSparseMat(n) (CvSparseMat *)hb_parptr(n)
+#define cv_cpar_CvSparseMat(n) (const CvSparseMat *)hb_parptr(n)
+#define cv_par_CvSparseMatIterator(n) (CvSparseMatIterator *)hb_parptr(n)
+//#define cv_cpar_CvSparseMatIterator(n) (const CvSparseMatIterator *)hb_parptr(n)
+#define cv_par_CvNArrayIterator(n) (CvNArrayIterator *)hb_parptr(n)
+//#define cv_cpar_CvNArrayIterator(n) (const CvNArrayIterator *)hb_parptr(n)
+#define cv_par_voidptr(n) (void *)hb_parptr(n)
+#define cv_cpar_voidptr(n) (const void *)hb_parptr(n)
+#define cv_dpar_voidptr(n, def) HB_ISNIL(n) ? def : (void *)hb_parptr(n)
+#define cv_par_CvSeq(n) (CvSeq *)hb_parptr(n)
+#define cv_cpar_CvSeq(n) (const CvSeq *)hb_parptr(n)
+#define cv_par_CvSet(n) (CvSet *)hb_parptr(n)
+#define cv_cpar_CvSet(n) (const CvSet *)hb_parptr(n)
+#define cv_par_CvSetElem(n) (CvSetElem *)hb_parptr(n)
+#define cv_cpar_CvMemStorage(n) (const CvMemStorage *)hb_parptr(n)
+#define cv_par_CvMemStorage(n) (CvMemStorage *)hb_parptr(n)
+#define cv_dpar_CvMemStorage(n, def) HB_ISNIL(n) ? def : (CvMemStorage *)hb_parptr(n)
+#define cv_par_CvMemStoragePos(n) (CvMemStoragePos *)hb_parptr(n)
+#define cv_par_CvSeqWriter(n) (CvSeqWriter *)hb_parptr(n)
+#define cv_cpar_CvFileNode(n) (const CvFileNode *)hb_parptr(n)
+#define cv_par_CvFileStorage(n) (CvFileStorage *)hb_parptr(n)
+#define cv_cpar_CvFileStorage(n) (const CvFileStorage *)hb_parptr(n)
+#define cv_par_CvSeqReader(n) (CvSeqReader *)hb_parptr(n)
+#define cv_par_CvFileNode(n) (CvFileNode *)hb_parptr(n)
+#define cv_cpar_CvModuleInfo(n) (const CvModuleInfo *)hb_parptr(n)
+#define cv_par_CvTreeNodeIterator(n) (CvTreeNodeIterator *)hb_parptr(n)
 
 // macros for return
 #define cv_ret_IplImage(x) hb_retptr(x)
@@ -27,13 +57,29 @@
 #define cv_ret_CvArr(x) hb_retptr(x)
 #define cv_ret_double(x) hb_retnd(x)
 #define cv_ret_float(x) hb_retnd(x)
+#define cv_ret_int(x) hb_retni(x)
+#define cv_ret_voidptr(x) hb_retptr(x)
+#define cv_ret_CvMatND(x) hb_retptr(x)
+#define cv_ret_CvSeq(x) hb_retptr(x)
+#define cv_ret_CvSparseMat(x) hb_retptr(x)
+#define cv_ret_CvSparseNode(x) hb_retptr(x)
+#define cv_ret_CvMemStorage(x) hb_retptr(x)
+#define cv_ret_CvSet(x) hb_retptr(x)
+#define cv_ret_CvSetElem(x) hb_retptr(x)
+#define cv_ret_CvGraph(x) hb_retptr(x)
+#define cv_ret_CvGraphEdge(x) hb_retptr(x)
+#define cv_ret_CvGraphScanner(x) hb_retptr(x)
+#define cv_ret_CvFileStorage(x) hb_retptr(x)
+#define cv_ret_CvStringHashNode(x) hb_retptr(x)
+#define cv_ret_CvTypeInfo(x) hb_retptr(x)
+#define cv_ret_CvFileNode(x) hb_retptr(x)
 
 /*
 CVAPI(void*) cvAlloc( size_t size )
 */
 HB_FUNC(CVALLOC)
 {
-  hb_retptr((void *)cvAlloc(hb_parnl(1)));
+  cv_ret_voidptr(cvAlloc(cv_par_size_t(1)));
 }
 
 /*
@@ -41,7 +87,7 @@ CVAPI(void) cvFree_( void* ptr )
 */
 HB_FUNC(CVFREE_)
 {
-  cvFree_((void *)hb_parptr(1));
+  cvFree_(cv_par_voidptr(1));
 }
 
 /*
@@ -121,7 +167,7 @@ CVAPI(int) cvGetImageCOI( const IplImage* image )
 */
 HB_FUNC(CVGETIMAGECOI)
 {
-  hb_retni(cvGetImageCOI(cv_cpar_IplImage(1)));
+  cv_ret_int(cvGetImageCOI(cv_cpar_IplImage(1)));
 }
 
 /*
@@ -182,7 +228,7 @@ CV_DEFAULT(CV_AUTOSTEP) )
 HB_FUNC(CVINITMATHEADER)
 {
   cv_ret_CvMat(cvInitMatHeader(cv_par_CvMat(1), cv_par_int(2), cv_par_int(3), cv_par_int(4),
-                               HB_ISNIL(5) ? NULL : (void *)hb_parptr(5), cv_dpar_int(6, CV_AUTOSTEP)));
+                               cv_dpar_voidptr(5, NULL), cv_dpar_int(6, CV_AUTOSTEP)));
 }
 
 /*
@@ -253,7 +299,7 @@ CV_INLINE CvMat* cvGetRow( const CvArr* arr, CvMat* submat, int row )
 */
 HB_FUNC(CVGETROW)
 {
-  hb_retptr((CvMat *)cvGetRow(cv_cpar_CvArr(1), cv_par_CvMat(2), cv_par_int(3)));
+  cv_ret_CvMat(cvGetRow(cv_cpar_CvArr(1), cv_par_CvMat(2), cv_par_int(3)));
 }
 
 /*
@@ -269,7 +315,7 @@ CV_INLINE CvMat* cvGetCol( const CvArr* arr, CvMat* submat, int col )
 */
 HB_FUNC(CVGETCOL)
 {
-  hb_retptr((CvMat *)cvGetCol(cv_cpar_CvArr(1), cv_par_CvMat(2), cv_par_int(3)));
+  cv_ret_CvMat(cvGetCol(cv_cpar_CvArr(1), cv_par_CvMat(2), cv_par_int(3)));
 }
 
 /*
@@ -296,7 +342,7 @@ HB_FUNC(CVCREATEMATNDHEADER)
       values2[i] = hb_arrayGetNI(a2, i + 1);
     }
   }
-  hb_retptr((CvMatND *)cvCreateMatNDHeader(cv_par_int(1), (const int *)values2, cv_par_int(3)));
+  cv_ret_CvMatND(cvCreateMatNDHeader(cv_par_int(1), (const int *)values2, cv_par_int(3)));
   if (a2)
   {
     delete[] values2;
@@ -319,7 +365,7 @@ HB_FUNC(CVCREATEMATND)
       values2[i] = hb_arrayGetNI(a2, i + 1);
     }
   }
-  hb_retptr((CvMatND *)cvCreateMatND(cv_par_int(1), (const int *)values2, cv_par_int(3)));
+  cv_ret_CvMatND(cvCreateMatND(cv_par_int(1), (const int *)values2, cv_par_int(3)));
   if (a2)
   {
     delete[] values2;
@@ -342,8 +388,8 @@ HB_FUNC(CVINITMATNDHEADER)
       values3[i] = hb_arrayGetNI(a3, i + 1);
     }
   }
-  hb_retptr((CvMatND *)cvInitMatNDHeader((CvMatND *)hb_parptr(1), cv_par_int(2), (const int *)values3, cv_par_int(4),
-                                         HB_ISNIL(5) ? NULL : (void *)hb_parptr(5)));
+  cv_ret_CvMatND(cvInitMatNDHeader(cv_par_CvMatND(1), cv_par_int(2), (const int *)values3, cv_par_int(4),
+                                         cv_dpar_voidptr(5, NULL)));
   if (a3)
   {
     delete[] values3;
@@ -355,7 +401,7 @@ CV_INLINE void cvReleaseMatND( CvMatND** mat )
 */
 HB_FUNC(CVRELEASEMATND)
 {
-  CvMatND *mat = (CvMatND *)hb_parptr(1);
+  CvMatND *mat = cv_par_CvMatND(1);
   cvReleaseMatND(&mat);
 }
 
@@ -364,7 +410,7 @@ CVAPI(CvMatND*) cvCloneMatND( const CvMatND* mat )
 */
 HB_FUNC(CVCLONEMATND)
 {
-  hb_retptr((CvMatND *)cvCloneMatND((const CvMatND *)hb_parptr(1)));
+  cv_ret_CvMatND(cvCloneMatND(cv_cpar_CvMatND(1)));
 }
 
 /*
@@ -383,7 +429,7 @@ HB_FUNC(CVCREATESPARSEMAT)
       values2[i] = hb_arrayGetNI(a2, i + 1);
     }
   }
-  hb_retptr((CvSparseMat *)cvCreateSparseMat(cv_par_int(1), (const int *)values2, cv_par_int(3)));
+  cv_ret_CvSparseMat(cvCreateSparseMat(cv_par_int(1), (const int *)values2, cv_par_int(3)));
   if (a2)
   {
     delete[] values2;
@@ -395,7 +441,7 @@ CVAPI(void) cvReleaseSparseMat( CvSparseMat** mat )
 */
 HB_FUNC(CVRELEASESPARSEMAT)
 {
-  CvSparseMat *mat = (CvSparseMat *)hb_parptr(1);
+  CvSparseMat *mat = cv_par_CvSparseMat(1);
   cvReleaseSparseMat(&mat);
 }
 
@@ -404,7 +450,7 @@ CVAPI(CvSparseMat*) cvCloneSparseMat( const CvSparseMat* mat )
 */
 HB_FUNC(CVCLONESPARSEMAT)
 {
-  hb_retptr((CvSparseMat *)cvCloneSparseMat((const CvSparseMat *)hb_parptr(1)));
+  cv_ret_CvSparseMat(cvCloneSparseMat(cv_cpar_CvSparseMat(1)));
 }
 
 /*
@@ -412,8 +458,8 @@ CVAPI(CvSparseNode*) cvInitSparseMatIterator( const CvSparseMat* mat, CvSparseMa
 */
 HB_FUNC(CVINITSPARSEMATITERATOR)
 {
-  hb_retptr(
-      (CvSparseNode *)cvInitSparseMatIterator((const CvSparseMat *)hb_parptr(1), (CvSparseMatIterator *)hb_parptr(2)));
+  cv_ret_CvSparseNode(
+      cvInitSparseMatIterator(cv_cpar_CvSparseMat(1), cv_par_CvSparseMatIterator(2)));
 }
 
 /*
@@ -421,17 +467,17 @@ CV_INLINE CvSparseNode* cvGetNextSparseNode( CvSparseMatIterator* mat_iterator )
 */
 HB_FUNC(CVGETNEXTSPARSENODE)
 {
-  hb_retptr((CvSparseNode *)cvGetNextSparseNode((CvSparseMatIterator *)hb_parptr(1)));
+  cv_ret_CvSparseNode(cvGetNextSparseNode(cv_par_CvSparseMatIterator(1)));
 }
 
 /*
 CVAPI(int) cvInitNArrayIterator( int count, CvArr** arrs, const CvArr* mask, CvMatND* stubs, CvNArrayIterator*
 array_iterator, int flags CV_DEFAULT(0) )
 */
-HB_FUNC(CVINITNARRAYITERATOR)
+HB_FUNC(CVINITNARRAYITERATOR) // TODO: fix parameter 2
 {
-  hb_retni(cvInitNArrayIterator(cv_par_int(1), (CvArr **)hb_parptr(2), cv_cpar_CvArr(3), (CvMatND *)hb_parptr(4),
-                                (CvNArrayIterator *)hb_parptr(5), cv_dpar_int(6, 0)));
+  cv_ret_int(cvInitNArrayIterator(cv_par_int(1), (CvArr **)hb_parptr(2), cv_cpar_CvArr(3), cv_par_CvMatND(4),
+                                cv_par_CvNArrayIterator(5), cv_dpar_int(6, 0)));
 }
 
 /*
@@ -439,7 +485,7 @@ CVAPI(int) cvNextNArraySlice( CvNArrayIterator* array_iterator )
 */
 HB_FUNC(CVNEXTNARRAYSLICE)
 {
-  hb_retni(cvNextNArraySlice((CvNArrayIterator *)hb_parptr(1)));
+  cv_ret_int(cvNextNArraySlice(cv_par_CvNArrayIterator(1)));
 }
 
 /*
@@ -447,7 +493,7 @@ CVAPI(int) cvGetElemType( const CvArr* arr )
 */
 HB_FUNC(CVGETELEMTYPE)
 {
-  hb_retni(cvGetElemType(cv_cpar_CvArr(1)));
+  cv_ret_int(cvGetElemType(cv_cpar_CvArr(1)));
 }
 
 /*
@@ -455,7 +501,7 @@ CVAPI(int) cvGetDimSize( const CvArr* arr, int index )
 */
 HB_FUNC(CVGETDIMSIZE)
 {
-  hb_retni(cvGetDimSize(cv_cpar_CvArr(1), cv_par_int(2)));
+  cv_ret_int(cvGetDimSize(cv_cpar_CvArr(1), cv_par_int(2)));
 }
 
 /*
@@ -790,7 +836,7 @@ CVAPI(void) cvSetData( CvArr* arr, void* data, int step )
 */
 HB_FUNC(CVSETDATA)
 {
-  cvSetData(cv_par_CvArr(1), (void *)hb_parptr(2), cv_par_int(3));
+  cvSetData(cv_par_CvArr(1), cv_par_voidptr(2), cv_par_int(3));
 }
 
 /*
@@ -860,7 +906,7 @@ HB_FUNC(CVMERGE)
 CVAPI(void) cvMixChannels( const CvArr** src, int src_count, CvArr** dst, int dst_count, const int* from_to, int
 pair_count )
 */
-HB_FUNC(CVMIXCHANNELS)
+HB_FUNC(CVMIXCHANNELS) // TODO: fix parameters 1 and 3
 {
   PHB_ITEM a5 = hb_param(5, HB_IT_ARRAY);
   int *values5;
@@ -1204,7 +1250,7 @@ angle_in_degrees CV_DEFAULT(0) )
 */
 HB_FUNC(CVCARTTOPOLAR)
 {
-  cvCartToPolar(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), HB_ISNIL(4) ? NULL : cv_par_CvArr(4),
+  cvCartToPolar(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), cv_dpar_CvArr(4, NULL),
                 cv_dpar_int(5, 0));
 }
 
@@ -1263,7 +1309,7 @@ CV_DEFAULT(0) )
 */
 HB_FUNC(CVCHECKARR)
 {
-  hb_retni(cvCheckArr(cv_cpar_CvArr(1), cv_dpar_int(2, 0), cv_dpar_double(3, 0), cv_dpar_double(4, 0)));
+  cv_ret_int(cvCheckArr(cv_cpar_CvArr(1), cv_dpar_int(2, 0), cv_dpar_double(3, 0), cv_dpar_double(4, 0)));
 }
 
 /*
@@ -1272,7 +1318,7 @@ CV_DEFAULT(0) )
 */
 HB_FUNC(CVSORT)
 {
-  cvSort(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_CvArr(3),
+  cvSort(cv_cpar_CvArr(1), cv_dpar_CvArr(2, NULL), cv_dpar_CvArr(3, NULL),
          cv_dpar_int(4, 0));
 }
 
@@ -1281,7 +1327,7 @@ CVAPI(int) cvSolveCubic( const CvMat* coeffs, CvMat* roots )
 */
 HB_FUNC(CVSOLVECUBIC)
 {
-  hb_retni(cvSolveCubic(cv_cpar_CvMat(1), cv_par_CvMat(2)));
+  cv_ret_int(cvSolveCubic(cv_cpar_CvMat(1), cv_par_CvMat(2)));
 }
 
 /*
@@ -1357,7 +1403,7 @@ CVAPI(void) cvFlip( const CvArr* src, CvArr* dst CV_DEFAULT(NULL), int flip_mode
 */
 HB_FUNC(CVFLIP)
 {
-  cvFlip(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : cv_par_CvArr(2), cv_dpar_int(3, 0));
+  cvFlip(cv_cpar_CvArr(1), cv_dpar_CvArr(2, NULL), cv_dpar_int(3, 0));
 }
 
 /*
@@ -1365,7 +1411,7 @@ CVAPI(void) cvSVD( CvArr* A, CvArr* W, CvArr* U CV_DEFAULT(NULL), CvArr* V CV_DE
 */
 HB_FUNC(CVSVD)
 {
-  cvSVD(cv_par_CvArr(1), cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_CvArr(3), HB_ISNIL(4) ? NULL : cv_par_CvArr(4),
+  cvSVD(cv_par_CvArr(1), cv_par_CvArr(2), cv_dpar_CvArr(3, NULL), cv_dpar_CvArr(4, NULL),
         cv_dpar_int(5, 0));
 }
 
@@ -1390,7 +1436,7 @@ CVAPI(int) cvSolve( const CvArr* src1, const CvArr* src2, CvArr* dst, int method
 */
 HB_FUNC(CVSOLVE)
 {
-  hb_retni(cvSolve(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), cv_dpar_int(4, CV_LU)));
+  cv_ret_int(cvSolve(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), cv_dpar_int(4, CV_LU)));
 }
 
 /*
@@ -1457,7 +1503,7 @@ HB_FUNC(CVRANGE)
 /*
 CVAPI(void) cvCalcCovarMatrix( const CvArr** vects, int count, CvArr* cov_mat, CvArr* avg, int flags )
 */
-HB_FUNC(CVCALCCOVARMATRIX)
+HB_FUNC(CVCALCCOVARMATRIX) // TODO: fix parameter 1
 {
   cvCalcCovarMatrix((const CvArr **)hb_parptr(1), cv_par_int(2), cv_par_CvArr(3), cv_par_CvArr(4), cv_par_int(5));
 }
@@ -1520,7 +1566,7 @@ CVAPI(int) cvCountNonZero( const CvArr* arr )
 */
 HB_FUNC(CVCOUNTNONZERO)
 {
-  hb_retni(cvCountNonZero(cv_cpar_CvArr(1)));
+  cv_ret_int(cvCountNonZero(cv_cpar_CvArr(1)));
 }
 
 /*
@@ -1593,7 +1639,7 @@ CVAPI(int) cvGetOptimalDFTSize( int size0 )
 */
 HB_FUNC(CVGETOPTIMALDFTSIZE)
 {
-  hb_retni(cvGetOptimalDFTSize(cv_par_int(1)));
+  cv_ret_int(cvGetOptimalDFTSize(cv_par_int(1)));
 }
 
 /*
@@ -1613,7 +1659,7 @@ HB_FUNC(CVSLICELENGTH)
   CvSlice slice1;
   slice1.start_index = hb_arrayGetNI(pSlice1, 1);
   slice1.end_index = hb_arrayGetNI(pSlice1, 2);
-  hb_retni(cvSliceLength(slice1, (const CvSeq *)hb_parptr(2)));
+  cv_ret_int(cvSliceLength(slice1, cv_cpar_CvSeq(2)));
 }
 
 /*
@@ -1621,7 +1667,7 @@ CVAPI(CvMemStorage*) cvCreateMemStorage( int block_size CV_DEFAULT(0) )
 */
 HB_FUNC(CVCREATEMEMSTORAGE)
 {
-  hb_retptr((CvMemStorage *)cvCreateMemStorage(cv_dpar_int(1, 0)));
+  cv_ret_CvMemStorage(cvCreateMemStorage(cv_dpar_int(1, 0)));
 }
 
 /*
@@ -1629,7 +1675,7 @@ CVAPI(CvMemStorage*) cvCreateChildMemStorage( CvMemStorage* parent )
 */
 HB_FUNC(CVCREATECHILDMEMSTORAGE)
 {
-  hb_retptr((CvMemStorage *)cvCreateChildMemStorage((CvMemStorage *)hb_parptr(1)));
+  cv_ret_CvMemStorage(cvCreateChildMemStorage(cv_par_CvMemStorage(1)));
 }
 
 /*
@@ -1637,7 +1683,7 @@ CVAPI(void) cvReleaseMemStorage( CvMemStorage** storage )
 */
 HB_FUNC(CVRELEASEMEMSTORAGE)
 {
-  CvMemStorage *storage = (CvMemStorage *)hb_parptr(1);
+  CvMemStorage *storage = cv_par_CvMemStorage(1);
   cvReleaseMemStorage(&storage);
 }
 
@@ -1646,7 +1692,7 @@ CVAPI(void) cvClearMemStorage( CvMemStorage* storage )
 */
 HB_FUNC(CVCLEARMEMSTORAGE)
 {
-  cvClearMemStorage((CvMemStorage *)hb_parptr(1));
+  cvClearMemStorage(cv_par_CvMemStorage(1));
 }
 
 /*
@@ -1654,7 +1700,7 @@ CVAPI(void) cvSaveMemStoragePos( const CvMemStorage* storage, CvMemStoragePos* p
 */
 HB_FUNC(CVSAVEMEMSTORAGEPOS)
 {
-  cvSaveMemStoragePos((const CvMemStorage *)hb_parptr(1), (CvMemStoragePos *)hb_parptr(2));
+  cvSaveMemStoragePos(cv_cpar_CvMemStorage(1), cv_par_CvMemStoragePos(2));
 }
 
 /*
@@ -1662,7 +1708,7 @@ CVAPI(void) cvRestoreMemStoragePos( CvMemStorage* storage, CvMemStoragePos* pos 
 */
 HB_FUNC(CVRESTOREMEMSTORAGEPOS)
 {
-  cvRestoreMemStoragePos((CvMemStorage *)hb_parptr(1), (CvMemStoragePos *)hb_parptr(2));
+  cvRestoreMemStoragePos(cv_par_CvMemStorage(1), cv_par_CvMemStoragePos(2));
 }
 
 /*
@@ -1670,7 +1716,7 @@ CVAPI(void*) cvMemStorageAlloc( CvMemStorage* storage, size_t size )
 */
 HB_FUNC(CVMEMSTORAGEALLOC)
 {
-  hb_retptr((void *)cvMemStorageAlloc((CvMemStorage *)hb_parptr(1), hb_parnl(2)));
+  cv_ret_voidptr(cvMemStorageAlloc(cv_par_CvMemStorage(1), cv_par_size_t(2)));
 }
 
 /*
@@ -1678,7 +1724,7 @@ CVAPI(CvSeq*) cvCreateSeq( int seq_flags, size_t header_size, size_t elem_size, 
 */
 HB_FUNC(CVCREATESEQ)
 {
-  hb_retptr((CvSeq *)cvCreateSeq(cv_par_int(1), hb_parnl(2), hb_parnl(3), (CvMemStorage *)hb_parptr(4)));
+  cv_ret_CvSeq(cvCreateSeq(cv_par_int(1), cv_par_size_t(2), cv_par_size_t(3), cv_par_CvMemStorage(4)));
 }
 
 /*
@@ -1686,7 +1732,7 @@ CVAPI(void) cvSetSeqBlockSize( CvSeq* seq, int delta_elems )
 */
 HB_FUNC(CVSETSEQBLOCKSIZE)
 {
-  cvSetSeqBlockSize((CvSeq *)hb_parptr(1), cv_par_int(2));
+  cvSetSeqBlockSize(cv_par_CvSeq(1), cv_par_int(2));
 }
 
 /*
@@ -1694,7 +1740,7 @@ CVAPI(void) cvSeqPop( CvSeq* seq, void* element CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVSEQPOP)
 {
-  cvSeqPop((CvSeq *)hb_parptr(1), HB_ISNIL(2) ? NULL : (void *)hb_parptr(2));
+  cvSeqPop(cv_par_CvSeq(1), cv_dpar_voidptr(2, NULL));
 }
 
 /*
@@ -1702,7 +1748,7 @@ CVAPI(void) cvSeqPopFront( CvSeq* seq, void* element CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVSEQPOPFRONT)
 {
-  cvSeqPopFront((CvSeq *)hb_parptr(1), HB_ISNIL(2) ? NULL : (void *)hb_parptr(2));
+  cvSeqPopFront(cv_par_CvSeq(1), cv_dpar_voidptr(2, NULL));
 }
 
 /*
@@ -1710,7 +1756,7 @@ CVAPI(void) cvSeqPushMulti( CvSeq* seq, const void* elements, int count, int in_
 */
 HB_FUNC(CVSEQPUSHMULTI)
 {
-  cvSeqPushMulti((CvSeq *)hb_parptr(1), (const void *)hb_parptr(2), cv_par_int(3), cv_dpar_int(4, 0));
+  cvSeqPushMulti(cv_par_CvSeq(1), cv_cpar_voidptr(2), cv_par_int(3), cv_dpar_int(4, 0));
 }
 
 /*
@@ -1718,7 +1764,7 @@ CVAPI(void) cvSeqPopMulti( CvSeq* seq, void* elements, int count, int in_front C
 */
 HB_FUNC(CVSEQPOPMULTI)
 {
-  cvSeqPopMulti((CvSeq *)hb_parptr(1), (void *)hb_parptr(2), cv_par_int(3), cv_dpar_int(4, 0));
+  cvSeqPopMulti(cv_par_CvSeq(1), cv_par_voidptr(2), cv_par_int(3), cv_dpar_int(4, 0));
 }
 
 /*
@@ -1726,7 +1772,7 @@ CVAPI(void) cvSeqRemove( CvSeq* seq, int index )
 */
 HB_FUNC(CVSEQREMOVE)
 {
-  cvSeqRemove((CvSeq *)hb_parptr(1), cv_par_int(2));
+  cvSeqRemove(cv_par_CvSeq(1), cv_par_int(2));
 }
 
 /*
@@ -1734,7 +1780,7 @@ CVAPI(void) cvClearSeq( CvSeq* seq )
 */
 HB_FUNC(CVCLEARSEQ)
 {
-  cvClearSeq((CvSeq *)hb_parptr(1));
+  cvClearSeq(cv_par_CvSeq(1));
 }
 
 /*
@@ -1742,7 +1788,7 @@ CVAPI(int) cvSeqElemIdx( const CvSeq* seq, const void* element, CvSeqBlock** blo
 */
 HB_FUNC(CVSEQELEMIDX)
 {
-  hb_retni(cvSeqElemIdx((const CvSeq *)hb_parptr(1), (const void *)hb_parptr(2),
+  cv_ret_int(cvSeqElemIdx(cv_cpar_CvSeq(1), cv_cpar_voidptr(2),
                         HB_ISNIL(3) ? NULL : (CvSeqBlock **)hb_parptr(3)));
 }
 
@@ -1751,7 +1797,7 @@ CVAPI(void) cvStartAppendToSeq( CvSeq* seq, CvSeqWriter* writer )
 */
 HB_FUNC(CVSTARTAPPENDTOSEQ)
 {
-  cvStartAppendToSeq((CvSeq *)hb_parptr(1), (CvSeqWriter *)hb_parptr(2));
+  cvStartAppendToSeq(cv_par_CvSeq(1), cv_par_CvSeqWriter(2));
 }
 
 /*
@@ -1759,8 +1805,8 @@ CVAPI(void) cvStartWriteSeq( int seq_flags, int header_size, int elem_size, CvMe
 */
 HB_FUNC(CVSTARTWRITESEQ)
 {
-  cvStartWriteSeq(cv_par_int(1), cv_par_int(2), cv_par_int(3), (CvMemStorage *)hb_parptr(4),
-                  (CvSeqWriter *)hb_parptr(5));
+  cvStartWriteSeq(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_CvMemStorage(4),
+                  cv_par_CvSeqWriter(5));
 }
 
 /*
@@ -1768,7 +1814,7 @@ CVAPI(CvSeq*) cvEndWriteSeq( CvSeqWriter* writer )
 */
 HB_FUNC(CVENDWRITESEQ)
 {
-  hb_retptr((CvSeq *)cvEndWriteSeq((CvSeqWriter *)hb_parptr(1)));
+  cv_ret_CvSeq(cvEndWriteSeq(cv_par_CvSeqWriter(1)));
 }
 
 /*
@@ -1776,7 +1822,7 @@ CVAPI(void) cvFlushSeqWriter( CvSeqWriter* writer )
 */
 HB_FUNC(CVFLUSHSEQWRITER)
 {
-  cvFlushSeqWriter((CvSeqWriter *)hb_parptr(1));
+  cvFlushSeqWriter(cv_par_CvSeqWriter(1));
 }
 
 /*
@@ -1784,7 +1830,7 @@ CVAPI(void) cvStartReadSeq( const CvSeq* seq, CvSeqReader* reader, int reverse C
 */
 HB_FUNC(CVSTARTREADSEQ)
 {
-  cvStartReadSeq((const CvSeq *)hb_parptr(1), (CvSeqReader *)hb_parptr(2), cv_dpar_int(3, 0));
+  cvStartReadSeq(cv_cpar_CvSeq(1), cv_par_CvSeqReader(2), cv_dpar_int(3, 0));
 }
 
 /*
@@ -1792,7 +1838,7 @@ CVAPI(int) cvGetSeqReaderPos( CvSeqReader* reader )
 */
 HB_FUNC(CVGETSEQREADERPOS)
 {
-  hb_retni(cvGetSeqReaderPos((CvSeqReader *)hb_parptr(1)));
+  cv_ret_int(cvGetSeqReaderPos(cv_par_CvSeqReader(1)));
 }
 
 /*
@@ -1800,7 +1846,7 @@ CVAPI(void) cvSetSeqReaderPos( CvSeqReader* reader, int index, int is_relative C
 */
 HB_FUNC(CVSETSEQREADERPOS)
 {
-  cvSetSeqReaderPos((CvSeqReader *)hb_parptr(1), cv_par_int(2), cv_dpar_int(3, 0));
+  cvSetSeqReaderPos(cv_par_CvSeqReader(1), cv_par_int(2), cv_dpar_int(3, 0));
 }
 
 /*
@@ -1812,8 +1858,8 @@ HB_FUNC(CVCVTSEQTOARRAY)
   CvSlice slice3;
   slice3.start_index = hb_arrayGetNI(pSlice3, 1);
   slice3.end_index = hb_arrayGetNI(pSlice3, 2);
-  hb_retptr(
-      (void *)cvCvtSeqToArray((const CvSeq *)hb_parptr(1), (void *)hb_parptr(2), HB_ISNIL(3) ? CV_WHOLE_SEQ : slice3));
+  cv_ret_voidptr(
+      cvCvtSeqToArray(cv_cpar_CvSeq(1), cv_par_voidptr(2), HB_ISNIL(3) ? CV_WHOLE_SEQ : slice3));
 }
 
 /*
@@ -1822,8 +1868,8 @@ seq, CvSeqBlock* block )
 */
 HB_FUNC(CVMAKESEQHEADERFORARRAY)
 {
-  hb_retptr((CvSeq *)cvMakeSeqHeaderForArray(cv_par_int(1), cv_par_int(2), cv_par_int(3), (void *)hb_parptr(4),
-                                             cv_par_int(5), (CvSeq *)hb_parptr(6), (CvSeqBlock *)hb_parptr(7)));
+  cv_ret_CvSeq(cvMakeSeqHeaderForArray(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_voidptr(4),
+                                             cv_par_int(5), cv_par_CvSeq(6), (CvSeqBlock *)hb_parptr(7)));
 }
 
 /*
@@ -1836,7 +1882,7 @@ HB_FUNC(CVSEQSLICE)
   CvSlice slice2;
   slice2.start_index = hb_arrayGetNI(pSlice2, 1);
   slice2.end_index = hb_arrayGetNI(pSlice2, 2);
-  hb_retptr((CvSeq *)cvSeqSlice((const CvSeq *)hb_parptr(1), slice2, HB_ISNIL(3) ? NULL : (CvMemStorage *)hb_parptr(3),
+  cv_ret_CvSeq(cvSeqSlice(cv_cpar_CvSeq(1), slice2, cv_dpar_CvMemStorage(3, NULL),
                                 cv_dpar_int(4, 0)));
 }
 
@@ -1845,7 +1891,7 @@ CV_INLINE CvSeq* cvCloneSeq( const CvSeq* seq, CvMemStorage* storage CV_DEFAULT(
 */
 HB_FUNC(CVCLONESEQ)
 {
-  hb_retptr((CvSeq *)cvCloneSeq((const CvSeq *)hb_parptr(1), HB_ISNIL(2) ? NULL : (CvMemStorage *)hb_parptr(2)));
+  cv_ret_CvSeq(cvCloneSeq(cv_cpar_CvSeq(1), cv_dpar_CvMemStorage(2, NULL)));
 }
 
 /*
@@ -1857,7 +1903,7 @@ HB_FUNC(CVSEQREMOVESLICE)
   CvSlice slice2;
   slice2.start_index = hb_arrayGetNI(pSlice2, 1);
   slice2.end_index = hb_arrayGetNI(pSlice2, 2);
-  cvSeqRemoveSlice((CvSeq *)hb_parptr(1), slice2);
+  cvSeqRemoveSlice(cv_par_CvSeq(1), slice2);
 }
 
 /*
@@ -1865,7 +1911,7 @@ CVAPI(void) cvSeqInsertSlice( CvSeq* seq, int before_index, const CvArr* from_ar
 */
 HB_FUNC(CVSEQINSERTSLICE)
 {
-  cvSeqInsertSlice((CvSeq *)hb_parptr(1), cv_par_int(2), cv_cpar_CvArr(3));
+  cvSeqInsertSlice(cv_par_CvSeq(1), cv_par_int(2), cv_cpar_CvArr(3));
 }
 
 /*
@@ -1873,7 +1919,7 @@ CVAPI(void) cvSeqInvert( CvSeq* seq )
 */
 HB_FUNC(CVSEQINVERT)
 {
-  cvSeqInvert((CvSeq *)hb_parptr(1));
+  cvSeqInvert(cv_par_CvSeq(1));
 }
 
 /*
@@ -1881,7 +1927,7 @@ CVAPI(void) cvChangeSeqBlock( void* reader, int direction )
 */
 HB_FUNC(CVCHANGESEQBLOCK)
 {
-  cvChangeSeqBlock((void *)hb_parptr(1), cv_par_int(2));
+  cvChangeSeqBlock(cv_par_voidptr(1), cv_par_int(2));
 }
 
 /*
@@ -1889,7 +1935,7 @@ CVAPI(void) cvCreateSeqBlock( CvSeqWriter* writer )
 */
 HB_FUNC(CVCREATESEQBLOCK)
 {
-  cvCreateSeqBlock((CvSeqWriter *)hb_parptr(1));
+  cvCreateSeqBlock(cv_par_CvSeqWriter(1));
 }
 
 /*
@@ -1897,7 +1943,7 @@ CVAPI(CvSet*) cvCreateSet( int set_flags, int header_size, int elem_size, CvMemS
 */
 HB_FUNC(CVCREATESET)
 {
-  hb_retptr((CvSet *)cvCreateSet(cv_par_int(1), cv_par_int(2), cv_par_int(3), (CvMemStorage *)hb_parptr(4)));
+  cv_ret_CvSet(cvCreateSet(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_CvMemStorage(4)));
 }
 
 /*
@@ -1905,7 +1951,7 @@ CVAPI(int) cvSetAdd( CvSet* set_header, CvSetElem* elem CV_DEFAULT(NULL), CvSetE
 */
 HB_FUNC(CVSETADD)
 {
-  hb_retni(cvSetAdd((CvSet *)hb_parptr(1), HB_ISNIL(2) ? NULL : (CvSetElem *)hb_parptr(2),
+  cv_ret_int(cvSetAdd(cv_par_CvSet(1), HB_ISNIL(2) ? NULL : (CvSetElem *)hb_parptr(2),
                     HB_ISNIL(3) ? NULL : (CvSetElem **)hb_parptr(3)));
 }
 
@@ -1914,7 +1960,7 @@ CV_INLINE CvSetElem* cvSetNew( CvSet* set_header )
 */
 HB_FUNC(CVSETNEW)
 {
-  hb_retptr((CvSetElem *)cvSetNew((CvSet *)hb_parptr(1)));
+  cv_ret_CvSetElem(cvSetNew(cv_par_CvSet(1)));
 }
 
 /*
@@ -1922,7 +1968,7 @@ CV_INLINE void cvSetRemoveByPtr( CvSet* set_header, void* elem )
 */
 HB_FUNC(CVSETREMOVEBYPTR)
 {
-  cvSetRemoveByPtr((CvSet *)hb_parptr(1), (void *)hb_parptr(2));
+  cvSetRemoveByPtr(cv_par_CvSet(1), cv_par_voidptr(2));
 }
 
 /*
@@ -1930,7 +1976,7 @@ CVAPI(void) cvSetRemove( CvSet* set_header, int index )
 */
 HB_FUNC(CVSETREMOVE)
 {
-  cvSetRemove((CvSet *)hb_parptr(1), cv_par_int(2));
+  cvSetRemove(cv_par_CvSet(1), cv_par_int(2));
 }
 
 /*
@@ -1938,7 +1984,7 @@ CV_INLINE CvSetElem* cvGetSetElem( const CvSet* set_header, int idx )
 */
 HB_FUNC(CVGETSETELEM)
 {
-  hb_retptr((CvSetElem *)cvGetSetElem((const CvSet *)hb_parptr(1), cv_par_int(2)));
+  cv_ret_CvSetElem(cvGetSetElem(cv_cpar_CvSet(1), cv_par_int(2)));
 }
 
 /*
@@ -1946,7 +1992,7 @@ CVAPI(void) cvClearSet( CvSet* set_header )
 */
 HB_FUNC(CVCLEARSET)
 {
-  cvClearSet((CvSet *)hb_parptr(1));
+  cvClearSet(cv_par_CvSet(1));
 }
 
 /*
@@ -1954,8 +2000,8 @@ CVAPI(CvGraph*) cvCreateGraph( int graph_flags, int header_size, int vtx_size, i
 */
 HB_FUNC(CVCREATEGRAPH)
 {
-  hb_retptr((CvGraph *)cvCreateGraph(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_int(4),
-                                     (CvMemStorage *)hb_parptr(5)));
+  cv_ret_CvGraph(cvCreateGraph(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_int(4),
+                                     cv_par_CvMemStorage(5)));
 }
 
 /*
@@ -1964,7 +2010,7 @@ CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVGRAPHADDVTX)
 {
-  hb_retni(cvGraphAddVtx((CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (const CvGraphVtx *)hb_parptr(2),
+  cv_ret_int(cvGraphAddVtx((CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (const CvGraphVtx *)hb_parptr(2),
                          HB_ISNIL(3) ? NULL : (CvGraphVtx **)hb_parptr(3)));
 }
 
@@ -1973,7 +2019,7 @@ CVAPI(int) cvGraphRemoveVtx( CvGraph* graph, int index )
 */
 HB_FUNC(CVGRAPHREMOVEVTX)
 {
-  hb_retni(cvGraphRemoveVtx((CvGraph *)hb_parptr(1), cv_par_int(2)));
+  cv_ret_int(cvGraphRemoveVtx((CvGraph *)hb_parptr(1), cv_par_int(2)));
 }
 
 /*
@@ -1981,7 +2027,7 @@ CVAPI(int) cvGraphRemoveVtxByPtr( CvGraph* graph, CvGraphVtx* vtx )
 */
 HB_FUNC(CVGRAPHREMOVEVTXBYPTR)
 {
-  hb_retni(cvGraphRemoveVtxByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2)));
+  cv_ret_int(cvGraphRemoveVtxByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2)));
 }
 
 /*
@@ -1990,7 +2036,7 @@ CvGraphEdge** inserted_edge CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVGRAPHADDEDGE)
 {
-  hb_retni(cvGraphAddEdge((CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3),
+  cv_ret_int(cvGraphAddEdge((CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3),
                           HB_ISNIL(4) ? NULL : (const CvGraphEdge *)hb_parptr(4),
                           HB_ISNIL(5) ? NULL : (CvGraphEdge **)hb_parptr(5)));
 }
@@ -2001,7 +2047,7 @@ CV_DEFAULT(NULL), CvGraphEdge** inserted_edge CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVGRAPHADDEDGEBYPTR)
 {
-  hb_retni(cvGraphAddEdgeByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2), (CvGraphVtx *)hb_parptr(3),
+  cv_ret_int(cvGraphAddEdgeByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2), (CvGraphVtx *)hb_parptr(3),
                                HB_ISNIL(4) ? NULL : (const CvGraphEdge *)hb_parptr(4),
                                HB_ISNIL(5) ? NULL : (CvGraphEdge **)hb_parptr(5)));
 }
@@ -2027,7 +2073,7 @@ CVAPI(CvGraphEdge*) cvFindGraphEdge( const CvGraph* graph, int start_idx, int en
 */
 HB_FUNC(CVFINDGRAPHEDGE)
 {
-  hb_retptr((CvGraphEdge *)cvFindGraphEdge((const CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3)));
+  cv_ret_CvGraphEdge(cvFindGraphEdge((const CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3)));
 }
 
 /*
@@ -2035,7 +2081,7 @@ CVAPI(CvGraphEdge*) cvFindGraphEdgeByPtr( const CvGraph* graph, const CvGraphVtx
 */
 HB_FUNC(CVFINDGRAPHEDGEBYPTR)
 {
-  hb_retptr((CvGraphEdge *)cvFindGraphEdgeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2),
+  cv_ret_CvGraphEdge(cvFindGraphEdgeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2),
                                                 (const CvGraphVtx *)hb_parptr(3)));
 }
 
@@ -2052,7 +2098,7 @@ CVAPI(int) cvGraphVtxDegree( const CvGraph* graph, int vtx_idx )
 */
 HB_FUNC(CVGRAPHVTXDEGREE)
 {
-  hb_retni(cvGraphVtxDegree((const CvGraph *)hb_parptr(1), cv_par_int(2)));
+  cv_ret_int(cvGraphVtxDegree((const CvGraph *)hb_parptr(1), cv_par_int(2)));
 }
 
 /*
@@ -2060,7 +2106,7 @@ CVAPI(int) cvGraphVtxDegreeByPtr( const CvGraph* graph, const CvGraphVtx* vtx )
 */
 HB_FUNC(CVGRAPHVTXDEGREEBYPTR)
 {
-  hb_retni(cvGraphVtxDegreeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2)));
+  cv_ret_int(cvGraphVtxDegreeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2)));
 }
 
 /*
@@ -2069,7 +2115,7 @@ CV_DEFAULT(CV_GRAPH_ALL_ITEMS) )
 */
 HB_FUNC(CVCREATEGRAPHSCANNER)
 {
-  hb_retptr((CvGraphScanner *)cvCreateGraphScanner(
+  cv_ret_CvGraphScanner(cvCreateGraphScanner(
       (CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (CvGraphVtx *)hb_parptr(2), cv_dpar_int(3, CV_GRAPH_ALL_ITEMS)));
 }
 
@@ -2087,7 +2133,7 @@ CVAPI(int) cvNextGraphItem( CvGraphScanner* scanner )
 */
 HB_FUNC(CVNEXTGRAPHITEM)
 {
-  hb_retni(cvNextGraphItem((CvGraphScanner *)hb_parptr(1)));
+  cv_ret_int(cvNextGraphItem((CvGraphScanner *)hb_parptr(1)));
 }
 
 /*
@@ -2095,7 +2141,7 @@ CVAPI(CvGraph*) cvCloneGraph( const CvGraph* graph, CvMemStorage* storage )
 */
 HB_FUNC(CVCLONEGRAPH)
 {
-  hb_retptr((CvGraph *)cvCloneGraph((const CvGraph *)hb_parptr(1), (CvMemStorage *)hb_parptr(2)));
+  cv_ret_CvGraph(cvCloneGraph((const CvGraph *)hb_parptr(1), cv_par_CvMemStorage(2)));
 }
 
 /*
@@ -2222,7 +2268,7 @@ HB_FUNC(CVINITLINEITERATOR)
   CvPoint point3;
   point3.x = hb_arrayGetNI(pPoint3, 1);
   point3.y = hb_arrayGetNI(pPoint3, 2);
-  hb_retni(cvInitLineIterator(cv_cpar_CvArr(1), point2, point3, (CvLineIterator *)hb_parptr(4), cv_dpar_int(5, 8),
+  cv_ret_int(cvInitLineIterator(cv_cpar_CvArr(1), point2, point3, (CvLineIterator *)hb_parptr(4), cv_dpar_int(5, 8),
                               cv_dpar_int(6, 0)));
 }
 
@@ -2260,7 +2306,7 @@ CVAPI(void) cvInitTreeNodeIterator( CvTreeNodeIterator* tree_iterator, const voi
 */
 HB_FUNC(CVINITTREENODEITERATOR)
 {
-  cvInitTreeNodeIterator((CvTreeNodeIterator *)hb_parptr(1), (const void *)hb_parptr(2), cv_par_int(3));
+  cvInitTreeNodeIterator(cv_par_CvTreeNodeIterator(1), cv_cpar_voidptr(2), cv_par_int(3));
 }
 
 /*
@@ -2268,7 +2314,7 @@ CVAPI(void*) cvNextTreeNode( CvTreeNodeIterator* tree_iterator )
 */
 HB_FUNC(CVNEXTTREENODE)
 {
-  hb_retptr((void *)cvNextTreeNode((CvTreeNodeIterator *)hb_parptr(1)));
+  cv_ret_voidptr(cvNextTreeNode(cv_par_CvTreeNodeIterator(1)));
 }
 
 /*
@@ -2276,7 +2322,7 @@ CVAPI(void*) cvPrevTreeNode( CvTreeNodeIterator* tree_iterator )
 */
 HB_FUNC(CVPREVTREENODE)
 {
-  hb_retptr((void *)cvPrevTreeNode((CvTreeNodeIterator *)hb_parptr(1)));
+  cv_ret_voidptr(cvPrevTreeNode(cv_par_CvTreeNodeIterator(1)));
 }
 
 /*
@@ -2284,7 +2330,7 @@ CVAPI(void) cvInsertNodeIntoTree( void* node, void* parent, void* frame )
 */
 HB_FUNC(CVINSERTNODEINTOTREE)
 {
-  cvInsertNodeIntoTree((void *)hb_parptr(1), (void *)hb_parptr(2), (void *)hb_parptr(3));
+  cvInsertNodeIntoTree(cv_par_voidptr(1), cv_par_voidptr(2), cv_par_voidptr(3));
 }
 
 /*
@@ -2292,7 +2338,7 @@ CVAPI(void) cvRemoveNodeFromTree( void* node, void* frame )
 */
 HB_FUNC(CVREMOVENODEFROMTREE)
 {
-  cvRemoveNodeFromTree((void *)hb_parptr(1), (void *)hb_parptr(2));
+  cvRemoveNodeFromTree(cv_par_voidptr(1), cv_par_voidptr(2));
 }
 
 /*
@@ -2300,7 +2346,7 @@ CVAPI(CvSeq*) cvTreeToNodeSeq( const void* first, int header_size, CvMemStorage*
 */
 HB_FUNC(CVTREETONODESEQ)
 {
-  hb_retptr((CvSeq *)cvTreeToNodeSeq((const void *)hb_parptr(1), cv_par_int(2), (CvMemStorage *)hb_parptr(3)));
+  cv_ret_CvSeq(cvTreeToNodeSeq(cv_cpar_voidptr(1), cv_par_int(2), cv_par_CvMemStorage(3)));
 }
 
 /*
@@ -2308,7 +2354,7 @@ CVAPI(int) cvRegisterModule( const CvModuleInfo* module_info )
 */
 HB_FUNC(CVREGISTERMODULE)
 {
-  hb_retni(cvRegisterModule((const CvModuleInfo *)hb_parptr(1)));
+  cv_ret_int(cvRegisterModule(cv_cpar_CvModuleInfo(1)));
 }
 
 /*
@@ -2316,7 +2362,7 @@ CVAPI(int) cvUseOptimized( int on_off )
 */
 HB_FUNC(CVUSEOPTIMIZED)
 {
-  hb_retni(cvUseOptimized(cv_par_int(1)));
+  cv_ret_int(cvUseOptimized(cv_par_int(1)));
 }
 
 /*
@@ -2325,7 +2371,7 @@ CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVOPENFILESTORAGE)
 {
-  hb_retptr((CvFileStorage *)cvOpenFileStorage(hb_parc(1), (CvMemStorage *)hb_parptr(2), cv_par_int(3),
+  cv_ret_CvFileStorage(cvOpenFileStorage(hb_parc(1), cv_par_CvMemStorage(2), cv_par_int(3),
                                                HB_ISNIL(4) ? NULL : hb_parc(4)));
 }
 
@@ -2334,7 +2380,7 @@ CVAPI(void) cvReleaseFileStorage( CvFileStorage** fs )
 */
 HB_FUNC(CVRELEASEFILESTORAGE)
 {
-  CvFileStorage *fs = (CvFileStorage *)hb_parptr(1);
+  CvFileStorage *fs = cv_par_CvFileStorage(1);
   cvReleaseFileStorage(&fs);
 }
 
@@ -2343,7 +2389,7 @@ CVAPI(void) cvEndWriteStruct( CvFileStorage* fs )
 */
 HB_FUNC(CVENDWRITESTRUCT)
 {
-  cvEndWriteStruct((CvFileStorage *)hb_parptr(1));
+  cvEndWriteStruct(cv_par_CvFileStorage(1));
 }
 
 /*
@@ -2351,7 +2397,7 @@ CVAPI(void) cvWriteInt( CvFileStorage* fs, const char* name, int value )
 */
 HB_FUNC(CVWRITEINT)
 {
-  cvWriteInt((CvFileStorage *)hb_parptr(1), hb_parc(2), cv_par_int(3));
+  cvWriteInt(cv_par_CvFileStorage(1), hb_parc(2), cv_par_int(3));
 }
 
 /*
@@ -2359,7 +2405,7 @@ CVAPI(void) cvWriteReal( CvFileStorage* fs, const char* name, double value )
 */
 HB_FUNC(CVWRITEREAL)
 {
-  cvWriteReal((CvFileStorage *)hb_parptr(1), hb_parc(2), cv_par_double(3));
+  cvWriteReal(cv_par_CvFileStorage(1), hb_parc(2), cv_par_double(3));
 }
 
 /*
@@ -2367,7 +2413,7 @@ CVAPI(void) cvWriteString( CvFileStorage* fs, const char* name, const char* str,
 */
 HB_FUNC(CVWRITESTRING)
 {
-  cvWriteString((CvFileStorage *)hb_parptr(1), hb_parc(2), hb_parc(3), cv_dpar_int(4, 0));
+  cvWriteString(cv_par_CvFileStorage(1), hb_parc(2), hb_parc(3), cv_dpar_int(4, 0));
 }
 
 /*
@@ -2375,7 +2421,7 @@ CVAPI(void) cvWriteComment( CvFileStorage* fs, const char* comment, int eol_comm
 */
 HB_FUNC(CVWRITECOMMENT)
 {
-  cvWriteComment((CvFileStorage *)hb_parptr(1), hb_parc(2), cv_par_int(3));
+  cvWriteComment(cv_par_CvFileStorage(1), hb_parc(2), cv_par_int(3));
 }
 
 /*
@@ -2383,7 +2429,7 @@ CVAPI(void) cvStartNextStream( CvFileStorage* fs )
 */
 HB_FUNC(CVSTARTNEXTSTREAM)
 {
-  cvStartNextStream((CvFileStorage *)hb_parptr(1));
+  cvStartNextStream(cv_par_CvFileStorage(1));
 }
 
 /*
@@ -2391,7 +2437,7 @@ CVAPI(void) cvWriteRawData( CvFileStorage* fs, const void* src, int len, const c
 */
 HB_FUNC(CVWRITERAWDATA)
 {
-  cvWriteRawData((CvFileStorage *)hb_parptr(1), (const void *)hb_parptr(2), cv_par_int(3), hb_parc(4));
+  cvWriteRawData(cv_par_CvFileStorage(1), cv_cpar_voidptr(2), cv_par_int(3), hb_parc(4));
 }
 
 /*
@@ -2400,7 +2446,7 @@ CV_DEFAULT(0) )
 */
 HB_FUNC(CVGETHASHEDKEY)
 {
-  hb_retptr((CvStringHashNode *)cvGetHashedKey((CvFileStorage *)hb_parptr(1), hb_parc(2), cv_dpar_int(3, -1),
+  cv_ret_CvStringHashNode(cvGetHashedKey(cv_par_CvFileStorage(1), hb_parc(2), cv_dpar_int(3, -1),
                                                cv_dpar_int(4, 0)));
 }
 
@@ -2409,7 +2455,7 @@ CVAPI(CvFileNode*) cvGetRootFileNode( const CvFileStorage* fs, int stream_index 
 */
 HB_FUNC(CVGETROOTFILENODE)
 {
-  hb_retptr((CvFileNode *)cvGetRootFileNode((const CvFileStorage *)hb_parptr(1), cv_dpar_int(2, 0)));
+  cv_ret_CvFileNode(cvGetRootFileNode(cv_cpar_CvFileStorage(1), cv_dpar_int(2, 0)));
 }
 
 /*
@@ -2418,7 +2464,7 @@ CV_DEFAULT(0) )
 */
 HB_FUNC(CVGETFILENODE)
 {
-  hb_retptr((CvFileNode *)cvGetFileNode((CvFileStorage *)hb_parptr(1), (CvFileNode *)hb_parptr(2),
+  cv_ret_CvFileNode(cvGetFileNode(cv_par_CvFileStorage(1), cv_par_CvFileNode(2),
                                         (const CvStringHashNode *)hb_parptr(3), cv_dpar_int(4, 0)));
 }
 
@@ -2427,7 +2473,7 @@ CVAPI(CvFileNode*) cvGetFileNodeByName( const CvFileStorage* fs, const CvFileNod
 */
 HB_FUNC(CVGETFILENODEBYNAME)
 {
-  hb_retptr((CvFileNode *)cvGetFileNodeByName((const CvFileStorage *)hb_parptr(1), (const CvFileNode *)hb_parptr(2),
+  cv_ret_CvFileNode(cvGetFileNodeByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2),
                                               hb_parc(3)));
 }
 
@@ -2436,7 +2482,7 @@ CV_INLINE int cvReadInt( const CvFileNode* node, int default_value CV_DEFAULT(0)
 */
 HB_FUNC(CVREADINT)
 {
-  hb_retni(cvReadInt((const CvFileNode *)hb_parptr(1), cv_dpar_int(2, 0)));
+  cv_ret_int(cvReadInt(cv_cpar_CvFileNode(1), cv_dpar_int(2, 0)));
 }
 
 /*
@@ -2445,7 +2491,7 @@ CV_DEFAULT(0) )
 */
 HB_FUNC(CVREADINTBYNAME)
 {
-  hb_retni(cvReadIntByName((const CvFileStorage *)hb_parptr(1), (const CvFileNode *)hb_parptr(2), hb_parc(3),
+  hb_retni(cvReadIntByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3),
                            cv_dpar_int(4, 0)));
 }
 
@@ -2454,7 +2500,7 @@ CV_INLINE double cvReadReal( const CvFileNode* node, double default_value CV_DEF
 */
 HB_FUNC(CVREADREAL)
 {
-  cv_ret_double(cvReadReal((const CvFileNode *)hb_parptr(1), cv_dpar_double(2, 0.)));
+  cv_ret_double(cvReadReal(cv_cpar_CvFileNode(1), cv_dpar_double(2, 0.)));
 }
 
 /*
@@ -2463,7 +2509,7 @@ default_value CV_DEFAULT(0.) )
 */
 HB_FUNC(CVREADREALBYNAME)
 {
-  cv_ret_double(cvReadRealByName((const CvFileStorage *)hb_parptr(1), (const CvFileNode *)hb_parptr(2), hb_parc(3),
+  cv_ret_double(cvReadRealByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3),
                                  cv_dpar_double(4, 0.)));
 }
 
@@ -2472,7 +2518,7 @@ CV_INLINE const char* cvReadString( const CvFileNode* node, const char* default_
 */
 HB_FUNC(CVREADSTRING)
 {
-  hb_retc(cvReadString((const CvFileNode *)hb_parptr(1), HB_ISNIL(2) ? NULL : hb_parc(2)));
+  hb_retc(cvReadString(cv_cpar_CvFileNode(1), HB_ISNIL(2) ? NULL : hb_parc(2)));
 }
 
 /*
@@ -2481,7 +2527,7 @@ default_value CV_DEFAULT(NULL) )
 */
 HB_FUNC(CVREADSTRINGBYNAME)
 {
-  hb_retc(cvReadStringByName((const CvFileStorage *)hb_parptr(1), (const CvFileNode *)hb_parptr(2), hb_parc(3),
+  hb_retc(cvReadStringByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3),
                              HB_ISNIL(4) ? NULL : hb_parc(4)));
 }
 
@@ -2490,8 +2536,8 @@ CVAPI(void) cvStartReadRawData( const CvFileStorage* fs, const CvFileNode* src, 
 */
 HB_FUNC(CVSTARTREADRAWDATA)
 {
-  cvStartReadRawData((const CvFileStorage *)hb_parptr(1), (const CvFileNode *)hb_parptr(2),
-                     (CvSeqReader *)hb_parptr(3));
+  cvStartReadRawData(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2),
+                     cv_par_CvSeqReader(3));
 }
 
 /*
@@ -2499,8 +2545,8 @@ CVAPI(void) cvReadRawDataSlice( const CvFileStorage* fs, CvSeqReader* reader, in
 */
 HB_FUNC(CVREADRAWDATASLICE)
 {
-  cvReadRawDataSlice((const CvFileStorage *)hb_parptr(1), (CvSeqReader *)hb_parptr(2), cv_par_int(3),
-                     (void *)hb_parptr(4), hb_parc(5));
+  cvReadRawDataSlice(cv_cpar_CvFileStorage(1), cv_par_CvSeqReader(2), cv_par_int(3),
+                     cv_par_voidptr(4), hb_parc(5));
 }
 
 /*
@@ -2508,7 +2554,7 @@ CVAPI(void) cvReadRawData( const CvFileStorage* fs, const CvFileNode* src, void*
 */
 HB_FUNC(CVREADRAWDATA)
 {
-  cvReadRawData((const CvFileStorage *)hb_parptr(1), (const CvFileNode *)hb_parptr(2), (void *)hb_parptr(3),
+  cvReadRawData(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), cv_par_voidptr(3),
                 hb_parc(4));
 }
 
@@ -2517,7 +2563,7 @@ CVAPI(void) cvWriteFileNode( CvFileStorage* fs, const char* new_node_name, const
 */
 HB_FUNC(CVWRITEFILENODE)
 {
-  cvWriteFileNode((CvFileStorage *)hb_parptr(1), hb_parc(2), (const CvFileNode *)hb_parptr(3), cv_par_int(4));
+  cvWriteFileNode(cv_par_CvFileStorage(1), hb_parc(2), cv_cpar_CvFileNode(3), cv_par_int(4));
 }
 
 /*
@@ -2525,7 +2571,7 @@ CVAPI(const char*) cvGetFileNodeName( const CvFileNode* node )
 */
 HB_FUNC(CVGETFILENODENAME)
 {
-  hb_retc(cvGetFileNodeName((const CvFileNode *)hb_parptr(1)));
+  hb_retc(cvGetFileNodeName(cv_cpar_CvFileNode(1)));
 }
 
 /*
@@ -2549,7 +2595,7 @@ CVAPI(CvTypeInfo*) cvFirstType( void )
 */
 HB_FUNC(CVFIRSTTYPE)
 {
-  hb_retptr((CvTypeInfo *)cvFirstType());
+  cv_ret_CvTypeInfo(cvFirstType());
 }
 
 /*
@@ -2557,7 +2603,7 @@ CVAPI(CvTypeInfo*) cvFindType( const char* type_name )
 */
 HB_FUNC(CVFINDTYPE)
 {
-  hb_retptr((CvTypeInfo *)cvFindType(hb_parc(1)));
+  cv_ret_CvTypeInfo(cvFindType(hb_parc(1)));
 }
 
 /*
@@ -2565,7 +2611,7 @@ CVAPI(CvTypeInfo*) cvTypeOf( const void* struct_ptr )
 */
 HB_FUNC(CVTYPEOF)
 {
-  hb_retptr((CvTypeInfo *)cvTypeOf((const void *)hb_parptr(1)));
+  cv_ret_CvTypeInfo(cvTypeOf(cv_cpar_voidptr(1)));
 }
 
 /*
@@ -2573,7 +2619,7 @@ CVAPI(void) cvRelease( void** struct_ptr )
 */
 HB_FUNC(CVRELEASE)
 {
-  void *struct_ptr = (void *)hb_parptr(1);
+  void *struct_ptr = cv_par_voidptr(1);
   cvRelease(&struct_ptr);
 }
 
@@ -2582,7 +2628,7 @@ CVAPI(void*) cvClone( const void* struct_ptr )
 */
 HB_FUNC(CVCLONE)
 {
-  hb_retptr((void *)cvClone((const void *)hb_parptr(1)));
+  cv_ret_voidptr(cvClone(cv_cpar_voidptr(1)));
 }
 
 /*
@@ -2606,7 +2652,7 @@ CVAPI(int) cvCheckHardwareSupport( int feature )
 */
 HB_FUNC(CVCHECKHARDWARESUPPORT)
 {
-  hb_retni(cvCheckHardwareSupport(cv_par_int(1)));
+  cv_ret_int(cvCheckHardwareSupport(cv_par_int(1)));
 }
 
 /*
@@ -2614,7 +2660,7 @@ CVAPI(int) cvGetNumThreads( void )
 */
 HB_FUNC(CVGETNUMTHREADS)
 {
-  hb_retni(cvGetNumThreads());
+  cv_ret_int(cvGetNumThreads());
 }
 
 /*
@@ -2630,7 +2676,7 @@ CVAPI(int) cvGetThreadNum( void )
 */
 HB_FUNC(CVGETTHREADNUM)
 {
-  hb_retni(cvGetThreadNum());
+  cv_ret_int(cvGetThreadNum());
 }
 
 /*
@@ -2638,7 +2684,7 @@ CVAPI(int) cvGetErrStatus( void )
 */
 HB_FUNC(CVGETERRSTATUS)
 {
-  hb_retni(cvGetErrStatus());
+  cv_ret_int(cvGetErrStatus());
 }
 
 /*
@@ -2654,7 +2700,7 @@ CVAPI(int) cvGetErrMode( void )
 */
 HB_FUNC(CVGETERRMODE)
 {
-  hb_retni(cvGetErrMode());
+  cv_ret_int(cvGetErrMode());
 }
 
 /*
@@ -2662,7 +2708,7 @@ CVAPI(int) cvSetErrMode( int mode )
 */
 HB_FUNC(CVSETERRMODE)
 {
-  hb_retni(cvSetErrMode(cv_par_int(1)));
+  cv_ret_int(cvSetErrMode(cv_par_int(1)));
 }
 
 /*
@@ -2686,7 +2732,7 @@ CVAPI(int) cvErrorFromIppStatus( int ipp_status )
 */
 HB_FUNC(CVERRORFROMIPPSTATUS)
 {
-  hb_retni(cvErrorFromIppStatus(cv_par_int(1)));
+  cv_ret_int(cvErrorFromIppStatus(cv_par_int(1)));
 }
 
 /*
@@ -2695,7 +2741,7 @@ void* userdata )
 */
 HB_FUNC(CVNULDEVREPORT)
 {
-  hb_retni(cvNulDevReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), (void *)hb_parptr(6)));
+  cv_ret_int(cvNulDevReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
 }
 
 /*
@@ -2704,7 +2750,7 @@ void* userdata )
 */
 HB_FUNC(CVSTDERRREPORT)
 {
-  hb_retni(cvStdErrReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), (void *)hb_parptr(6)));
+  cv_ret_int(cvStdErrReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
 }
 
 /*
@@ -2713,5 +2759,5 @@ void* userdata )
 */
 HB_FUNC(CVGUIBOXREPORT)
 {
-  hb_retni(cvGuiBoxReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), (void *)hb_parptr(6)));
+  cv_ret_int(cvGuiBoxReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
 }
