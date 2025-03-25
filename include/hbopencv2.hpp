@@ -48,6 +48,9 @@
 #define cv_par_CvTreeNodeIterator(n) (CvTreeNodeIterator *)hb_parptr(n)
 #define cv_par_CvVideoWriter(n) (CvVideoWriter *)hb_parptr(n)
 #define cv_par_CvCapture(n) (CvCapture *)hb_parptr(n)
+#define cv_par_CvHistogram(n) (CvHistogram *)hb_parptr(n)
+#define cv_cpar_CvHistogram(n) (const CvHistogram *)hb_parptr(n)
+#define cv_par_IplConvKernel(n) (IplConvKernel *)hb_parptr(n)
 
 // macros for return
 #define cv_ret_IplImage(x) hb_retptr(x)
