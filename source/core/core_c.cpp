@@ -60,8 +60,8 @@ HB_FUNC(CVINITIMAGEHEADER)
   CvSize size2;
   size2.width = hb_arrayGetNI(pSize2, 1);
   size2.height = hb_arrayGetNI(pSize2, 2);
-  cv_ret_IplImage(cvInitImageHeader(cv_par_IplImage(1), size2, hb_parni(3), hb_parni(4),
-                                          HB_ISNIL(5) ? 0 : hb_parni(5), HB_ISNIL(6) ? 4 : hb_parni(6)));
+  cv_ret_IplImage(cvInitImageHeader(cv_par_IplImage(1), size2, hb_parni(3), hb_parni(4), HB_ISNIL(5) ? 0 : hb_parni(5),
+                                    HB_ISNIL(6) ? 4 : hb_parni(6)));
 }
 
 /*
@@ -81,7 +81,7 @@ CVAPI(void) cvReleaseImageHeader( IplImage** image )
 */
 HB_FUNC(CVRELEASEIMAGEHEADER)
 {
-  IplImage* image = cv_par_IplImage(1);
+  IplImage *image = cv_par_IplImage(1);
   cvReleaseImageHeader(&image);
 }
 
@@ -90,7 +90,7 @@ CVAPI(void) cvReleaseImage( IplImage** image )
 */
 HB_FUNC(CVRELEASEIMAGE)
 {
-  IplImage* image = cv_par_IplImage(1);
+  IplImage *image = cv_par_IplImage(1);
   cvReleaseImage(&image);
 }
 
@@ -176,7 +176,7 @@ CV_DEFAULT(CV_AUTOSTEP) )
 HB_FUNC(CVINITMATHEADER)
 {
   cv_ret_CvMat(cvInitMatHeader(cv_par_CvMat(1), hb_parni(2), hb_parni(3), hb_parni(4),
-                                     HB_ISNIL(5) ? NULL : (void *)hb_parptr(5), HB_ISNIL(6) ? CV_AUTOSTEP : hb_parni(6)));
+                               HB_ISNIL(5) ? NULL : (void *)hb_parptr(5), HB_ISNIL(6) ? CV_AUTOSTEP : hb_parni(6)));
 }
 
 /*
@@ -192,7 +192,7 @@ CVAPI(void) cvReleaseMat( CvMat** mat )
 */
 HB_FUNC(CVRELEASEMAT)
 {
-  CvMat* mat = cv_par_CvMat(1);
+  CvMat *mat = cv_par_CvMat(1);
   cvReleaseMat(&mat);
 }
 
@@ -239,8 +239,8 @@ CVAPI(CvMat*) cvGetRows( const CvArr* arr, CvMat* submat, int start_row, int end
 */
 HB_FUNC(CVGETROWS)
 {
-  cv_ret_CvMat(cvGetRows((const CvArr *)hb_parptr(1), cv_par_CvMat(2), hb_parni(3), hb_parni(4),
-                               HB_ISNIL(5) ? 1 : hb_parni(5)));
+  cv_ret_CvMat(
+      cvGetRows((const CvArr *)hb_parptr(1), cv_par_CvMat(2), hb_parni(3), hb_parni(4), HB_ISNIL(5) ? 1 : hb_parni(5)));
 }
 
 /*
@@ -350,7 +350,7 @@ CV_INLINE void cvReleaseMatND( CvMatND** mat )
 */
 HB_FUNC(CVRELEASEMATND)
 {
-  CvMatND* mat = (CvMatND *)hb_parptr(1);
+  CvMatND *mat = (CvMatND *)hb_parptr(1);
   cvReleaseMatND(&mat);
 }
 
@@ -390,7 +390,7 @@ CVAPI(void) cvReleaseSparseMat( CvSparseMat** mat )
 */
 HB_FUNC(CVRELEASESPARSEMAT)
 {
-  CvSparseMat* mat = (CvSparseMat *)hb_parptr(1);
+  CvSparseMat *mat = (CvSparseMat *)hb_parptr(1);
   cvReleaseSparseMat(&mat);
 }
 
@@ -426,7 +426,8 @@ array_iterator, int flags CV_DEFAULT(0) )
 HB_FUNC(CVINITNARRAYITERATOR)
 {
   hb_retni(cvInitNArrayIterator(hb_parni(1), (CvArr **)hb_parptr(2), (const CvArr *)hb_parptr(3),
-                                (CvMatND *)hb_parptr(4), (CvNArrayIterator *)hb_parptr(5), HB_ISNIL(6) ? 0 : hb_parni(6)));
+                                (CvMatND *)hb_parptr(4), (CvNArrayIterator *)hb_parptr(5),
+                                HB_ISNIL(6) ? 0 : hb_parni(6)));
 }
 
 /*
@@ -753,8 +754,7 @@ CVAPI(CvMat*) cvReshape( const CvArr* arr, CvMat* header, int new_cn, int new_ro
 */
 HB_FUNC(CVRESHAPE)
 {
-  cv_ret_CvMat(
-      cvReshape((const CvArr *)hb_parptr(1), cv_par_CvMat(2), hb_parni(3), HB_ISNIL(4) ? 0 : hb_parni(4)));
+  cv_ret_CvMat(cvReshape((const CvArr *)hb_parptr(1), cv_par_CvMat(2), hb_parni(3), HB_ISNIL(4) ? 0 : hb_parni(4)));
 }
 
 /*
@@ -841,8 +841,7 @@ CVAPI(void) cvSplit( const CvArr* src, CvArr* dst0, CvArr* dst1, CvArr* dst2, Cv
 */
 HB_FUNC(CVSPLIT)
 {
-  cvSplit((const CvArr *)hb_parptr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_par_CvArr(4),
-          cv_par_CvArr(5));
+  cvSplit((const CvArr *)hb_parptr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_par_CvArr(4), cv_par_CvArr(5));
 }
 
 /*
@@ -1016,8 +1015,8 @@ CVAPI(void) cvAddWeighted( const CvArr* src1, double alpha, const CvArr* src2, d
 */
 HB_FUNC(CVADDWEIGHTED)
 {
-  cvAddWeighted((const CvArr *)hb_parptr(1), cv_par_double(2), (const CvArr *)hb_parptr(3), cv_par_double(4), cv_par_double(5),
-                cv_par_CvArr(6));
+  cvAddWeighted((const CvArr *)hb_parptr(1), cv_par_double(2), (const CvArr *)hb_parptr(3), cv_par_double(4),
+                cv_par_double(5), cv_par_CvArr(6));
 }
 
 /*
@@ -1110,8 +1109,7 @@ CVAPI(void) cvInRange( const CvArr* src, const CvArr* lower, const CvArr* upper,
 */
 HB_FUNC(CVINRANGE)
 {
-  cvInRange((const CvArr *)hb_parptr(1), (const CvArr *)hb_parptr(2), (const CvArr *)hb_parptr(3),
-            cv_par_CvArr(4));
+  cvInRange((const CvArr *)hb_parptr(1), (const CvArr *)hb_parptr(2), (const CvArr *)hb_parptr(3), cv_par_CvArr(4));
 }
 
 /*
@@ -1375,8 +1373,8 @@ CVAPI(void) cvSVD( CvArr* A, CvArr* W, CvArr* U CV_DEFAULT(NULL), CvArr* V CV_DE
 */
 HB_FUNC(CVSVD)
 {
-  cvSVD(cv_par_CvArr(1), cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_CvArr(3),
-        HB_ISNIL(4) ? NULL : cv_par_CvArr(4), HB_ISNIL(5) ? 0 : hb_parni(5));
+  cvSVD(cv_par_CvArr(1), cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_CvArr(3), HB_ISNIL(4) ? NULL : cv_par_CvArr(4),
+        HB_ISNIL(5) ? 0 : hb_parni(5));
 }
 
 /*
@@ -1471,8 +1469,7 @@ CVAPI(void) cvCalcCovarMatrix( const CvArr** vects, int count, CvArr* cov_mat, C
 */
 HB_FUNC(CVCALCCOVARMATRIX)
 {
-  cvCalcCovarMatrix((const CvArr **)hb_parptr(1), hb_parni(2), cv_par_CvArr(3), cv_par_CvArr(4),
-                    hb_parni(5));
+  cvCalcCovarMatrix((const CvArr **)hb_parptr(1), hb_parni(2), cv_par_CvArr(3), cv_par_CvArr(4), hb_parni(5));
 }
 
 /*
@@ -1480,8 +1477,7 @@ CVAPI(void) cvCalcPCA( const CvArr* data, CvArr* mean, CvArr* eigenvals, CvArr* 
 */
 HB_FUNC(CVCALCPCA)
 {
-  cvCalcPCA((const CvArr *)hb_parptr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_par_CvArr(4),
-            hb_parni(5));
+  cvCalcPCA((const CvArr *)hb_parptr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_par_CvArr(4), hb_parni(5));
 }
 
 /*
@@ -1489,8 +1485,7 @@ CVAPI(void) cvProjectPCA( const CvArr* data, const CvArr* mean, const CvArr* eig
 */
 HB_FUNC(CVPROJECTPCA)
 {
-  cvProjectPCA((const CvArr *)hb_parptr(1), (const CvArr *)hb_parptr(2), (const CvArr *)hb_parptr(3),
-               cv_par_CvArr(4));
+  cvProjectPCA((const CvArr *)hb_parptr(1), (const CvArr *)hb_parptr(2), (const CvArr *)hb_parptr(3), cv_par_CvArr(4));
 }
 
 /*
@@ -1567,7 +1562,7 @@ CvArr* mask CV_DEFAULT(NULL) )
 HB_FUNC(CVNORM)
 {
   cv_ret_double(cvNorm((const CvArr *)hb_parptr(1), HB_ISNIL(2) ? NULL : (const CvArr *)hb_parptr(2),
-                  HB_ISNIL(3) ? CV_L2 : hb_parni(3), HB_ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4)));
+                       HB_ISNIL(3) ? CV_L2 : hb_parni(3), HB_ISNIL(4) ? NULL : (const CvArr *)hb_parptr(4)));
 }
 
 /*
@@ -1655,7 +1650,7 @@ CVAPI(void) cvReleaseMemStorage( CvMemStorage** storage )
 */
 HB_FUNC(CVRELEASEMEMSTORAGE)
 {
-  CvMemStorage* storage = (CvMemStorage *)hb_parptr(1);
+  CvMemStorage *storage = (CvMemStorage *)hb_parptr(1);
   cvReleaseMemStorage(&storage);
 }
 
@@ -2095,7 +2090,7 @@ CVAPI(void) cvReleaseGraphScanner( CvGraphScanner** scanner )
 */
 HB_FUNC(CVRELEASEGRAPHSCANNER)
 {
-  CvGraphScanner* scanner = (CvGraphScanner *)hb_parptr(1);
+  CvGraphScanner *scanner = (CvGraphScanner *)hb_parptr(1);
   cvReleaseGraphScanner(&scanner);
 }
 
@@ -2355,7 +2350,7 @@ CVAPI(void) cvReleaseFileStorage( CvFileStorage** fs )
 */
 HB_FUNC(CVRELEASEFILESTORAGE)
 {
-  CvFileStorage* fs = (CvFileStorage *)hb_parptr(1);
+  CvFileStorage *fs = (CvFileStorage *)hb_parptr(1);
   cvReleaseFileStorage(&fs);
 }
 
@@ -2421,8 +2416,8 @@ CV_DEFAULT(0) )
 */
 HB_FUNC(CVGETHASHEDKEY)
 {
-  hb_retptr((CvStringHashNode *)cvGetHashedKey((CvFileStorage *)hb_parptr(1), hb_parc(2), HB_ISNIL(3) ? -1 : hb_parni(3),
-                                               HB_ISNIL(4) ? 0 : hb_parni(4)));
+  hb_retptr((CvStringHashNode *)cvGetHashedKey((CvFileStorage *)hb_parptr(1), hb_parc(2),
+                                               HB_ISNIL(3) ? -1 : hb_parni(3), HB_ISNIL(4) ? 0 : hb_parni(4)));
 }
 
 /*
@@ -2485,7 +2480,7 @@ default_value CV_DEFAULT(0.) )
 HB_FUNC(CVREADREALBYNAME)
 {
   cv_ret_double(cvReadRealByName((const CvFileStorage *)hb_parptr(1), (const CvFileNode *)hb_parptr(2), hb_parc(3),
-                            HB_ISNIL(4) ? 0. : cv_par_double(4)));
+                                 HB_ISNIL(4) ? 0. : cv_par_double(4)));
 }
 
 /*
@@ -2594,7 +2589,7 @@ CVAPI(void) cvRelease( void** struct_ptr )
 */
 HB_FUNC(CVRELEASE)
 {
-  void* struct_ptr = (void *)hb_parptr(1);
+  void *struct_ptr = (void *)hb_parptr(1);
   cvRelease(&struct_ptr);
 }
 
