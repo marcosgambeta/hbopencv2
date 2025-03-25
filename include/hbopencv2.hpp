@@ -46,6 +46,8 @@
 #define cv_par_CvFileNode(n) (CvFileNode *)hb_parptr(n)
 #define cv_cpar_CvModuleInfo(n) (const CvModuleInfo *)hb_parptr(n)
 #define cv_par_CvTreeNodeIterator(n) (CvTreeNodeIterator *)hb_parptr(n)
+#define cv_par_CvVideoWriter(n) (CvVideoWriter *)hb_parptr(n)
+#define cv_par_CvCapture(n) (CvCapture *)hb_parptr(n)
 
 // macros for return
 #define cv_ret_IplImage(x) hb_retptr(x)
@@ -69,3 +71,5 @@
 #define cv_ret_CvStringHashNode(x) hb_retptr(x)
 #define cv_ret_CvTypeInfo(x) hb_retptr(x)
 #define cv_ret_CvFileNode(x) hb_retptr(x)
+#define cv_ret_CvVideoWriter(x) hb_retptr(x)
+#define cv_ret_CvCapture(x) hb_retptr(x)
