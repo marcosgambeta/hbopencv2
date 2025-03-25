@@ -147,7 +147,7 @@ HB_FUNC(CVLOADIMAGEM)
 HB_FUNC(CVSAVEIMAGE)
 {
   PHB_ITEM a3 = hb_param(3, HB_IT_ARRAY);
-  int *values3;
+  int *values3 = NULL;
   if (a3)
   {
     const int lenght = hb_arrayLen(a3);
@@ -181,7 +181,7 @@ HB_FUNC(CVDECODEIMAGEM)
 HB_FUNC(CVENCODEIMAGE)
 {
   PHB_ITEM a3 = hb_param(3, HB_IT_ARRAY);
-  int *values3;
+  int *values3 = NULL;
   if (a3)
   {
     const int lenght = hb_arrayLen(a3);
