@@ -276,7 +276,7 @@ HB_FUNC(CVGETDIAG)
 HB_FUNC(CVCREATEMATNDHEADER)
 {
   PHB_ITEM a2 = hb_param(2, HB_IT_ARRAY);
-  int *values2;
+  int *values2 = NULL;
   if (a2)
   {
     const int lenght = hb_arrayLen(a2);
@@ -297,7 +297,7 @@ HB_FUNC(CVCREATEMATNDHEADER)
 HB_FUNC(CVCREATEMATND)
 {
   PHB_ITEM a2 = hb_param(2, HB_IT_ARRAY);
-  int *values2;
+  int *values2 = NULL;
   if (a2)
   {
     const int lenght = hb_arrayLen(a2);
@@ -318,7 +318,7 @@ HB_FUNC(CVCREATEMATND)
 HB_FUNC(CVINITMATNDHEADER)
 {
   PHB_ITEM a3 = hb_param(3, HB_IT_ARRAY);
-  int *values3;
+  int *values3 = NULL;
   if (a3)
   {
     const int lenght = hb_arrayLen(a3);
@@ -353,7 +353,7 @@ HB_FUNC(CVCLONEMATND)
 HB_FUNC(CVCREATESPARSEMAT)
 {
   PHB_ITEM a2 = hb_param(2, HB_IT_ARRAY);
-  int *values2;
+  int *values2 = NULL;
   if (a2)
   {
     const int lenght = hb_arrayLen(a2);
@@ -483,7 +483,7 @@ HB_FUNC(CVGETND)
 {
   CvScalar scalar;
   PHB_ITEM a2 = hb_param(2, HB_IT_ARRAY);
-  int *values2;
+  int *values2 = NULL;
   if (a2)
   {
     const int lenght = hb_arrayLen(a2);
@@ -534,7 +534,7 @@ HB_FUNC(CVGETREAL3D)
 HB_FUNC(CVGETREALND)
 {
   PHB_ITEM a2 = hb_param(2, HB_IT_ARRAY);
-  int *values2;
+  int *values2 = NULL;
   if (a2)
   {
     const int lenght = hb_arrayLen(a2);
@@ -591,7 +591,7 @@ HB_FUNC(CVSET3D)
 HB_FUNC(CVSETND)
 {
   PHB_ITEM a2 = hb_param(2, HB_IT_ARRAY);
-  int *values2;
+  int *values2 = NULL;
   if (a2)
   {
     const int lenght = hb_arrayLen(a2);
@@ -636,7 +636,7 @@ HB_FUNC(CVSETREAL3D)
 HB_FUNC(CVSETREALND)
 {
   PHB_ITEM a2 = hb_param(2, HB_IT_ARRAY);
-  int *values2;
+  int *values2 = NULL;
   if (a2)
   {
     const int lenght = hb_arrayLen(a2);
@@ -657,7 +657,7 @@ HB_FUNC(CVSETREALND)
 HB_FUNC(CVCLEARND)
 {
   PHB_ITEM a2 = hb_param(2, HB_IT_ARRAY);
-  int *values2;
+  int *values2 = NULL;
   if (a2)
   {
     const int lenght = hb_arrayLen(a2);
@@ -765,7 +765,7 @@ HB_FUNC(CVMERGE)
 HB_FUNC(CVMIXCHANNELS) // TODO: fix parameters 1 and 3
 {
   PHB_ITEM a5 = hb_param(5, HB_IT_ARRAY);
-  int *values5;
+  int *values5 = NULL;
   if (a5)
   {
     const int lenght = hb_arrayLen(a5);
