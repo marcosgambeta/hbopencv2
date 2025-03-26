@@ -1,6 +1,7 @@
 incpaths=include
 libpaths=lib/${hb_plat}/${hb_comp}
 libpaths=${OPENCV2_LIB_DIR}
+libpaths=${OPENCV2_BIN_DIR}
 libs=hbopencv2
 
 {win}libs=opencv_calib3d2413.dll
