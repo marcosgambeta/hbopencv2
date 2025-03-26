@@ -20,15 +20,17 @@ build\x64: OpenCV2 for 64-bit
 Set the variables below for 32-bit:
 
 ```
+set OPENCV2_BIN_DIR=\opencv2\build\x86\vc14\bin
 set OPENCV2_INC_DIR=\opencv2\build\include
-set OPENCV2_LIB_DIR=\opencv2\build\x86\vc14\bin
+set OPENCV2_LIB_DIR=\opencv2\build\x86\vc14\lib
 ```
 
 Set the variables below for 64-bit:
 
 ```
+set OPENCV2_BIN_DIR=\opencv2\build\x64\vc14\bin
 set OPENCV2_INC_DIR=\opencv2\build\include
-set OPENCV2_LIB_DIR=\opencv2\build\x64\vc14\bin
+set OPENCV2_LIB_DIR=\opencv2\build\x64\vc14\lib
 ```
 
 Adjust the paths to your environment.
@@ -88,15 +90,17 @@ build\x64: OpenCV2 para 64-bit
 Defina as variáveis abaixo para 32-bit:
 
 ```
+set OPENCV2_BIN_DIR=\opencv2\build\x86\vc14\bin
 set OPENCV2_INC_DIR=\opencv2\build\include
-set OPENCV2_LIB_DIR=\opencv2\build\x86\vc14\bin
+set OPENCV2_LIB_DIR=\opencv2\build\x86\vc14\lib
 ```
 
 Defina as variáveis abaixo para 64-bit:
 
 ```
+set OPENCV2_BIN_DIR=\opencv2\build\x64\vc14\bin
 set OPENCV2_INC_DIR=\opencv2\build\include
-set OPENCV2_LIB_DIR=\opencv2\build\x64\vc14\bin
+set OPENCV2_LIB_DIR=\opencv2\build\x64\vc14\lib
 ```
 
 Ajuste os caminhos conforme seu ambiente de desenvolvimento.
