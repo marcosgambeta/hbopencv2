@@ -158,7 +158,7 @@ HB_FUNC(CVDECREFDATA)
 // CV_INLINE int cvIncRefData( CvArr* arr )
 HB_FUNC(CVINCREFDATA)
 {
-  hb_retni(cvIncRefData(cv_par_CvArr(1)));
+  cv_ret_int(cvIncRefData(cv_par_CvArr(1)));
 }
 
 // CVAPI(CvMat*) cvCloneMat( const CvMat* mat )
@@ -1959,7 +1959,7 @@ HB_FUNC(CVREADINT)
 // CV_DEFAULT(0) )
 HB_FUNC(CVREADINTBYNAME)
 {
-  hb_retni(cvReadIntByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3), cv_dpar_int(4, 0)));
+  cv_ret_int(cvReadIntByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3), cv_dpar_int(4, 0)));
 }
 
 // CV_INLINE double cvReadReal( const CvFileNode* node, double default_value CV_DEFAULT(0.) )
