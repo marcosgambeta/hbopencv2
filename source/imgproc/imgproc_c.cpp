@@ -24,18 +24,17 @@ HB_FUNC(CVSQUAREACC)
 // CVAPI(void) cvMultiplyAcc( const CvArr* image1, const CvArr* image2, CvArr* acc, const CvArr* mask CV_DEFAULT(NULL) )
 HB_FUNC(CVMULTIPLYACC)
 {
-  cvMultiplyAcc(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3),
-                HB_ISNIL(4) ? NULL : cv_cpar_CvArr(4));
+  cvMultiplyAcc(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), HB_ISNIL(4) ? NULL : cv_cpar_CvArr(4));
 }
 
 // CVAPI(void) cvRunningAvg( const CvArr* image, CvArr* acc, double alpha, const CvArr* mask CV_DEFAULT(NULL) )
 HB_FUNC(CVRUNNINGAVG)
 {
-  cvRunningAvg(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_double(3),
-               HB_ISNIL(4) ? NULL : cv_cpar_CvArr(4));
+  cvRunningAvg(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_double(3), HB_ISNIL(4) ? NULL : cv_cpar_CvArr(4));
 }
 
-// CVAPI(void) cvCopyMakeBorder( const CvArr* src, CvArr* dst, CvPoint offset, int bordertype, CvScalar value CV_DEFAULT(cvScalarAll(0)) )
+// CVAPI(void) cvCopyMakeBorder( const CvArr* src, CvArr* dst, CvPoint offset, int bordertype, CvScalar value
+// CV_DEFAULT(cvScalarAll(0)) )
 HB_FUNC(CVCOPYMAKEBORDER)
 {
   PHB_ITEM pPoint3 = hb_param(3, HB_IT_ARRAY);
@@ -48,19 +47,19 @@ HB_FUNC(CVCOPYMAKEBORDER)
   scalar5.val[1] = hb_arrayGetND(pScalar5, 2);
   scalar5.val[2] = hb_arrayGetND(pScalar5, 3);
   scalar5.val[3] = hb_arrayGetND(pScalar5, 4);
-  cvCopyMakeBorder(cv_cpar_CvArr(1), cv_par_CvArr(2), point3, cv_par_int(4),
-                   HB_ISNIL(5) ? cvScalarAll(0) : scalar5);
+  cvCopyMakeBorder(cv_cpar_CvArr(1), cv_par_CvArr(2), point3, cv_par_int(4), HB_ISNIL(5) ? cvScalarAll(0) : scalar5);
 }
 
-// CVAPI(void) cvSmooth( const CvArr* src, CvArr* dst, int smoothtype CV_DEFAULT(CV_GAUSSIAN), int size1 CV_DEFAULT(3), int size2 CV_DEFAULT(0), double sigma1 CV_DEFAULT(0), double sigma2 CV_DEFAULT(0) )
+// CVAPI(void) cvSmooth( const CvArr* src, CvArr* dst, int smoothtype CV_DEFAULT(CV_GAUSSIAN), int size1 CV_DEFAULT(3),
+// int size2 CV_DEFAULT(0), double sigma1 CV_DEFAULT(0), double sigma2 CV_DEFAULT(0) )
 HB_FUNC(CVSMOOTH)
 {
-  cvSmooth(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_int(3, CV_GAUSSIAN),
-           cv_dpar_int(4, 3), cv_dpar_int(5, 0), cv_dpar_double(6, 0),
-           cv_dpar_double(7, 0));
+  cvSmooth(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_int(3, CV_GAUSSIAN), cv_dpar_int(4, 3), cv_dpar_int(5, 0),
+           cv_dpar_double(6, 0), cv_dpar_double(7, 0));
 }
 
-// CVAPI(void) cvIntegral( const CvArr* image, CvArr* sum, CvArr* sqsum CV_DEFAULT(NULL), CvArr* tilted_sum CV_DEFAULT(NULL) )
+// CVAPI(void) cvIntegral( const CvArr* image, CvArr* sum, CvArr* sqsum CV_DEFAULT(NULL), CvArr* tilted_sum
+// CV_DEFAULT(NULL) )
 HB_FUNC(CVINTEGRAL)
 {
   cvIntegral(cv_cpar_CvArr(1), cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_CvArr(3),
@@ -115,7 +114,8 @@ HB_FUNC(CVRESIZE)
   cvResize(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_int(3, CV_INTER_LINEAR));
 }
 
-// CVAPI(void) cvWarpAffine( const CvArr* src, CvArr* dst, const CvMat* map_matrix, int flags CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS), CvScalar fillval CV_DEFAULT(cvScalarAll(0)) )
+// CVAPI(void) cvWarpAffine( const CvArr* src, CvArr* dst, const CvMat* map_matrix, int flags
+// CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS), CvScalar fillval CV_DEFAULT(cvScalarAll(0)) )
 HB_FUNC(CVWARPAFFINE)
 {
   PHB_ITEM pScalar5 = hb_param(5, HB_IT_ARRAY);
@@ -138,7 +138,8 @@ HB_FUNC(CV2DROTATIONMATRIX)
   cv_ret_CvMat(cv2DRotationMatrix(point2D32f1, cv_par_double(2), cv_par_double(3), cv_par_CvMat(4)));
 }
 
-// CVAPI(void) cvWarpPerspective( const CvArr* src, CvArr* dst, const CvMat* map_matrix, int flags CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS), CvScalar fillval CV_DEFAULT(cvScalarAll(0)) )
+// CVAPI(void) cvWarpPerspective( const CvArr* src, CvArr* dst, const CvMat* map_matrix, int flags
+// CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS), CvScalar fillval CV_DEFAULT(cvScalarAll(0)) )
 HB_FUNC(CVWARPPERSPECTIVE)
 {
   PHB_ITEM pScalar5 = hb_param(5, HB_IT_ARRAY);
@@ -148,11 +149,11 @@ HB_FUNC(CVWARPPERSPECTIVE)
   scalar5.val[2] = hb_arrayGetND(pScalar5, 3);
   scalar5.val[3] = hb_arrayGetND(pScalar5, 4);
   cvWarpPerspective(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_cpar_CvMat(3),
-                    cv_dpar_int(4, CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS),
-                    HB_ISNIL(5) ? cvScalarAll(0) : scalar5);
+                    cv_dpar_int(4, CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS), HB_ISNIL(5) ? cvScalarAll(0) : scalar5);
 }
 
-// CVAPI(void) cvRemap( const CvArr* src, CvArr* dst, const CvArr* mapx, const CvArr* mapy, int flags CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS), CvScalar fillval CV_DEFAULT(cvScalarAll(0)) )
+// CVAPI(void) cvRemap( const CvArr* src, CvArr* dst, const CvArr* mapx, const CvArr* mapy, int flags
+// CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS), CvScalar fillval CV_DEFAULT(cvScalarAll(0)) )
 HB_FUNC(CVREMAP)
 {
   PHB_ITEM pScalar6 = hb_param(6, HB_IT_ARRAY);
@@ -171,7 +172,8 @@ HB_FUNC(CVCONVERTMAPS)
   cvConvertMaps(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), cv_par_CvArr(4));
 }
 
-// CVAPI(void) cvLogPolar( const CvArr* src, CvArr* dst, CvPoint2D32f center, double M, int flags CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS) )
+// CVAPI(void) cvLogPolar( const CvArr* src, CvArr* dst, CvPoint2D32f center, double M, int flags
+// CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS) )
 HB_FUNC(CVLOGPOLAR)
 {
   PHB_ITEM pPoint2D32f3 = hb_param(3, HB_IT_ARRAY);
@@ -182,7 +184,8 @@ HB_FUNC(CVLOGPOLAR)
              cv_dpar_int(5, CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS));
 }
 
-// CVAPI(void) cvLinearPolar( const CvArr* src, CvArr* dst, CvPoint2D32f center, double maxRadius, int flags CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS) )
+// CVAPI(void) cvLinearPolar( const CvArr* src, CvArr* dst, CvPoint2D32f center, double maxRadius, int flags
+// CV_DEFAULT(CV_INTER_LINEAR+CV_WARP_FILL_OUTLIERS) )
 HB_FUNC(CVLINEARPOLAR)
 {
   PHB_ITEM pPoint2D32f3 = hb_param(3, HB_IT_ARRAY);
@@ -193,61 +196,64 @@ HB_FUNC(CVLINEARPOLAR)
                 cv_dpar_int(5, CV_INTER_LINEAR + CV_WARP_FILL_OUTLIERS));
 }
 
-// CVAPI(void) cvUndistort2( const CvArr* src, CvArr* dst, const CvMat* camera_matrix, const CvMat* distortion_coeffs, const CvMat* new_camera_matrix CV_DEFAULT(0) )
+// CVAPI(void) cvUndistort2( const CvArr* src, CvArr* dst, const CvMat* camera_matrix, const CvMat* distortion_coeffs,
+// const CvMat* new_camera_matrix CV_DEFAULT(0) )
 HB_FUNC(CVUNDISTORT2)
 {
-  cvUndistort2(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_cpar_CvMat(3),
-               cv_cpar_CvMat(4), HB_ISNIL(5) ? 0 : cv_cpar_CvMat(5));
+  cvUndistort2(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_cpar_CvMat(3), cv_cpar_CvMat(4),
+               HB_ISNIL(5) ? 0 : cv_cpar_CvMat(5));
 }
 
-// CVAPI(void) cvInitUndistortMap( const CvMat* camera_matrix, const CvMat* distortion_coeffs, CvArr* mapx, CvArr* mapy )
+// CVAPI(void) cvInitUndistortMap( const CvMat* camera_matrix, const CvMat* distortion_coeffs, CvArr* mapx, CvArr* mapy
+// )
 HB_FUNC(CVINITUNDISTORTMAP)
 {
-  cvInitUndistortMap(cv_cpar_CvMat(1), cv_cpar_CvMat(2), cv_par_CvArr(3),
-                     cv_par_CvArr(4));
+  cvInitUndistortMap(cv_cpar_CvMat(1), cv_cpar_CvMat(2), cv_par_CvArr(3), cv_par_CvArr(4));
 }
 
-// CVAPI(void) cvInitUndistortRectifyMap( const CvMat* camera_matrix, const CvMat* dist_coeffs, const CvMat* R, const CvMat* new_camera_matrix, CvArr* mapx, CvArr* mapy )
+// CVAPI(void) cvInitUndistortRectifyMap( const CvMat* camera_matrix, const CvMat* dist_coeffs, const CvMat* R, const
+// CvMat* new_camera_matrix, CvArr* mapx, CvArr* mapy )
 HB_FUNC(CVINITUNDISTORTRECTIFYMAP)
 {
-  cvInitUndistortRectifyMap(cv_cpar_CvMat(1), cv_cpar_CvMat(2), cv_cpar_CvMat(3),
-                            cv_cpar_CvMat(4), cv_par_CvArr(5), cv_par_CvArr(6));
+  cvInitUndistortRectifyMap(cv_cpar_CvMat(1), cv_cpar_CvMat(2), cv_cpar_CvMat(3), cv_cpar_CvMat(4), cv_par_CvArr(5),
+                            cv_par_CvArr(6));
 }
 
-// CVAPI(void) cvUndistortPoints( const CvMat* src, CvMat* dst, const CvMat* camera_matrix, const CvMat* dist_coeffs, const CvMat* R CV_DEFAULT(0), const CvMat* P CV_DEFAULT(0) )
+// CVAPI(void) cvUndistortPoints( const CvMat* src, CvMat* dst, const CvMat* camera_matrix, const CvMat* dist_coeffs,
+// const CvMat* R CV_DEFAULT(0), const CvMat* P CV_DEFAULT(0) )
 HB_FUNC(CVUNDISTORTPOINTS)
 {
-  cvUndistortPoints(cv_cpar_CvMat(1), cv_par_CvMat(2), cv_cpar_CvMat(3),
-                    cv_cpar_CvMat(4), HB_ISNIL(5) ? 0 : cv_cpar_CvMat(5),
-                    HB_ISNIL(6) ? 0 : cv_cpar_CvMat(6));
+  cvUndistortPoints(cv_cpar_CvMat(1), cv_par_CvMat(2), cv_cpar_CvMat(3), cv_cpar_CvMat(4),
+                    HB_ISNIL(5) ? 0 : cv_cpar_CvMat(5), HB_ISNIL(6) ? 0 : cv_cpar_CvMat(6));
 }
 
 // CVAPI(void) cvReleaseStructuringElement( IplConvKernel** element )
 HB_FUNC(CVRELEASESTRUCTURINGELEMENT)
 {
-  IplConvKernel* element = cv_par_IplConvKernel(1);
+  IplConvKernel *element = cv_par_IplConvKernel(1);
   cvReleaseStructuringElement(&element);
 }
 
-// CVAPI(void) cvErode( const CvArr* src, CvArr* dst, IplConvKernel* element CV_DEFAULT(NULL), int iterations CV_DEFAULT(1) )
+// CVAPI(void) cvErode( const CvArr* src, CvArr* dst, IplConvKernel* element CV_DEFAULT(NULL), int iterations
+// CV_DEFAULT(1) )
 HB_FUNC(CVERODE)
 {
-  cvErode(cv_cpar_CvArr(1), cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_IplConvKernel(3),
-          cv_dpar_int(4, 1));
+  cvErode(cv_cpar_CvArr(1), cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_IplConvKernel(3), cv_dpar_int(4, 1));
 }
 
-// CVAPI(void) cvDilate( const CvArr* src, CvArr* dst, IplConvKernel* element CV_DEFAULT(NULL), int iterations CV_DEFAULT(1) )
+// CVAPI(void) cvDilate( const CvArr* src, CvArr* dst, IplConvKernel* element CV_DEFAULT(NULL), int iterations
+// CV_DEFAULT(1) )
 HB_FUNC(CVDILATE)
 {
-  cvDilate(cv_cpar_CvArr(1), cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_IplConvKernel(3),
-           cv_dpar_int(4, 1));
+  cvDilate(cv_cpar_CvArr(1), cv_par_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_IplConvKernel(3), cv_dpar_int(4, 1));
 }
 
-// CVAPI(void) cvMorphologyEx( const CvArr* src, CvArr* dst, CvArr* temp, IplConvKernel* element, int operation, int iterations CV_DEFAULT(1) )
+// CVAPI(void) cvMorphologyEx( const CvArr* src, CvArr* dst, CvArr* temp, IplConvKernel* element, int operation, int
+// iterations CV_DEFAULT(1) )
 HB_FUNC(CVMORPHOLOGYEX)
 {
-  cvMorphologyEx(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_CvArr(3),
-                 cv_par_IplConvKernel(4), cv_par_int(5), cv_dpar_int(6, 1));
+  cvMorphologyEx(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_par_IplConvKernel(4), cv_par_int(5),
+                 cv_dpar_int(6, 1));
 }
 
 // CVAPI(int) cvSampleLine( const CvArr* image, CvPoint pt1, CvPoint pt2, void* buffer, int connectivity CV_DEFAULT(8) )
@@ -286,19 +292,20 @@ HB_FUNC(CVMATCHTEMPLATE)
   cvMatchTemplate(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), cv_par_int(4));
 }
 
-// CVAPI(CvSeq*) cvApproxChains( CvSeq* src_seq, CvMemStorage* storage, int method CV_DEFAULT(CV_CHAIN_APPROX_SIMPLE), double parameter CV_DEFAULT(0), int minimal_perimeter CV_DEFAULT(0), int recursive CV_DEFAULT(0) )
+// CVAPI(CvSeq*) cvApproxChains( CvSeq* src_seq, CvMemStorage* storage, int method CV_DEFAULT(CV_CHAIN_APPROX_SIMPLE),
+// double parameter CV_DEFAULT(0), int minimal_perimeter CV_DEFAULT(0), int recursive CV_DEFAULT(0) )
 HB_FUNC(CVAPPROXCHAINS)
 {
-  cv_ret_CvSeq(cvApproxChains(cv_par_CvSeq(1), cv_par_CvMemStorage(2),
-                                    cv_dpar_int(3, CV_CHAIN_APPROX_SIMPLE), cv_dpar_double(4, 0),
-                                    cv_dpar_int(5, 0), cv_dpar_int(6, 0)));
+  cv_ret_CvSeq(cvApproxChains(cv_par_CvSeq(1), cv_par_CvMemStorage(2), cv_dpar_int(3, CV_CHAIN_APPROX_SIMPLE),
+                              cv_dpar_double(4, 0), cv_dpar_int(5, 0), cv_dpar_int(6, 0)));
 }
 
-// CVAPI(CvSeq*) cvApproxPoly( const void* src_seq, int header_size, CvMemStorage* storage, int method, double eps, int recursive CV_DEFAULT(0) )
+// CVAPI(CvSeq*) cvApproxPoly( const void* src_seq, int header_size, CvMemStorage* storage, int method, double eps, int
+// recursive CV_DEFAULT(0) )
 HB_FUNC(CVAPPROXPOLY)
 {
-  cv_ret_CvSeq(cvApproxPoly(cv_cpar_voidptr(1), cv_par_int(2), cv_par_CvMemStorage(3), cv_par_int(4),
-                                  cv_par_double(5), cv_dpar_int(6, 0)));
+  cv_ret_CvSeq(cvApproxPoly(cv_cpar_voidptr(1), cv_par_int(2), cv_par_CvMemStorage(3), cv_par_int(4), cv_par_double(5),
+                            cv_dpar_int(6, 0)));
 }
 
 // CVAPI(double) cvArcLength( const void* curve, CvSlice slice CV_DEFAULT(CV_WHOLE_SEQ), int is_closed CV_DEFAULT(-1) )
@@ -336,7 +343,8 @@ HB_FUNC(CVBOUNDINGRECT)
   hb_itemReturnRelease(a);
 }
 
-// CVAPI(double) cvContourArea( const CvArr* contour, CvSlice slice CV_DEFAULT(CV_WHOLE_SEQ), int oriented CV_DEFAULT(0) )
+// CVAPI(double) cvContourArea( const CvArr* contour, CvSlice slice CV_DEFAULT(CV_WHOLE_SEQ), int oriented CV_DEFAULT(0)
+// )
 HB_FUNC(CVCONTOURAREA)
 {
   PHB_ITEM pSlice2 = hb_param(2, HB_IT_ARRAY);
@@ -349,15 +357,15 @@ HB_FUNC(CVCONTOURAREA)
 // CVAPI(double) cvMatchShapes( const void* object1, const void* object2, int method, double parameter CV_DEFAULT(0) )
 HB_FUNC(CVMATCHSHAPES)
 {
-  cv_ret_double(
-      cvMatchShapes(cv_cpar_voidptr(1), cv_cpar_voidptr(2), cv_par_int(3), cv_dpar_double(4, 0)));
+  cv_ret_double(cvMatchShapes(cv_cpar_voidptr(1), cv_cpar_voidptr(2), cv_par_int(3), cv_dpar_double(4, 0)));
 }
 
-// CVAPI(CvSeq*) cvConvexHull2( const CvArr* input, void* hull_storage CV_DEFAULT(NULL), int orientation CV_DEFAULT(CV_CLOCKWISE), int return_points CV_DEFAULT(0) )
+// CVAPI(CvSeq*) cvConvexHull2( const CvArr* input, void* hull_storage CV_DEFAULT(NULL), int orientation
+// CV_DEFAULT(CV_CLOCKWISE), int return_points CV_DEFAULT(0) )
 HB_FUNC(CVCONVEXHULL2)
 {
-  cv_ret_CvSeq(cvConvexHull2(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : (void *)hb_parptr(2),
-                                   cv_dpar_int(3, CV_CLOCKWISE), cv_dpar_int(4, 0)));
+  cv_ret_CvSeq(cvConvexHull2(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : (void *)hb_parptr(2), cv_dpar_int(3, CV_CLOCKWISE),
+                             cv_dpar_int(4, 0)));
 }
 
 // CVAPI(int) cvCheckContourConvexity( const CvArr* contour )
@@ -366,11 +374,12 @@ HB_FUNC(CVCHECKCONTOURCONVEXITY)
   cv_ret_int(cvCheckContourConvexity(cv_cpar_CvArr(1)));
 }
 
-// CVAPI(CvSeq*) cvConvexityDefects( const CvArr* contour, const CvArr* convexhull, CvMemStorage* storage CV_DEFAULT(NULL) )
+// CVAPI(CvSeq*) cvConvexityDefects( const CvArr* contour, const CvArr* convexhull, CvMemStorage* storage
+// CV_DEFAULT(NULL) )
 HB_FUNC(CVCONVEXITYDEFECTS)
 {
-  cv_ret_CvSeq(cvConvexityDefects(cv_cpar_CvArr(1), cv_cpar_CvArr(2),
-                                        HB_ISNIL(3) ? NULL : (CvMemStorage *)hb_parptr(3)));
+  cv_ret_CvSeq(
+      cvConvexityDefects(cv_cpar_CvArr(1), cv_cpar_CvArr(2), HB_ISNIL(3) ? NULL : (CvMemStorage *)hb_parptr(3)));
 }
 
 // CVAPI(double) cvPointPolygonTest( const CvArr* contour, CvPoint2D32f pt, int measure_dist )
@@ -386,7 +395,7 @@ HB_FUNC(CVPOINTPOLYGONTEST)
 // CVAPI(void) cvReleaseHist( CvHistogram** hist )
 HB_FUNC(CVRELEASEHIST)
 {
-  CvHistogram* hist = cv_par_CvHistogram(1);
+  CvHistogram *hist = cv_par_CvHistogram(1);
   cvReleaseHist(&hist);
 }
 
@@ -426,14 +435,16 @@ HB_FUNC(CVCALCBAYESIANPROB) // TODO: fix parameters 1 and 3
   cvCalcBayesianProb((CvHistogram **)hb_parptr(1), cv_par_int(2), (CvHistogram **)hb_parptr(3));
 }
 
-// CVAPI(void) cvCalcArrHist( CvArr** arr, CvHistogram* hist, int accumulate CV_DEFAULT(0), const CvArr* mask CV_DEFAULT(NULL) )
+// CVAPI(void) cvCalcArrHist( CvArr** arr, CvHistogram* hist, int accumulate CV_DEFAULT(0), const CvArr* mask
+// CV_DEFAULT(NULL) )
 HB_FUNC(CVCALCARRHIST) // TODO: fix parameter 1
 {
   cvCalcArrHist((CvArr **)hb_parptr(1), cv_par_CvHistogram(2), cv_dpar_int(3, 0),
                 HB_ISNIL(4) ? NULL : cv_cpar_CvArr(4));
 }
 
-// CV_INLINE void cvCalcHist( IplImage** image, CvHistogram* hist, int accumulate CV_DEFAULT(0), const CvArr* mask CV_DEFAULT(NULL) )
+// CV_INLINE void cvCalcHist( IplImage** image, CvHistogram* hist, int accumulate CV_DEFAULT(0), const CvArr* mask
+// CV_DEFAULT(NULL) )
 HB_FUNC(CVCALCHIST) // TODO: fix parameter 1
 {
   cvCalcHist((IplImage **)hb_parptr(1), cv_par_CvHistogram(2), cv_dpar_int(3, 0),
@@ -446,22 +457,23 @@ HB_FUNC(CVCALCARRBACKPROJECT) // TODO: fix parameter 1
   cvCalcArrBackProject((CvArr **)hb_parptr(1), cv_par_CvArr(2), cv_cpar_CvHistogram(3));
 }
 
-// CVAPI(void) cvCalcArrBackProjectPatch( CvArr** image, CvArr* dst, CvSize range, CvHistogram* hist, int method, double factor )
+// CVAPI(void) cvCalcArrBackProjectPatch( CvArr** image, CvArr* dst, CvSize range, CvHistogram* hist, int method, double
+// factor )
 HB_FUNC(CVCALCARRBACKPROJECTPATCH) // TODO: fix parameter 1
 {
   PHB_ITEM pSize3 = hb_param(3, HB_IT_ARRAY);
   CvSize size3;
   size3.width = hb_arrayGetNI(pSize3, 1);
   size3.height = hb_arrayGetNI(pSize3, 2);
-  cvCalcArrBackProjectPatch((CvArr **)hb_parptr(1), cv_par_CvArr(2), size3, cv_par_CvHistogram(4),
-                            cv_par_int(5), cv_par_double(6));
+  cvCalcArrBackProjectPatch((CvArr **)hb_parptr(1), cv_par_CvArr(2), size3, cv_par_CvHistogram(4), cv_par_int(5),
+                            cv_par_double(6));
 }
 
-// CVAPI(void) cvCalcProbDensity( const CvHistogram* hist1, const CvHistogram* hist2, CvHistogram* dst_hist, double scale CV_DEFAULT(255) )
+// CVAPI(void) cvCalcProbDensity( const CvHistogram* hist1, const CvHistogram* hist2, CvHistogram* dst_hist, double
+// scale CV_DEFAULT(255) )
 HB_FUNC(CVCALCPROBDENSITY)
 {
-  cvCalcProbDensity(cv_cpar_CvHistogram(1), cv_cpar_CvHistogram(2), cv_par_CvHistogram(3),
-                    cv_dpar_double(4, 255));
+  cvCalcProbDensity(cv_cpar_CvHistogram(1), cv_cpar_CvHistogram(2), cv_par_CvHistogram(3), cv_dpar_double(4, 255));
 }
 
 // CVAPI(void) cvEqualizeHist( const CvArr* src, CvArr* dst )
@@ -476,15 +488,17 @@ HB_FUNC(CVTHRESHOLD)
   cv_ret_double(cvThreshold(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_double(3), cv_par_double(4), cv_par_int(5)));
 }
 
-// CVAPI(void) cvAdaptiveThreshold( const CvArr* src, CvArr* dst, double max_value, int adaptive_method CV_DEFAULT(CV_ADAPTIVE_THRESH_MEAN_C), int threshold_type CV_DEFAULT(CV_THRESH_BINARY), int block_size CV_DEFAULT(3), double param1 CV_DEFAULT(5) )
+// CVAPI(void) cvAdaptiveThreshold( const CvArr* src, CvArr* dst, double max_value, int adaptive_method
+// CV_DEFAULT(CV_ADAPTIVE_THRESH_MEAN_C), int threshold_type CV_DEFAULT(CV_THRESH_BINARY), int block_size CV_DEFAULT(3),
+// double param1 CV_DEFAULT(5) )
 HB_FUNC(CVADAPTIVETHRESHOLD)
 {
-  cvAdaptiveThreshold(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_double(3),
-                      cv_dpar_int(4, CV_ADAPTIVE_THRESH_MEAN_C), cv_dpar_int(5, CV_THRESH_BINARY),
-                      cv_dpar_int(6, 3), cv_dpar_double(7, 5));
+  cvAdaptiveThreshold(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_double(3), cv_dpar_int(4, CV_ADAPTIVE_THRESH_MEAN_C),
+                      cv_dpar_int(5, CV_THRESH_BINARY), cv_dpar_int(6, 3), cv_dpar_double(7, 5));
 }
 
-// CVAPI(void) cvCanny( const CvArr* image, CvArr* edges, double threshold1, double threshold2, int aperture_size CV_DEFAULT(3) )
+// CVAPI(void) cvCanny( const CvArr* image, CvArr* edges, double threshold1, double threshold2, int aperture_size
+// CV_DEFAULT(3) )
 HB_FUNC(CVCANNY)
 {
   cvCanny(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_double(3), cv_par_double(4), cv_dpar_int(5, 3));
@@ -496,36 +510,39 @@ HB_FUNC(CVPRECORNERDETECT)
   cvPreCornerDetect(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_int(3, 3));
 }
 
-// CVAPI(void) cvCornerEigenValsAndVecs( const CvArr* image, CvArr* eigenvv, int block_size, int aperture_size CV_DEFAULT(3) )
+// CVAPI(void) cvCornerEigenValsAndVecs( const CvArr* image, CvArr* eigenvv, int block_size, int aperture_size
+// CV_DEFAULT(3) )
 HB_FUNC(CVCORNEREIGENVALSANDVECS)
 {
   cvCornerEigenValsAndVecs(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_int(3), cv_dpar_int(4, 3));
 }
 
-// CVAPI(void) cvCornerMinEigenVal( const CvArr* image, CvArr* eigenval, int block_size, int aperture_size CV_DEFAULT(3) )
+// CVAPI(void) cvCornerMinEigenVal( const CvArr* image, CvArr* eigenval, int block_size, int aperture_size CV_DEFAULT(3)
+// )
 HB_FUNC(CVCORNERMINEIGENVAL)
 {
   cvCornerMinEigenVal(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_int(3), cv_dpar_int(4, 3));
 }
 
-// CVAPI(void) cvCornerHarris( const CvArr* image, CvArr* harris_response, int block_size, int aperture_size CV_DEFAULT(3), double k CV_DEFAULT(0.04) )
+// CVAPI(void) cvCornerHarris( const CvArr* image, CvArr* harris_response, int block_size, int aperture_size
+// CV_DEFAULT(3), double k CV_DEFAULT(0.04) )
 HB_FUNC(CVCORNERHARRIS)
 {
-  cvCornerHarris(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_int(3), cv_dpar_int(4, 3),
-                 cv_dpar_double(5, 0.04));
+  cvCornerHarris(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_int(3), cv_dpar_int(4, 3), cv_dpar_double(5, 0.04));
 }
 
-// CVAPI(CvSeq*) cvHoughLines2( CvArr* image, void* line_storage, int method, double rho, double theta, int threshold, double param1 CV_DEFAULT(0), double param2 CV_DEFAULT(0) )
+// CVAPI(CvSeq*) cvHoughLines2( CvArr* image, void* line_storage, int method, double rho, double theta, int threshold,
+// double param1 CV_DEFAULT(0), double param2 CV_DEFAULT(0) )
 HB_FUNC(CVHOUGHLINES2)
 {
   cv_ret_CvSeq(cvHoughLines2(cv_par_CvArr(1), cv_par_voidptr(2), cv_par_int(3), cv_par_double(4), cv_par_double(5),
-                                   cv_par_int(6), cv_dpar_double(7, 0), cv_dpar_double(8, 0)));
+                             cv_par_int(6), cv_dpar_double(7, 0), cv_dpar_double(8, 0)));
 }
 
-// CVAPI(CvSeq*) cvHoughCircles( CvArr* image, void* circle_storage, int method, double dp, double min_dist, double param1 CV_DEFAULT(100), double param2 CV_DEFAULT(100), int min_radius CV_DEFAULT(0), int max_radius CV_DEFAULT(0) )
+// CVAPI(CvSeq*) cvHoughCircles( CvArr* image, void* circle_storage, int method, double dp, double min_dist, double
+// param1 CV_DEFAULT(100), double param2 CV_DEFAULT(100), int min_radius CV_DEFAULT(0), int max_radius CV_DEFAULT(0) )
 HB_FUNC(CVHOUGHCIRCLES)
 {
   cv_ret_CvSeq(cvHoughCircles(cv_par_CvArr(1), cv_par_voidptr(2), cv_par_int(3), cv_par_double(4), cv_par_double(5),
-                                    cv_dpar_double(6, 100), cv_dpar_double(7, 100),
-                                    cv_dpar_int(8, 0), cv_dpar_int(9, 0)));
+                              cv_dpar_double(6, 100), cv_dpar_double(7, 100), cv_dpar_int(8, 0), cv_dpar_int(9, 0)));
 }

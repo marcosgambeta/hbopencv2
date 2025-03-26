@@ -257,7 +257,7 @@ HB_FUNC(CVQUERYFRAME)
 // CVAPI(void) cvReleaseCapture( CvCapture** capture )
 HB_FUNC(CVRELEASECAPTURE)
 {
-  CvCapture* capture = cv_par_CvCapture(1);
+  CvCapture *capture = cv_par_CvCapture(1);
   cvReleaseCapture(&capture);
 }
 
@@ -285,15 +285,15 @@ HB_FUNC(CV_FOURCC)
   cv_ret_int(CV_FOURCC((char)hb_parni(1), (char)hb_parni(2), (char)hb_parni(3), (char)hb_parni(4)));
 }
 
-// CVAPI(CvVideoWriter*) cvCreateVideoWriter( const char* filename, int fourcc, double fps, CvSize frame_size, int is_color CV_DEFAULT(1) )
+// CVAPI(CvVideoWriter*) cvCreateVideoWriter( const char* filename, int fourcc, double fps, CvSize frame_size, int
+// is_color CV_DEFAULT(1) )
 HB_FUNC(CVCREATEVIDEOWRITER)
 {
   PHB_ITEM pSize4 = hb_param(4, HB_IT_ARRAY);
   CvSize size4;
   size4.width = hb_arrayGetNI(pSize4, 1);
   size4.height = hb_arrayGetNI(pSize4, 2);
-  cv_ret_CvVideoWriter(
-      cvCreateVideoWriter(hb_parc(1), cv_par_int(2), cv_par_double(3), size4, cv_dpar_int(5, 1)));
+  cv_ret_CvVideoWriter(cvCreateVideoWriter(hb_parc(1), cv_par_int(2), cv_par_double(3), size4, cv_dpar_int(5, 1)));
 }
 
 // CVAPI(int) cvWriteFrame( CvVideoWriter* writer, const IplImage* image )
@@ -305,6 +305,6 @@ HB_FUNC(CVWRITEFRAME)
 // CVAPI(void) cvReleaseVideoWriter( CvVideoWriter** writer )
 HB_FUNC(CVRELEASEVIDEOWRITER)
 {
-  CvVideoWriter* writer = cv_par_CvVideoWriter(1);
+  CvVideoWriter *writer = cv_par_CvVideoWriter(1);
   cvReleaseVideoWriter(&writer);
 }
