@@ -2018,26 +2018,47 @@ HB_FUNC(CVTRACE)
 // CV_DEFAULT(-1), int highindex CV_DEFAULT(-1) )
 HB_FUNC(CVEIGENVV)
 {
-  cvEigenVV(cv_par_CvArr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_dpar_double(4, 0), cv_dpar_int(5, -1),
-            cv_dpar_int(6, -1));
+  if (hb_pcount() >= 3 && hb_pcount() <= 6 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) && (HB_ISNUM(4) && HB_ISNIL(4)) && (HB_ISNUM(5) && HB_ISNIL(5)) && (HB_ISNUM(6) && HB_ISNIL(6)))
+  {
+    cvEigenVV(cv_par_CvArr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_dpar_double(4, 0), cv_dpar_int(5, -1),
+              cv_dpar_int(6, -1));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSetIdentity( CvArr* mat, CvScalar value CV_DEFAULT(cvRealScalar(1)) )
 HB_FUNC(CVSETIDENTITY)
 {
-  PHB_ITEM pScalar2 = hb_param(2, HB_IT_ARRAY);
-  CvScalar scalar2;
-  scalar2.val[0] = hb_arrayGetND(pScalar2, 1);
-  scalar2.val[1] = hb_arrayGetND(pScalar2, 2);
-  scalar2.val[2] = hb_arrayGetND(pScalar2, 3);
-  scalar2.val[3] = hb_arrayGetND(pScalar2, 4);
-  cvSetIdentity(cv_par_CvArr(1), HB_ISNIL(2) ? cvRealScalar(1) : scalar2);
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISARRAY(2) && HB_ISNIL(2)))
+  {
+    PHB_ITEM pScalar2 = hb_param(2, HB_IT_ARRAY);
+    CvScalar scalar2;
+    scalar2.val[0] = hb_arrayGetND(pScalar2, 1);
+    scalar2.val[1] = hb_arrayGetND(pScalar2, 2);
+    scalar2.val[2] = hb_arrayGetND(pScalar2, 3);
+    scalar2.val[3] = hb_arrayGetND(pScalar2, 4);
+    cvSetIdentity(cv_par_CvArr(1), HB_ISNIL(2) ? cvRealScalar(1) : scalar2);
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvArr*) cvRange( CvArr* mat, double start, double end )
 HB_FUNC(CVRANGE)
 {
-  cv_ret_CvArr(cvRange(cv_par_CvArr(1), cv_par_double(2), cv_par_double(3)));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3))
+  {
+    cv_ret_CvArr(cvRange(cv_par_CvArr(1), cv_par_double(2), cv_par_double(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvCalcCovarMatrix( const CvArr** vects, int count, CvArr* cov_mat, CvArr* avg, int flags )
@@ -2049,25 +2070,53 @@ HB_FUNC(CVCALCCOVARMATRIX) // TODO: fix parameter 1
 // CVAPI(void) cvCalcPCA( const CvArr* data, CvArr* mean, CvArr* eigenvals, CvArr* eigenvects, int flags )
 HB_FUNC(CVCALCPCA)
 {
-  cvCalcPCA(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_par_CvArr(4), cv_par_int(5));
+  if (hb_pcount() == 5 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) && HB_ISPOINTER(4) && HB_ISNUM(5))
+  {
+    cvCalcPCA(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_CvArr(3), cv_par_CvArr(4), cv_par_int(5));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvProjectPCA( const CvArr* data, const CvArr* mean, const CvArr* eigenvects, CvArr* result )
 HB_FUNC(CVPROJECTPCA)
 {
-  cvProjectPCA(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_cpar_CvArr(3), cv_par_CvArr(4));
+  if (hb_pcount() == 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) && HB_ISPOINTER(4))
+  {
+    cvProjectPCA(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_cpar_CvArr(3), cv_par_CvArr(4));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvBackProjectPCA( const CvArr* proj, const CvArr* mean, const CvArr* eigenvects, CvArr* result )
 HB_FUNC(CVBACKPROJECTPCA)
 {
-  cvBackProjectPCA(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_cpar_CvArr(3), cv_par_CvArr(4));
+  if (hb_pcount() == 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) && HB_ISPOINTER(4))
+  {
+    cvBackProjectPCA(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_cpar_CvArr(3), cv_par_CvArr(4));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(double) cvMahalanobis( const CvArr* vec1, const CvArr* vec2, const CvArr* mat )
 HB_FUNC(CVMAHALANOBIS)
 {
-  cv_ret_double(cvMahalanobis(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_cpar_CvArr(3)));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
+  {
+    cv_ret_double(cvMahalanobis(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_cpar_CvArr(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvScalar) cvSum( const CvArr* arr )
@@ -2112,54 +2161,96 @@ HB_FUNC(CVCOUNTNONZERO)
 // CVAPI(CvScalar) cvAvg( const CvArr* arr, const CvArr* mask CV_DEFAULT(NULL) )
 HB_FUNC(CVAVG)
 {
-  CvScalar scalar;
-  scalar = cvAvg(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : cv_cpar_CvArr(2));
-  PHB_ITEM a = hb_itemArrayNew(4);
-  PHB_ITEM t = hb_itemNew(NULL);
-  hb_itemPutND(t, scalar.val[0]);
-  hb_itemArrayPut(a, 1, t);
-  hb_itemPutND(t, scalar.val[1]);
-  hb_itemArrayPut(a, 2, t);
-  hb_itemPutND(t, scalar.val[2]);
-  hb_itemArrayPut(a, 3, t);
-  hb_itemPutND(t, scalar.val[3]);
-  hb_itemArrayPut(a, 4, t);
-  hb_itemRelease(t);
-  hb_itemReturnRelease(a);
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)))
+  {
+    CvScalar scalar;
+    scalar = cvAvg(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : cv_cpar_CvArr(2));
+    PHB_ITEM a = hb_itemArrayNew(4);
+    PHB_ITEM t = hb_itemNew(NULL);
+    hb_itemPutND(t, scalar.val[0]);
+    hb_itemArrayPut(a, 1, t);
+    hb_itemPutND(t, scalar.val[1]);
+    hb_itemArrayPut(a, 2, t);
+    hb_itemPutND(t, scalar.val[2]);
+    hb_itemArrayPut(a, 3, t);
+    hb_itemPutND(t, scalar.val[3]);
+    hb_itemArrayPut(a, 4, t);
+    hb_itemRelease(t);
+    hb_itemReturnRelease(a);
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(double) cvNorm( const CvArr* arr1, const CvArr* arr2 CV_DEFAULT(NULL), int norm_type CV_DEFAULT(CV_L2), const
 // CvArr* mask CV_DEFAULT(NULL) )
 HB_FUNC(CVNORM)
 {
-  cv_ret_double(cvNorm(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : cv_cpar_CvArr(2), cv_dpar_int(3, CV_L2),
-                       HB_ISNIL(4) ? NULL : cv_cpar_CvArr(4)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 4 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)) && (HB_ISNUM(3) && HB_ISNIL(3)) && (HB_ISARRAY(4) && HB_ISNIL(4)))
+  {
+    cv_ret_double(cvNorm(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : cv_cpar_CvArr(2), cv_dpar_int(3, CV_L2),
+                         HB_ISNIL(4) ? NULL : cv_cpar_CvArr(4)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvNormalize( const CvArr* src, CvArr* dst, double a CV_DEFAULT(1.), double b CV_DEFAULT(0.), int
 // norm_type CV_DEFAULT(CV_L2), const CvArr* mask CV_DEFAULT(NULL) )
 HB_FUNC(CVNORMALIZE)
 {
-  cvNormalize(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_double(3, 1.), cv_dpar_double(4, 0.), cv_dpar_int(5, CV_L2),
-              HB_ISNIL(6) ? NULL : cv_cpar_CvArr(6));
+  if (hb_pcount() >= 2 && hb_pcount() <= 6 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && (HB_ISNUM(3) && HB_ISNIL(3)) && (HB_ISNUM(4) && HB_ISNIL(4)) && (HB_ISNUM(5) && HB_ISNIL(5)) && (HB_ISPOINTER(6) && HB_ISNIL(6)))
+  {
+    cvNormalize(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_double(3, 1.), cv_dpar_double(4, 0.), cv_dpar_int(5, CV_L2),
+                HB_ISNIL(6) ? NULL : cv_cpar_CvArr(6));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvReduce( const CvArr* src, CvArr* dst, int dim CV_DEFAULT(-1), int op CV_DEFAULT(CV_REDUCE_SUM) )
 HB_FUNC(CVREDUCE)
 {
-  cvReduce(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_int(3, -1), cv_dpar_int(4, CV_REDUCE_SUM));
+  if (hb_pcount() >= 2 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && (HB_ISNUM(3) && HB_ISNIL(3)) && (HB_ISNUM(4) && HB_ISNIL(4)))
+  {
+    cvReduce(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_int(3, -1), cv_dpar_int(4, CV_REDUCE_SUM));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvDFT( const CvArr* src, CvArr* dst, int flags, int nonzero_rows CV_DEFAULT(0) )
 HB_FUNC(CVDFT)
 {
-  cvDFT(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_int(3), cv_dpar_int(4, 0));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISNUM(3) && (HB_ISNUM(4) && HB_ISNIL(4)))
+  {
+    cvDFT(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_int(3), cv_dpar_int(4, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvMulSpectrums( const CvArr* src1, const CvArr* src2, CvArr* dst, int flags )
 HB_FUNC(CVMULSPECTRUMS)
 {
-  cvMulSpectrums(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), cv_par_int(4));
+  if (hb_pcount() == 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) && HB_ISNUM(4))
+  {
+    cvMulSpectrums(cv_cpar_CvArr(1), cv_cpar_CvArr(2), cv_par_CvArr(3), cv_par_int(4));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGetOptimalDFTSize( int size0 )
@@ -2178,23 +2269,44 @@ HB_FUNC(CVGETOPTIMALDFTSIZE)
 // CVAPI(void) cvDCT( const CvArr* src, CvArr* dst, int flags )
 HB_FUNC(CVDCT)
 {
-  cvDCT(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_int(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISNUM(3))
+  {
+    cvDCT(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_par_int(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvSliceLength( CvSlice slice, const CvSeq* seq )
 HB_FUNC(CVSLICELENGTH)
 {
-  PHB_ITEM pSlice1 = hb_param(1, HB_IT_ARRAY);
-  CvSlice slice1;
-  slice1.start_index = hb_arrayGetNI(pSlice1, 1);
-  slice1.end_index = hb_arrayGetNI(pSlice1, 2);
-  cv_ret_int(cvSliceLength(slice1, cv_cpar_CvSeq(2)));
+  if (hb_pcount() == 2 && HB_ISARRAY(1) && HB_ISPOINTER(2))
+  {
+    PHB_ITEM pSlice1 = hb_param(1, HB_IT_ARRAY);
+    CvSlice slice1;
+    slice1.start_index = hb_arrayGetNI(pSlice1, 1);
+    slice1.end_index = hb_arrayGetNI(pSlice1, 2);
+    cv_ret_int(cvSliceLength(slice1, cv_cpar_CvSeq(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvMemStorage*) cvCreateMemStorage( int block_size CV_DEFAULT(0) )
 HB_FUNC(CVCREATEMEMSTORAGE)
 {
-  cv_ret_CvMemStorage(cvCreateMemStorage(cv_dpar_int(1, 0)));
+  if (hb_pcount() >= 0 && hb_pcount() <= 1 && (HB_ISNUM(1) && HB_ISNIL(1)))
+  {
+    cv_ret_CvMemStorage(cvCreateMemStorage(cv_dpar_int(1, 0)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvMemStorage*) cvCreateChildMemStorage( CvMemStorage* parent )
@@ -2240,61 +2352,131 @@ HB_FUNC(CVCLEARMEMSTORAGE)
 // CVAPI(void) cvSaveMemStoragePos( const CvMemStorage* storage, CvMemStoragePos* pos )
 HB_FUNC(CVSAVEMEMSTORAGEPOS)
 {
-  cvSaveMemStoragePos(cv_cpar_CvMemStorage(1), cv_par_CvMemStoragePos(2));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
+  {
+    cvSaveMemStoragePos(cv_cpar_CvMemStorage(1), cv_par_CvMemStoragePos(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvRestoreMemStoragePos( CvMemStorage* storage, CvMemStoragePos* pos )
 HB_FUNC(CVRESTOREMEMSTORAGEPOS)
 {
-  cvRestoreMemStoragePos(cv_par_CvMemStorage(1), cv_par_CvMemStoragePos(2));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
+  {
+    cvRestoreMemStoragePos(cv_par_CvMemStorage(1), cv_par_CvMemStoragePos(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void*) cvMemStorageAlloc( CvMemStorage* storage, size_t size )
 HB_FUNC(CVMEMSTORAGEALLOC)
 {
-  cv_ret_voidptr(cvMemStorageAlloc(cv_par_CvMemStorage(1), cv_par_size_t(2)));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
+  {
+    cv_ret_voidptr(cvMemStorageAlloc(cv_par_CvMemStorage(1), cv_par_size_t(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvSeq*) cvCreateSeq( int seq_flags, size_t header_size, size_t elem_size, CvMemStorage* storage )
 HB_FUNC(CVCREATESEQ)
 {
-  cv_ret_CvSeq(cvCreateSeq(cv_par_int(1), cv_par_size_t(2), cv_par_size_t(3), cv_par_CvMemStorage(4)));
+  if (hb_pcount() == 4 && HB_ISNUM(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISPOINTER(4))
+  {
+    cv_ret_CvSeq(cvCreateSeq(cv_par_int(1), cv_par_size_t(2), cv_par_size_t(3), cv_par_CvMemStorage(4)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSetSeqBlockSize( CvSeq* seq, int delta_elems )
 HB_FUNC(CVSETSEQBLOCKSIZE)
 {
-  cvSetSeqBlockSize(cv_par_CvSeq(1), cv_par_int(2));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
+  {
+    cvSetSeqBlockSize(cv_par_CvSeq(1), cv_par_int(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSeqPop( CvSeq* seq, void* element CV_DEFAULT(NULL) )
 HB_FUNC(CVSEQPOP)
 {
-  cvSeqPop(cv_par_CvSeq(1), cv_dpar_voidptr(2, NULL));
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)))
+  {
+    cvSeqPop(cv_par_CvSeq(1), cv_dpar_voidptr(2, NULL));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSeqPopFront( CvSeq* seq, void* element CV_DEFAULT(NULL) )
 HB_FUNC(CVSEQPOPFRONT)
 {
-  cvSeqPopFront(cv_par_CvSeq(1), cv_dpar_voidptr(2, NULL));
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)))
+  {
+    cvSeqPopFront(cv_par_CvSeq(1), cv_dpar_voidptr(2, NULL));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSeqPushMulti( CvSeq* seq, const void* elements, int count, int in_front CV_DEFAULT(0) )
 HB_FUNC(CVSEQPUSHMULTI)
 {
-  cvSeqPushMulti(cv_par_CvSeq(1), cv_cpar_voidptr(2), cv_par_int(3), cv_dpar_int(4, 0));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISNUM(3) && (HB_ISNUM(4) && HB_ISNIL(4)))
+  {
+    cvSeqPushMulti(cv_par_CvSeq(1), cv_cpar_voidptr(2), cv_par_int(3), cv_dpar_int(4, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSeqPopMulti( CvSeq* seq, void* elements, int count, int in_front CV_DEFAULT(0) )
 HB_FUNC(CVSEQPOPMULTI)
 {
-  cvSeqPopMulti(cv_par_CvSeq(1), cv_par_voidptr(2), cv_par_int(3), cv_dpar_int(4, 0));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISNUM(3) && (HB_ISNUM(4) && HB_ISNIL(4)))
+  {
+    cvSeqPopMulti(cv_par_CvSeq(1), cv_par_voidptr(2), cv_par_int(3), cv_dpar_int(4, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSeqRemove( CvSeq* seq, int index )
 HB_FUNC(CVSEQREMOVE)
 {
-  cvSeqRemove(cv_par_CvSeq(1), cv_par_int(2));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
+  {
+    cvSeqRemove(cv_par_CvSeq(1), cv_par_int(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvClearSeq( CvSeq* seq )
@@ -2313,20 +2495,41 @@ HB_FUNC(CVCLEARSEQ)
 // CVAPI(int) cvSeqElemIdx( const CvSeq* seq, const void* element, CvSeqBlock** block CV_DEFAULT(NULL) )
 HB_FUNC(CVSEQELEMIDX)
 {
-  cv_ret_int(cvSeqElemIdx(cv_cpar_CvSeq(1), cv_cpar_voidptr(2), HB_ISNIL(3) ? NULL : (CvSeqBlock **)hb_parptr(3)));
+  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && (HB_ISPOINTER(3) && HB_ISNIL(3)))
+  {
+    cv_ret_int(cvSeqElemIdx(cv_cpar_CvSeq(1), cv_cpar_voidptr(2), HB_ISNIL(3) ? NULL : (CvSeqBlock **)hb_parptr(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvStartAppendToSeq( CvSeq* seq, CvSeqWriter* writer )
 HB_FUNC(CVSTARTAPPENDTOSEQ)
 {
-  cvStartAppendToSeq(cv_par_CvSeq(1), cv_par_CvSeqWriter(2));
+  if (hb_pcount() == 1 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
+  {
+    cvStartAppendToSeq(cv_par_CvSeq(1), cv_par_CvSeqWriter(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvStartWriteSeq( int seq_flags, int header_size, int elem_size, CvMemStorage* storage, CvSeqWriter*
 // writer )
 HB_FUNC(CVSTARTWRITESEQ)
 {
-  cvStartWriteSeq(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_CvMemStorage(4), cv_par_CvSeqWriter(5));
+  if (hb_pcount() == 5 && HB_ISNUM(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISPOINTER(4) && HB_ISPOINTER(5))
+  {
+    cvStartWriteSeq(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_CvMemStorage(4), cv_par_CvSeqWriter(5));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvSeq*) cvEndWriteSeq( CvSeqWriter* writer )
@@ -2358,7 +2561,14 @@ HB_FUNC(CVFLUSHSEQWRITER)
 // CVAPI(void) cvStartReadSeq( const CvSeq* seq, CvSeqReader* reader, int reverse CV_DEFAULT(0) )
 HB_FUNC(CVSTARTREADSEQ)
 {
-  cvStartReadSeq(cv_cpar_CvSeq(1), cv_par_CvSeqReader(2), cv_dpar_int(3, 0));
+  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && (HB_ISNUM(3) && HB_ISNIL(3)))
+  {
+    cvStartReadSeq(cv_cpar_CvSeq(1), cv_par_CvSeqReader(2), cv_dpar_int(3, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGetSeqReaderPos( CvSeqReader* reader )
@@ -2377,58 +2587,107 @@ HB_FUNC(CVGETSEQREADERPOS)
 // CVAPI(void) cvSetSeqReaderPos( CvSeqReader* reader, int index, int is_relative CV_DEFAULT(0) )
 HB_FUNC(CVSETSEQREADERPOS)
 {
-  cvSetSeqReaderPos(cv_par_CvSeqReader(1), cv_par_int(2), cv_dpar_int(3, 0));
+  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && (HB_ISNUM(3) && HB_ISNIL(3)))
+  {
+    cvSetSeqReaderPos(cv_par_CvSeqReader(1), cv_par_int(2), cv_dpar_int(3, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void*) cvCvtSeqToArray( const CvSeq* seq, void* elements, CvSlice slice CV_DEFAULT(CV_WHOLE_SEQ) )
 HB_FUNC(CVCVTSEQTOARRAY)
 {
-  PHB_ITEM pSlice3 = hb_param(3, HB_IT_ARRAY);
-  CvSlice slice3;
-  slice3.start_index = hb_arrayGetNI(pSlice3, 1);
-  slice3.end_index = hb_arrayGetNI(pSlice3, 2);
-  cv_ret_voidptr(cvCvtSeqToArray(cv_cpar_CvSeq(1), cv_par_voidptr(2), HB_ISNIL(3) ? CV_WHOLE_SEQ : slice3));
+  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && (HB_ISARRAY(3) && HB_ISNIL(3)))
+  {
+    PHB_ITEM pSlice3 = hb_param(3, HB_IT_ARRAY);
+    CvSlice slice3;
+    slice3.start_index = hb_arrayGetNI(pSlice3, 1);
+    slice3.end_index = hb_arrayGetNI(pSlice3, 2);
+    cv_ret_voidptr(cvCvtSeqToArray(cv_cpar_CvSeq(1), cv_par_voidptr(2), HB_ISNIL(3) ? CV_WHOLE_SEQ : slice3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvSeq*) cvMakeSeqHeaderForArray( int seq_type, int header_size, int elem_size, void* elements, int total,
 // CvSeq* seq, CvSeqBlock* block )
-HB_FUNC(CVMAKESEQHEADERFORARRAY)
+HB_FUNC(CVMAKESEQHEADERFORARRAY) // TODO: fix parameter 4
 {
-  cv_ret_CvSeq(cvMakeSeqHeaderForArray(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_voidptr(4), cv_par_int(5),
+  if (hb_pcount() == 7 && HB_ISNUM(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISPOINTER(4) && HB_ISNUM(5) && HB_ISPOINTER(6) && HB_ISPOINTER(7))
+  {
+    cv_ret_CvSeq(cvMakeSeqHeaderForArray(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_voidptr(4), cv_par_int(5),
                                        cv_par_CvSeq(6), (CvSeqBlock *)hb_parptr(7)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvSeq*) cvSeqSlice( const CvSeq* seq, CvSlice slice, CvMemStorage* storage CV_DEFAULT(NULL), int copy_data
 // CV_DEFAULT(0) )
 HB_FUNC(CVSEQSLICE)
 {
-  PHB_ITEM pSlice2 = hb_param(2, HB_IT_ARRAY);
-  CvSlice slice2;
-  slice2.start_index = hb_arrayGetNI(pSlice2, 1);
-  slice2.end_index = hb_arrayGetNI(pSlice2, 2);
-  cv_ret_CvSeq(cvSeqSlice(cv_cpar_CvSeq(1), slice2, cv_dpar_CvMemStorage(3, NULL), cv_dpar_int(4, 0)));
+  if (hb_pcount() >= 2 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISARRAY(2) && (HB_ISPOINTER(3) && HB_ISNIL(3)) && (HB_ISNUM(4) && HB_ISNIL(4)))
+  {
+    PHB_ITEM pSlice2 = hb_param(2, HB_IT_ARRAY);
+    CvSlice slice2;
+    slice2.start_index = hb_arrayGetNI(pSlice2, 1);
+    slice2.end_index = hb_arrayGetNI(pSlice2, 2);
+    cv_ret_CvSeq(cvSeqSlice(cv_cpar_CvSeq(1), slice2, cv_dpar_CvMemStorage(3, NULL), cv_dpar_int(4, 0)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE CvSeq* cvCloneSeq( const CvSeq* seq, CvMemStorage* storage CV_DEFAULT(NULL) )
 HB_FUNC(CVCLONESEQ)
 {
-  cv_ret_CvSeq(cvCloneSeq(cv_cpar_CvSeq(1), cv_dpar_CvMemStorage(2, NULL)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)))
+  {
+    cv_ret_CvSeq(cvCloneSeq(cv_cpar_CvSeq(1), cv_dpar_CvMemStorage(2, NULL)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSeqRemoveSlice( CvSeq* seq, CvSlice slice )
 HB_FUNC(CVSEQREMOVESLICE)
 {
-  PHB_ITEM pSlice2 = hb_param(2, HB_IT_ARRAY);
-  CvSlice slice2;
-  slice2.start_index = hb_arrayGetNI(pSlice2, 1);
-  slice2.end_index = hb_arrayGetNI(pSlice2, 2);
-  cvSeqRemoveSlice(cv_par_CvSeq(1), slice2);
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISARRAY(2))
+  {
+    PHB_ITEM pSlice2 = hb_param(2, HB_IT_ARRAY);
+    CvSlice slice2;
+    slice2.start_index = hb_arrayGetNI(pSlice2, 1);
+    slice2.end_index = hb_arrayGetNI(pSlice2, 2);
+    cvSeqRemoveSlice(cv_par_CvSeq(1), slice2);
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSeqInsertSlice( CvSeq* seq, int before_index, const CvArr* from_arr )
 HB_FUNC(CVSEQINSERTSLICE)
 {
-  cvSeqInsertSlice(cv_par_CvSeq(1), cv_par_int(2), cv_cpar_CvArr(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISPOINTER(3))
+  {
+    cvSeqInsertSlice(cv_par_CvSeq(1), cv_par_int(2), cv_cpar_CvArr(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSeqInvert( CvSeq* seq )
@@ -2447,7 +2706,14 @@ HB_FUNC(CVSEQINVERT)
 // CVAPI(void) cvChangeSeqBlock( void* reader, int direction )
 HB_FUNC(CVCHANGESEQBLOCK)
 {
-  cvChangeSeqBlock(cv_par_voidptr(1), cv_par_int(2));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
+  {
+    cvChangeSeqBlock(cv_par_voidptr(1), cv_par_int(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvCreateSeqBlock( CvSeqWriter* writer )
@@ -2466,15 +2732,29 @@ HB_FUNC(CVCREATESEQBLOCK)
 // CVAPI(CvSet*) cvCreateSet( int set_flags, int header_size, int elem_size, CvMemStorage* storage )
 HB_FUNC(CVCREATESET)
 {
-  cv_ret_CvSet(cvCreateSet(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_CvMemStorage(4)));
+  if (hb_pcount() == 4 && HB_ISNUM(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISPOINTER(4))
+  {
+    cv_ret_CvSet(cvCreateSet(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_CvMemStorage(4)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvSetAdd( CvSet* set_header, CvSetElem* elem CV_DEFAULT(NULL), CvSetElem** inserted_elem CV_DEFAULT(NULL)
 // )
-HB_FUNC(CVSETADD)
+HB_FUNC(CVSETADD) // TODO: fix parameter 3
 {
-  cv_ret_int(cvSetAdd(cv_par_CvSet(1), HB_ISNIL(2) ? NULL : (CvSetElem *)hb_parptr(2),
-                      HB_ISNIL(3) ? NULL : (CvSetElem **)hb_parptr(3)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 3 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)) && (HB_ISPOINTER(3) && HB_ISNIL(3)))
+  {
+    cv_ret_int(cvSetAdd(cv_par_CvSet(1), HB_ISNIL(2) ? NULL : (CvSetElem *)hb_parptr(2),
+                        HB_ISNIL(3) ? NULL : (CvSetElem **)hb_parptr(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE CvSetElem* cvSetNew( CvSet* set_header )
@@ -2493,19 +2773,40 @@ HB_FUNC(CVSETNEW)
 // CV_INLINE void cvSetRemoveByPtr( CvSet* set_header, void* elem )
 HB_FUNC(CVSETREMOVEBYPTR)
 {
-  cvSetRemoveByPtr(cv_par_CvSet(1), cv_par_voidptr(2));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
+  {
+    cvSetRemoveByPtr(cv_par_CvSet(1), cv_par_voidptr(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSetRemove( CvSet* set_header, int index )
 HB_FUNC(CVSETREMOVE)
 {
-  cvSetRemove(cv_par_CvSet(1), cv_par_int(2));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
+  {
+    cvSetRemove(cv_par_CvSet(1), cv_par_int(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE CvSetElem* cvGetSetElem( const CvSet* set_header, int idx )
 HB_FUNC(CVGETSETELEM)
 {
-  cv_ret_CvSetElem(cvGetSetElem(cv_cpar_CvSet(1), cv_par_int(2)));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
+  {
+    cv_ret_CvSetElem(cvGetSetElem(cv_cpar_CvSet(1), cv_par_int(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvClearSet( CvSet* set_header )
@@ -2524,71 +2825,141 @@ HB_FUNC(CVCLEARSET)
 // CVAPI(CvGraph*) cvCreateGraph( int graph_flags, int header_size, int vtx_size, int edge_size, CvMemStorage* storage )
 HB_FUNC(CVCREATEGRAPH)
 {
-  cv_ret_CvGraph(cvCreateGraph(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_int(4), cv_par_CvMemStorage(5)));
+  if (hb_pcount() == 5 && HB_ISNUM(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISNUM(4) && HB_ISPOINTER(5))
+  {
+    cv_ret_CvGraph(cvCreateGraph(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_int(4), cv_par_CvMemStorage(5)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGraphAddVtx( CvGraph* graph, const CvGraphVtx* vtx CV_DEFAULT(NULL), CvGraphVtx** inserted_vtx
 // CV_DEFAULT(NULL) )
 HB_FUNC(CVGRAPHADDVTX)
 {
-  cv_ret_int(cvGraphAddVtx((CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (const CvGraphVtx *)hb_parptr(2),
-                           HB_ISNIL(3) ? NULL : (CvGraphVtx **)hb_parptr(3)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 3 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)) && (HB_ISPOINTER(3) && HB_ISNIL(3)))
+  {
+    cv_ret_int(cvGraphAddVtx((CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (const CvGraphVtx *)hb_parptr(2),
+                             HB_ISNIL(3) ? NULL : (CvGraphVtx **)hb_parptr(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGraphRemoveVtx( CvGraph* graph, int index )
 HB_FUNC(CVGRAPHREMOVEVTX)
 {
-  cv_ret_int(cvGraphRemoveVtx((CvGraph *)hb_parptr(1), cv_par_int(2)));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
+  {
+    cv_ret_int(cvGraphRemoveVtx((CvGraph *)hb_parptr(1), cv_par_int(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGraphRemoveVtxByPtr( CvGraph* graph, CvGraphVtx* vtx )
 HB_FUNC(CVGRAPHREMOVEVTXBYPTR)
 {
-  cv_ret_int(cvGraphRemoveVtxByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2)));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
+  {
+    cv_ret_int(cvGraphRemoveVtxByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGraphAddEdge( CvGraph* graph, int start_idx, int end_idx, const CvGraphEdge* edge CV_DEFAULT(NULL),
 // CvGraphEdge** inserted_edge CV_DEFAULT(NULL) )
 HB_FUNC(CVGRAPHADDEDGE)
 {
-  cv_ret_int(cvGraphAddEdge((CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3),
-                            HB_ISNIL(4) ? NULL : (const CvGraphEdge *)hb_parptr(4),
-                            HB_ISNIL(5) ? NULL : (CvGraphEdge **)hb_parptr(5)));
+  if (hb_pcount() >= 3 && hb_pcount() <= 5 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3) && (HB_ISPOINTER(4) || HB_ISNIL(4)) && (HB_ISPOINTER(5) || HB_ISNIL(5)))
+  {
+    cv_ret_int(cvGraphAddEdge((CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3),
+                              HB_ISNIL(4) ? NULL : (const CvGraphEdge *)hb_parptr(4),
+                              HB_ISNIL(5) ? NULL : (CvGraphEdge **)hb_parptr(5)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGraphAddEdgeByPtr( CvGraph* graph, CvGraphVtx* start_vtx, CvGraphVtx* end_vtx, const CvGraphEdge* edge
 // CV_DEFAULT(NULL), CvGraphEdge** inserted_edge CV_DEFAULT(NULL) )
 HB_FUNC(CVGRAPHADDEDGEBYPTR)
 {
-  cv_ret_int(cvGraphAddEdgeByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2), (CvGraphVtx *)hb_parptr(3),
-                                 HB_ISNIL(4) ? NULL : (const CvGraphEdge *)hb_parptr(4),
-                                 HB_ISNIL(5) ? NULL : (CvGraphEdge **)hb_parptr(5)));
+  if (hb_pcount() >= 3 && hb_pcount() <= 5 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) && (HB_ISPOINTER(4) || HB_ISNIL(4)) && (HB_ISPOINTER(5) || HB_ISNIL(5)))
+  {
+    cv_ret_int(cvGraphAddEdgeByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2), (CvGraphVtx *)hb_parptr(3),
+                                   HB_ISNIL(4) ? NULL : (const CvGraphEdge *)hb_parptr(4),
+                                   HB_ISNIL(5) ? NULL : (CvGraphEdge **)hb_parptr(5)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvGraphRemoveEdge( CvGraph* graph, int start_idx, int end_idx )
 HB_FUNC(CVGRAPHREMOVEEDGE)
 {
-  cvGraphRemoveEdge((CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3))
+  {
+    cvGraphRemoveEdge((CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvGraphRemoveEdgeByPtr( CvGraph* graph, CvGraphVtx* start_vtx, CvGraphVtx* end_vtx )
 HB_FUNC(CVGRAPHREMOVEEDGEBYPTR)
 {
-  cvGraphRemoveEdgeByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2), (CvGraphVtx *)hb_parptr(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
+  {
+    cvGraphRemoveEdgeByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2), (CvGraphVtx *)hb_parptr(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvGraphEdge*) cvFindGraphEdge( const CvGraph* graph, int start_idx, int end_idx )
 HB_FUNC(CVFINDGRAPHEDGE)
 {
-  cv_ret_CvGraphEdge(cvFindGraphEdge((const CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3)));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3))
+  {
+    cv_ret_CvGraphEdge(cvFindGraphEdge((const CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvGraphEdge*) cvFindGraphEdgeByPtr( const CvGraph* graph, const CvGraphVtx* start_vtx, const CvGraphVtx*
 // end_vtx )
 HB_FUNC(CVFINDGRAPHEDGEBYPTR)
 {
-  cv_ret_CvGraphEdge(cvFindGraphEdgeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2),
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
+  {
+    cv_ret_CvGraphEdge(cvFindGraphEdgeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2),
                                           (const CvGraphVtx *)hb_parptr(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvClearGraph( CvGraph* graph )
@@ -2607,21 +2978,42 @@ HB_FUNC(CVCLEARGRAPH)
 // CVAPI(int) cvGraphVtxDegree( const CvGraph* graph, int vtx_idx )
 HB_FUNC(CVGRAPHVTXDEGREE)
 {
-  cv_ret_int(cvGraphVtxDegree((const CvGraph *)hb_parptr(1), cv_par_int(2)));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
+  {
+    cv_ret_int(cvGraphVtxDegree((const CvGraph *)hb_parptr(1), cv_par_int(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGraphVtxDegreeByPtr( const CvGraph* graph, const CvGraphVtx* vtx )
 HB_FUNC(CVGRAPHVTXDEGREEBYPTR)
 {
-  cv_ret_int(cvGraphVtxDegreeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2)));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
+  {
+    cv_ret_int(cvGraphVtxDegreeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvGraphScanner*) cvCreateGraphScanner( CvGraph* graph, CvGraphVtx* vtx CV_DEFAULT(NULL), int mask
 // CV_DEFAULT(CV_GRAPH_ALL_ITEMS) )
 HB_FUNC(CVCREATEGRAPHSCANNER)
 {
-  cv_ret_CvGraphScanner(cvCreateGraphScanner((CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (CvGraphVtx *)hb_parptr(2),
-                                             cv_dpar_int(3, CV_GRAPH_ALL_ITEMS)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 3 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) || HB_ISNIL(2)) && (HB_ISNUM(3) || HB_ISNIL(3)))
+  {
+    cv_ret_CvGraphScanner(cvCreateGraphScanner((CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (CvGraphVtx *)hb_parptr(2),
+                                               cv_dpar_int(3, CV_GRAPH_ALL_ITEMS)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvReleaseGraphScanner( CvGraphScanner** scanner )
@@ -2654,154 +3046,224 @@ HB_FUNC(CVNEXTGRAPHITEM)
 // CVAPI(CvGraph*) cvCloneGraph( const CvGraph* graph, CvMemStorage* storage )
 HB_FUNC(CVCLONEGRAPH)
 {
-  cv_ret_CvGraph(cvCloneGraph((const CvGraph *)hb_parptr(1), cv_par_CvMemStorage(2)));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
+  {
+    cv_ret_CvGraph(cvCloneGraph((const CvGraph *)hb_parptr(1), cv_par_CvMemStorage(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvLine( CvArr* img, CvPoint pt1, CvPoint pt2, CvScalar color, int thickness CV_DEFAULT(1), int line_type
 // CV_DEFAULT(8), int shift CV_DEFAULT(0) )
 HB_FUNC(CVLINE)
 {
-  PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
-  CvPoint point2;
-  point2.x = hb_arrayGetNI(pPoint2, 1);
-  point2.y = hb_arrayGetNI(pPoint2, 2);
-  PHB_ITEM pPoint3 = hb_param(3, HB_IT_ARRAY);
-  CvPoint point3;
-  point3.x = hb_arrayGetNI(pPoint3, 1);
-  point3.y = hb_arrayGetNI(pPoint3, 2);
-  PHB_ITEM pScalar4 = hb_param(4, HB_IT_ARRAY);
-  CvScalar scalar4;
-  scalar4.val[0] = hb_arrayGetND(pScalar4, 1);
-  scalar4.val[1] = hb_arrayGetND(pScalar4, 2);
-  scalar4.val[2] = hb_arrayGetND(pScalar4, 3);
-  scalar4.val[3] = hb_arrayGetND(pScalar4, 4);
-  cvLine(cv_par_CvArr(1), point2, point3, scalar4, cv_dpar_int(5, 1), cv_dpar_int(6, 8), cv_dpar_int(7, 0));
+  if (hb_pcount() >= 4 && hb_pcount() <= 7 && HB_ISPOINTER(1) && HB_ISARRAY(2) && HB_ISARRAY(3) && HB_ISARRAY(4) && (HB_ISNUM(5) || HB_ISNIL(5)) && (HB_ISNUM(6) || HB_ISNIL(6)) && (HB_ISNUM(7) || HB_ISNIL(7)))
+  {
+    PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
+    CvPoint point2;
+    point2.x = hb_arrayGetNI(pPoint2, 1);
+    point2.y = hb_arrayGetNI(pPoint2, 2);
+    PHB_ITEM pPoint3 = hb_param(3, HB_IT_ARRAY);
+    CvPoint point3;
+    point3.x = hb_arrayGetNI(pPoint3, 1);
+    point3.y = hb_arrayGetNI(pPoint3, 2);
+    PHB_ITEM pScalar4 = hb_param(4, HB_IT_ARRAY);
+    CvScalar scalar4;
+    scalar4.val[0] = hb_arrayGetND(pScalar4, 1);
+    scalar4.val[1] = hb_arrayGetND(pScalar4, 2);
+    scalar4.val[2] = hb_arrayGetND(pScalar4, 3);
+    scalar4.val[3] = hb_arrayGetND(pScalar4, 4);
+    cvLine(cv_par_CvArr(1), point2, point3, scalar4, cv_dpar_int(5, 1), cv_dpar_int(6, 8), cv_dpar_int(7, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvRectangle( CvArr* img, CvPoint pt1, CvPoint pt2, CvScalar color, int thickness CV_DEFAULT(1), int
 // line_type CV_DEFAULT(8), int shift CV_DEFAULT(0) )
 HB_FUNC(CVRECTANGLE)
 {
-  PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
-  CvPoint point2;
-  point2.x = hb_arrayGetNI(pPoint2, 1);
-  point2.y = hb_arrayGetNI(pPoint2, 2);
-  PHB_ITEM pPoint3 = hb_param(3, HB_IT_ARRAY);
-  CvPoint point3;
-  point3.x = hb_arrayGetNI(pPoint3, 1);
-  point3.y = hb_arrayGetNI(pPoint3, 2);
-  PHB_ITEM pScalar4 = hb_param(4, HB_IT_ARRAY);
-  CvScalar scalar4;
-  scalar4.val[0] = hb_arrayGetND(pScalar4, 1);
-  scalar4.val[1] = hb_arrayGetND(pScalar4, 2);
-  scalar4.val[2] = hb_arrayGetND(pScalar4, 3);
-  scalar4.val[3] = hb_arrayGetND(pScalar4, 4);
-  cvRectangle(cv_par_CvArr(1), point2, point3, scalar4, cv_dpar_int(5, 1), cv_dpar_int(6, 8), cv_dpar_int(7, 0));
+  if (hb_pcount() >= 4 && hb_pcount() <= 7 && HB_ISPOINTER(1) && HB_ISARRAY(2) && HB_ISARRAY(3) && HB_ISARRAY(4) && (HB_ISNUM(5) || HB_ISNIL(5)) && (HB_ISNUM(6) || HB_ISNIL(6)) && (HB_ISNUM(7) || HB_ISNIL(7)))
+  {
+    PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
+    CvPoint point2;
+    point2.x = hb_arrayGetNI(pPoint2, 1);
+    point2.y = hb_arrayGetNI(pPoint2, 2);
+    PHB_ITEM pPoint3 = hb_param(3, HB_IT_ARRAY);
+    CvPoint point3;
+    point3.x = hb_arrayGetNI(pPoint3, 1);
+    point3.y = hb_arrayGetNI(pPoint3, 2);
+    PHB_ITEM pScalar4 = hb_param(4, HB_IT_ARRAY);
+    CvScalar scalar4;
+    scalar4.val[0] = hb_arrayGetND(pScalar4, 1);
+    scalar4.val[1] = hb_arrayGetND(pScalar4, 2);
+    scalar4.val[2] = hb_arrayGetND(pScalar4, 3);
+    scalar4.val[3] = hb_arrayGetND(pScalar4, 4);
+    cvRectangle(cv_par_CvArr(1), point2, point3, scalar4, cv_dpar_int(5, 1), cv_dpar_int(6, 8), cv_dpar_int(7, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvRectangleR( CvArr* img, CvRect r, CvScalar color, int thickness CV_DEFAULT(1), int line_type
 // CV_DEFAULT(8), int shift CV_DEFAULT(0) )
 HB_FUNC(CVRECTANGLER)
 {
-  PHB_ITEM pRect2 = hb_param(2, HB_IT_ARRAY);
-  CvRect rect2;
-  rect2.x = hb_arrayGetNI(pRect2, 1);
-  rect2.y = hb_arrayGetNI(pRect2, 2);
-  rect2.width = hb_arrayGetNI(pRect2, 3);
-  rect2.height = hb_arrayGetNI(pRect2, 4);
-  PHB_ITEM pScalar3 = hb_param(3, HB_IT_ARRAY);
-  CvScalar scalar3;
-  scalar3.val[0] = hb_arrayGetND(pScalar3, 1);
-  scalar3.val[1] = hb_arrayGetND(pScalar3, 2);
-  scalar3.val[2] = hb_arrayGetND(pScalar3, 3);
-  scalar3.val[3] = hb_arrayGetND(pScalar3, 4);
-  cvRectangleR(cv_par_CvArr(1), rect2, scalar3, cv_dpar_int(4, 1), cv_dpar_int(5, 8), cv_dpar_int(6, 0));
+  if (hb_pcount() >= 3 && hb_pcount() <= 6 && HB_ISPOINTER(1) && HB_ISARRAY(2) && HB_ISARRAY(3) && (HB_ISNUM(4) || HB_ISNIL(4)) && (HB_ISNUM(5) || HB_ISNIL(5)) && (HB_ISNUM(6) || HB_ISNIL(6)))
+  {
+    PHB_ITEM pRect2 = hb_param(2, HB_IT_ARRAY);
+    CvRect rect2;
+    rect2.x = hb_arrayGetNI(pRect2, 1);
+    rect2.y = hb_arrayGetNI(pRect2, 2);
+    rect2.width = hb_arrayGetNI(pRect2, 3);
+    rect2.height = hb_arrayGetNI(pRect2, 4);
+    PHB_ITEM pScalar3 = hb_param(3, HB_IT_ARRAY);
+    CvScalar scalar3;
+    scalar3.val[0] = hb_arrayGetND(pScalar3, 1);
+    scalar3.val[1] = hb_arrayGetND(pScalar3, 2);
+    scalar3.val[2] = hb_arrayGetND(pScalar3, 3);
+    scalar3.val[3] = hb_arrayGetND(pScalar3, 4);
+    cvRectangleR(cv_par_CvArr(1), rect2, scalar3, cv_dpar_int(4, 1), cv_dpar_int(5, 8), cv_dpar_int(6, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvCircle( CvArr* img, CvPoint center, int radius, CvScalar color, int thickness CV_DEFAULT(1), int
 // line_type CV_DEFAULT(8), int shift CV_DEFAULT(0) )
 HB_FUNC(CVCIRCLE)
 {
-  PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
-  CvPoint point2;
-  point2.x = hb_arrayGetNI(pPoint2, 1);
-  point2.y = hb_arrayGetNI(pPoint2, 2);
-  PHB_ITEM pScalar4 = hb_param(4, HB_IT_ARRAY);
-  CvScalar scalar4;
-  scalar4.val[0] = hb_arrayGetND(pScalar4, 1);
-  scalar4.val[1] = hb_arrayGetND(pScalar4, 2);
-  scalar4.val[2] = hb_arrayGetND(pScalar4, 3);
-  scalar4.val[3] = hb_arrayGetND(pScalar4, 4);
-  cvCircle(cv_par_CvArr(1), point2, cv_par_int(3), scalar4, cv_dpar_int(5, 1), cv_dpar_int(6, 8), cv_dpar_int(7, 0));
+  if (hb_pcount() >= 4 && hb_pcount() <= 7 && HB_ISPOINTER(1) && HB_ISARRAY(2) && HB_ISNUM(3) && HB_ISARRAY(4) && (HB_ISNUM(5) || HB_ISNIL(5)) && (HB_ISNUM(6) || HB_ISNIL(6)) && (HB_ISNUM(7) || HB_ISNIL(7)))
+  {
+    PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
+    CvPoint point2;
+    point2.x = hb_arrayGetNI(pPoint2, 1);
+    point2.y = hb_arrayGetNI(pPoint2, 2);
+    PHB_ITEM pScalar4 = hb_param(4, HB_IT_ARRAY);
+    CvScalar scalar4;
+    scalar4.val[0] = hb_arrayGetND(pScalar4, 1);
+    scalar4.val[1] = hb_arrayGetND(pScalar4, 2);
+    scalar4.val[2] = hb_arrayGetND(pScalar4, 3);
+    scalar4.val[3] = hb_arrayGetND(pScalar4, 4);
+    cvCircle(cv_par_CvArr(1), point2, cv_par_int(3), scalar4, cv_dpar_int(5, 1), cv_dpar_int(6, 8), cv_dpar_int(7, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvEllipse( CvArr* img, CvPoint center, CvSize axes, double angle, double start_angle, double end_angle,
 // CvScalar color, int thickness CV_DEFAULT(1), int line_type CV_DEFAULT(8), int shift CV_DEFAULT(0) )
 HB_FUNC(CVELLIPSE)
 {
-  PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
-  CvPoint point2;
-  point2.x = hb_arrayGetNI(pPoint2, 1);
-  point2.y = hb_arrayGetNI(pPoint2, 2);
-  PHB_ITEM pSize3 = hb_param(3, HB_IT_ARRAY);
-  CvSize size3;
-  size3.width = hb_arrayGetNI(pSize3, 1);
-  size3.height = hb_arrayGetNI(pSize3, 2);
-  PHB_ITEM pScalar7 = hb_param(7, HB_IT_ARRAY);
-  CvScalar scalar7;
-  scalar7.val[0] = hb_arrayGetND(pScalar7, 1);
-  scalar7.val[1] = hb_arrayGetND(pScalar7, 2);
-  scalar7.val[2] = hb_arrayGetND(pScalar7, 3);
-  scalar7.val[3] = hb_arrayGetND(pScalar7, 4);
-  cvEllipse(cv_par_CvArr(1), point2, size3, cv_par_double(4), cv_par_double(5), cv_par_double(6), scalar7,
-            cv_dpar_int(8, 1), cv_dpar_int(9, 8), cv_dpar_int(10, 0));
+  if (hb_pcount() >= 7 && hb_pcount() <= 10 && HB_ISPOINTER(1) && HB_ISARRAY(2) && HB_ISARRAY(3) && HB_ISNUM(4) && HB_ISNUM(5) && HB_ISNUM(6) && HB_ISARRAY(7) && (HB_ISNUM(8) || HB_ISNIL(8)) && (HB_ISNUM(9) || HB_ISNIL(9)) && (HB_ISNUM(10) || HB_ISNIL(10)))
+  {
+    PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
+    CvPoint point2;
+    point2.x = hb_arrayGetNI(pPoint2, 1);
+    point2.y = hb_arrayGetNI(pPoint2, 2);
+    PHB_ITEM pSize3 = hb_param(3, HB_IT_ARRAY);
+    CvSize size3;
+    size3.width = hb_arrayGetNI(pSize3, 1);
+    size3.height = hb_arrayGetNI(pSize3, 2);
+    PHB_ITEM pScalar7 = hb_param(7, HB_IT_ARRAY);
+    CvScalar scalar7;
+    scalar7.val[0] = hb_arrayGetND(pScalar7, 1);
+    scalar7.val[1] = hb_arrayGetND(pScalar7, 2);
+    scalar7.val[2] = hb_arrayGetND(pScalar7, 3);
+    scalar7.val[3] = hb_arrayGetND(pScalar7, 4);
+    cvEllipse(cv_par_CvArr(1), point2, size3, cv_par_double(4), cv_par_double(5), cv_par_double(6), scalar7,
+              cv_dpar_int(8, 1), cv_dpar_int(9, 8), cv_dpar_int(10, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvInitLineIterator( const CvArr* image, CvPoint pt1, CvPoint pt2, CvLineIterator* line_iterator, int
 // connectivity CV_DEFAULT(8), int left_to_right CV_DEFAULT(0) )
 HB_FUNC(CVINITLINEITERATOR)
 {
-  PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
-  CvPoint point2;
-  point2.x = hb_arrayGetNI(pPoint2, 1);
-  point2.y = hb_arrayGetNI(pPoint2, 2);
-  PHB_ITEM pPoint3 = hb_param(3, HB_IT_ARRAY);
-  CvPoint point3;
-  point3.x = hb_arrayGetNI(pPoint3, 1);
-  point3.y = hb_arrayGetNI(pPoint3, 2);
-  cv_ret_int(cvInitLineIterator(cv_cpar_CvArr(1), point2, point3, (CvLineIterator *)hb_parptr(4), cv_dpar_int(5, 8),
-                                cv_dpar_int(6, 0)));
+  if (hb_pcount() >= 4 && hb_pcount() <= 6 && HB_ISPOINTER(1) && HB_ISARRAY(2) && HB_ISARRAY(3) && HB_ISPOINTER(4) && (HB_ISNUM(5) || HB_ISNIL(5)) && (HB_ISNUM(6) || HB_ISNIL(6)))
+  {
+    PHB_ITEM pPoint2 = hb_param(2, HB_IT_ARRAY);
+    CvPoint point2;
+    point2.x = hb_arrayGetNI(pPoint2, 1);
+    point2.y = hb_arrayGetNI(pPoint2, 2);
+    PHB_ITEM pPoint3 = hb_param(3, HB_IT_ARRAY);
+    CvPoint point3;
+    point3.x = hb_arrayGetNI(pPoint3, 1);
+    point3.y = hb_arrayGetNI(pPoint3, 2);
+    cv_ret_int(cvInitLineIterator(cv_cpar_CvArr(1), point2, point3, (CvLineIterator *)hb_parptr(4), cv_dpar_int(5, 8),
+                                  cv_dpar_int(6, 0)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvScalar) cvColorToScalar( double packed_color, int arrtype )
 HB_FUNC(CVCOLORTOSCALAR)
 {
-  CvScalar scalar;
-  scalar = cvColorToScalar(cv_par_double(1), cv_par_int(2));
-  PHB_ITEM a = hb_itemArrayNew(4);
-  PHB_ITEM t = hb_itemNew(NULL);
-  hb_itemPutND(t, scalar.val[0]);
-  hb_itemArrayPut(a, 1, t);
-  hb_itemPutND(t, scalar.val[1]);
-  hb_itemArrayPut(a, 2, t);
-  hb_itemPutND(t, scalar.val[2]);
-  hb_itemArrayPut(a, 3, t);
-  hb_itemPutND(t, scalar.val[3]);
-  hb_itemArrayPut(a, 4, t);
-  hb_itemRelease(t);
-  hb_itemReturnRelease(a);
+  if (hb_pcount() == 2 && HB_ISNUM(1) && HB_ISNUM(2))
+  {
+    CvScalar scalar;
+    scalar = cvColorToScalar(cv_par_double(1), cv_par_int(2));
+    PHB_ITEM a = hb_itemArrayNew(4);
+    PHB_ITEM t = hb_itemNew(NULL);
+    hb_itemPutND(t, scalar.val[0]);
+    hb_itemArrayPut(a, 1, t);
+    hb_itemPutND(t, scalar.val[1]);
+    hb_itemArrayPut(a, 2, t);
+    hb_itemPutND(t, scalar.val[2]);
+    hb_itemArrayPut(a, 3, t);
+    hb_itemPutND(t, scalar.val[3]);
+    hb_itemArrayPut(a, 4, t);
+    hb_itemRelease(t);
+    hb_itemReturnRelease(a);
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvLUT( const CvArr* src, CvArr* dst, const CvArr* lut )
 HB_FUNC(CVLUT)
 {
-  cvLUT(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_cpar_CvArr(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
+  {
+    cvLUT(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_cpar_CvArr(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvInitTreeNodeIterator( CvTreeNodeIterator* tree_iterator, const void* first, int max_level )
 HB_FUNC(CVINITTREENODEITERATOR)
 {
-  cvInitTreeNodeIterator(cv_par_CvTreeNodeIterator(1), cv_cpar_voidptr(2), cv_par_int(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISNUM(3))
+  {
+    cvInitTreeNodeIterator(cv_par_CvTreeNodeIterator(1), cv_cpar_voidptr(2), cv_par_int(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void*) cvNextTreeNode( CvTreeNodeIterator* tree_iterator )
@@ -2833,19 +3295,40 @@ HB_FUNC(CVPREVTREENODE)
 // CVAPI(void) cvInsertNodeIntoTree( void* node, void* parent, void* frame )
 HB_FUNC(CVINSERTNODEINTOTREE)
 {
-  cvInsertNodeIntoTree(cv_par_voidptr(1), cv_par_voidptr(2), cv_par_voidptr(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
+  {
+    cvInsertNodeIntoTree(cv_par_voidptr(1), cv_par_voidptr(2), cv_par_voidptr(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvRemoveNodeFromTree( void* node, void* frame )
 HB_FUNC(CVREMOVENODEFROMTREE)
 {
-  cvRemoveNodeFromTree(cv_par_voidptr(1), cv_par_voidptr(2));
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
+  {
+    cvRemoveNodeFromTree(cv_par_voidptr(1), cv_par_voidptr(2));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvSeq*) cvTreeToNodeSeq( const void* first, int header_size, CvMemStorage* storage )
 HB_FUNC(CVTREETONODESEQ)
 {
-  cv_ret_CvSeq(cvTreeToNodeSeq(cv_cpar_voidptr(1), cv_par_int(2), cv_par_CvMemStorage(3)));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISPOINTER(3))
+  {
+    cv_ret_CvSeq(cvTreeToNodeSeq(cv_cpar_voidptr(1), cv_par_int(2), cv_par_CvMemStorage(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvRegisterModule( const CvModuleInfo* module_info )
@@ -2878,8 +3361,15 @@ HB_FUNC(CVUSEOPTIMIZED)
 // encoding CV_DEFAULT(NULL) )
 HB_FUNC(CVOPENFILESTORAGE)
 {
-  cv_ret_CvFileStorage(
-      cvOpenFileStorage(hb_parc(1), cv_par_CvMemStorage(2), cv_par_int(3), HB_ISNIL(4) ? NULL : hb_parc(4)));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISCHAR(1) && HB_ISPOINTER(2) && HB_ISNUM(3) && (HB_ISCHAR(4) || HB_ISNIL(4)))
+  {
+    cv_ret_CvFileStorage(
+        cvOpenFileStorage(hb_parc(1), cv_par_CvMemStorage(2), cv_par_int(3), HB_ISNIL(4) ? NULL : hb_parc(4)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvReleaseFileStorage( CvFileStorage** fs )
@@ -2912,25 +3402,53 @@ HB_FUNC(CVENDWRITESTRUCT)
 // CVAPI(void) cvWriteInt( CvFileStorage* fs, const char* name, int value )
 HB_FUNC(CVWRITEINT)
 {
-  cvWriteInt(cv_par_CvFileStorage(1), hb_parc(2), cv_par_int(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISCHAR(2) && HB_ISNUM(3))
+  {
+    cvWriteInt(cv_par_CvFileStorage(1), hb_parc(2), cv_par_int(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvWriteReal( CvFileStorage* fs, const char* name, double value )
 HB_FUNC(CVWRITEREAL)
 {
-  cvWriteReal(cv_par_CvFileStorage(1), hb_parc(2), cv_par_double(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISCHAR(2) && HB_ISNUM(3))
+  {
+    cvWriteReal(cv_par_CvFileStorage(1), hb_parc(2), cv_par_double(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvWriteString( CvFileStorage* fs, const char* name, const char* str, int quote CV_DEFAULT(0) )
 HB_FUNC(CVWRITESTRING)
 {
-  cvWriteString(cv_par_CvFileStorage(1), hb_parc(2), hb_parc(3), cv_dpar_int(4, 0));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISCHAR(2) && HB_ISCHAR(3) && (HB_ISNUM(4) || HB_ISNIL(4)))
+  {
+    cvWriteString(cv_par_CvFileStorage(1), hb_parc(2), hb_parc(3), cv_dpar_int(4, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvWriteComment( CvFileStorage* fs, const char* comment, int eol_comment )
 HB_FUNC(CVWRITECOMMENT)
 {
-  cvWriteComment(cv_par_CvFileStorage(1), hb_parc(2), cv_par_int(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISCHAR(2) && HB_ISNUM(3))
+  {
+    cvWriteComment(cv_par_CvFileStorage(1), hb_parc(2), cv_par_int(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvStartNextStream( CvFileStorage* fs )
@@ -2949,98 +3467,203 @@ HB_FUNC(CVSTARTNEXTSTREAM)
 // CVAPI(void) cvWriteRawData( CvFileStorage* fs, const void* src, int len, const char* dt )
 HB_FUNC(CVWRITERAWDATA)
 {
-  cvWriteRawData(cv_par_CvFileStorage(1), cv_cpar_voidptr(2), cv_par_int(3), hb_parc(4));
+  if (hb_pcount() == 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISNUM(3) && HB_ISCHAR(4))
+  {
+    cvWriteRawData(cv_par_CvFileStorage(1), cv_cpar_voidptr(2), cv_par_int(3), hb_parc(4));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvStringHashNode*) cvGetHashedKey( CvFileStorage* fs, const char* name, int len CV_DEFAULT(-1), int
 // create_missing CV_DEFAULT(0) )
 HB_FUNC(CVGETHASHEDKEY)
 {
-  cv_ret_CvStringHashNode(cvGetHashedKey(cv_par_CvFileStorage(1), hb_parc(2), cv_dpar_int(3, -1), cv_dpar_int(4, 0)));
+  if (hb_pcount() >= 2 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISCHAR(2) && (HB_ISNUM(3) || HB_ISNIL(3)) && (HB_ISNUM(4) || HB_ISNIL(4)))
+  {
+    cv_ret_CvStringHashNode(cvGetHashedKey(cv_par_CvFileStorage(1), hb_parc(2), cv_dpar_int(3, -1), cv_dpar_int(4, 0)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvFileNode*) cvGetRootFileNode( const CvFileStorage* fs, int stream_index CV_DEFAULT(0) )
 HB_FUNC(CVGETROOTFILENODE)
 {
-  cv_ret_CvFileNode(cvGetRootFileNode(cv_cpar_CvFileStorage(1), cv_dpar_int(2, 0)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
+  {
+    cv_ret_CvFileNode(cvGetRootFileNode(cv_cpar_CvFileStorage(1), cv_dpar_int(2, 0)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvFileNode*) cvGetFileNode( CvFileStorage* fs, CvFileNode* map, const CvStringHashNode* key, int create_missing
 // CV_DEFAULT(0) )
 HB_FUNC(CVGETFILENODE)
 {
-  cv_ret_CvFileNode(cvGetFileNode(cv_par_CvFileStorage(1), cv_par_CvFileNode(2), (const CvStringHashNode *)hb_parptr(3),
-                                  cv_dpar_int(4, 0)));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) && (HB_ISNUM(4) || HB_ISNIL(4)))
+  {
+    cv_ret_CvFileNode(cvGetFileNode(cv_par_CvFileStorage(1), cv_par_CvFileNode(2), (const CvStringHashNode *)hb_parptr(3),
+                                    cv_dpar_int(4, 0)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(CvFileNode*) cvGetFileNodeByName( const CvFileStorage* fs, const CvFileNode* map, const char* name )
 HB_FUNC(CVGETFILENODEBYNAME)
 {
-  cv_ret_CvFileNode(cvGetFileNodeByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3)));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISCHAR(3))
+  {
+    cv_ret_CvFileNode(cvGetFileNodeByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE int cvReadInt( const CvFileNode* node, int default_value CV_DEFAULT(0) )
 HB_FUNC(CVREADINT)
 {
-  cv_ret_int(cvReadInt(cv_cpar_CvFileNode(1), cv_dpar_int(2, 0)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
+  {
+    cv_ret_int(cvReadInt(cv_cpar_CvFileNode(1), cv_dpar_int(2, 0)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE int cvReadIntByName( const CvFileStorage* fs, const CvFileNode* map, const char* name, int default_value
 // CV_DEFAULT(0) )
 HB_FUNC(CVREADINTBYNAME)
 {
-  cv_ret_int(cvReadIntByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3), cv_dpar_int(4, 0)));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISCHAR(3) && (HB_ISNUM(4) || HB_ISNIL(4)))
+  {
+    cv_ret_int(cvReadIntByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3), cv_dpar_int(4, 0)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE double cvReadReal( const CvFileNode* node, double default_value CV_DEFAULT(0.) )
 HB_FUNC(CVREADREAL)
 {
-  cv_ret_double(cvReadReal(cv_cpar_CvFileNode(1), cv_dpar_double(2, 0.)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
+  {
+    cv_ret_double(cvReadReal(cv_cpar_CvFileNode(1), cv_dpar_double(2, 0.)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE double cvReadRealByName( const CvFileStorage* fs, const CvFileNode* map, const char* name, double
 // default_value CV_DEFAULT(0.) )
 HB_FUNC(CVREADREALBYNAME)
 {
-  cv_ret_double(cvReadRealByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3), cv_dpar_double(4, 0.)));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISCHAR(3) && (HB_ISNUM(4) || HB_ISNIL(4)))
+  {
+    cv_ret_double(cvReadRealByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3), cv_dpar_double(4, 0.)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE const char* cvReadString( const CvFileNode* node, const char* default_value CV_DEFAULT(NULL) )
 HB_FUNC(CVREADSTRING)
 {
-  hb_retc(cvReadString(cv_cpar_CvFileNode(1), HB_ISNIL(2) ? NULL : hb_parc(2)));
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISCHAR(2) || HB_ISNIL(2)))
+  {
+    hb_retc(cvReadString(cv_cpar_CvFileNode(1), HB_ISNIL(2) ? NULL : hb_parc(2)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CV_INLINE const char* cvReadStringByName( const CvFileStorage* fs, const CvFileNode* map, const char* name, const
 // char* default_value CV_DEFAULT(NULL) )
 HB_FUNC(CVREADSTRINGBYNAME)
 {
-  hb_retc(
-      cvReadStringByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3), HB_ISNIL(4) ? NULL : hb_parc(4)));
+  if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISCHAR(3) && (HB_ISCHAR(4) || HB_ISNIL(4)))
+  {
+    hb_retc(
+        cvReadStringByName(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), hb_parc(3), HB_ISNIL(4) ? NULL : hb_parc(4)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvStartReadRawData( const CvFileStorage* fs, const CvFileNode* src, CvSeqReader* reader )
 HB_FUNC(CVSTARTREADRAWDATA)
 {
-  cvStartReadRawData(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), cv_par_CvSeqReader(3));
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
+  {
+    cvStartReadRawData(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), cv_par_CvSeqReader(3));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvReadRawDataSlice( const CvFileStorage* fs, CvSeqReader* reader, int count, void* dst, const char* dt )
 HB_FUNC(CVREADRAWDATASLICE)
 {
-  cvReadRawDataSlice(cv_cpar_CvFileStorage(1), cv_par_CvSeqReader(2), cv_par_int(3), cv_par_voidptr(4), hb_parc(5));
+  if (hb_pcount() == 5 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISNUM(3) && HB_ISPOINTER(4) && HB_ISCHAR(5))
+  {
+    cvReadRawDataSlice(cv_cpar_CvFileStorage(1), cv_par_CvSeqReader(2), cv_par_int(3), cv_par_voidptr(4), hb_parc(5));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvReadRawData( const CvFileStorage* fs, const CvFileNode* src, void* dst, const char* dt )
 HB_FUNC(CVREADRAWDATA)
 {
-  cvReadRawData(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), cv_par_voidptr(3), hb_parc(4));
+  if (hb_pcount() == 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) && HB_ISCHAR(4))
+  {
+    cvReadRawData(cv_cpar_CvFileStorage(1), cv_cpar_CvFileNode(2), cv_par_voidptr(3), hb_parc(4));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvWriteFileNode( CvFileStorage* fs, const char* new_node_name, const CvFileNode* node, int embed )
 HB_FUNC(CVWRITEFILENODE)
 {
-  cvWriteFileNode(cv_par_CvFileStorage(1), hb_parc(2), cv_cpar_CvFileNode(3), cv_par_int(4));
+  if (hb_pcount() == 4 && HB_ISPOINTER(1) && HB_ISCHAR(2) && HB_ISPOINTER(3) && HB_ISNUM(4))
+  {
+    cvWriteFileNode(cv_par_CvFileStorage(1), hb_parc(2), cv_cpar_CvFileNode(3), cv_par_int(4));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(const char*) cvGetFileNodeName( const CvFileNode* node )
@@ -3182,12 +3805,23 @@ HB_FUNC(CVGETNUMTHREADS)
   {
     cv_ret_int(cvGetNumThreads());
   }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(void) cvSetNumThreads( int threads CV_DEFAULT(0) )
 HB_FUNC(CVSETNUMTHREADS)
 {
-  cvSetNumThreads(cv_dpar_int(1, 0));
+  if (hb_pcount() >= 0 && hb_pcount() <= 1 && (HB_ISNUM(1) || HB_ISNIL(1)))
+  {
+    cvSetNumThreads(cv_dpar_int(1, 0));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGetThreadNum( void )
@@ -3197,6 +3831,10 @@ HB_FUNC(CVGETTHREADNUM)
   {
     cv_ret_int(cvGetThreadNum());
   }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGetErrStatus( void )
@@ -3205,6 +3843,10 @@ HB_FUNC(CVGETERRSTATUS)
   if (hb_pcount() == 0)
   {
     cv_ret_int(cvGetErrStatus());
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
 
@@ -3228,6 +3870,10 @@ HB_FUNC(CVGETERRMODE)
   {
     cv_ret_int(cvGetErrMode());
   }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvSetErrMode( int mode )
@@ -3246,7 +3892,14 @@ HB_FUNC(CVSETERRMODE)
 // CVAPI(void) cvError( int status, const char* func_name, const char* err_msg, const char* file_name, int line )
 HB_FUNC(CVERROR)
 {
-  cvError(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5));
+  if (hb_pcount() == 5 && HB_ISNUM(1) && HB_ISCHAR(2) && HB_ISCHAR(3) && HB_ISCHAR(4) && HB_ISNUM(5))
+  {
+    cvError(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(const char*) cvErrorStr( int status )
@@ -3279,19 +3932,40 @@ HB_FUNC(CVERRORFROMIPPSTATUS)
 // void* userdata )
 HB_FUNC(CVNULDEVREPORT)
 {
-  cv_ret_int(cvNulDevReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
+  if (hb_pcount() == 6 && HB_ISNUM(1) && HB_ISCHAR(2) && HB_ISCHAR(3) && HB_ISCHAR(4) && HB_ISNUM(5) && HB_ISPOINTER(6))
+  {
+    cv_ret_int(cvNulDevReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvStdErrReport( int status, const char* func_name, const char* err_msg, const char* file_name, int line,
 // void* userdata )
 HB_FUNC(CVSTDERRREPORT)
 {
-  cv_ret_int(cvStdErrReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
+  if (hb_pcount() == 6 && HB_ISNUM(1) && HB_ISCHAR(2) && HB_ISCHAR(3) && HB_ISCHAR(4) && HB_ISNUM(5) && HB_ISPOINTER(6))
+  {
+    cv_ret_int(cvStdErrReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
 
 // CVAPI(int) cvGuiBoxReport( int status, const char* func_name, const char* err_msg, const char* file_name, int line,
 // void* userdata )
 HB_FUNC(CVGUIBOXREPORT)
 {
-  cv_ret_int(cvGuiBoxReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
+  if (hb_pcount() == 6 && HB_ISNUM(1) && HB_ISCHAR(2) && HB_ISCHAR(3) && HB_ISCHAR(4) && HB_ISNUM(5) && HB_ISPOINTER(6))
+  {
+    cv_ret_int(cvGuiBoxReport(cv_par_int(1), hb_parc(2), hb_parc(3), hb_parc(4), cv_par_int(5), cv_par_voidptr(6)));
+  }
+  else
+  {
+    hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
+  }
 }
