@@ -563,7 +563,8 @@ HB_FUNC(CV_FOURCC)
 // is_color CV_DEFAULT(1) )
 HB_FUNC(CVCREATEVIDEOWRITER)
 {
-  if (hb_pcount() >= 4 && hb_pcount() <= 5 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISARRAY(4) && (HB_ISNUM(5) || HB_ISNIL(5)))
+  if (hb_pcount() >= 4 && hb_pcount() <= 5 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISARRAY(4) &&
+      (HB_ISNUM(5) || HB_ISNIL(5)))
   {
     PHB_ITEM pSize4 = hb_param(4, HB_IT_ARRAY);
     CvSize size4;
