@@ -51,6 +51,16 @@
 #define cv_par_CvHistogram(n) (CvHistogram *)hb_parptr(n)
 #define cv_cpar_CvHistogram(n) (const CvHistogram *)hb_parptr(n)
 #define cv_par_IplConvKernel(n) (IplConvKernel *)hb_parptr(n)
+#define cv_cpar_CvTypeInfo(n) (const CvTypeInfo *)hb_parptr(n)
+#define cv_cpar_CvStringHashNode(n) (const CvStringHashNode *)hb_parptr(n)
+#define cv_par_CvLineIterator(n) (CvLineIterator *)hb_parptr(n)
+#define cv_cpar_CvGraph(n) (const CvGraph *)hb_parptr(n)
+#define cv_par_CvGraphScanner(n) (CvGraphScanner *)hb_parptr(n)
+#define cv_par_CvGraph(n) (CvGraph *)hb_parptr(n)
+#define cv_par_CvGraphVtx(n) (CvGraphVtx *)hb_parptr(n)
+#define cv_cpar_CvGraphVtx(n) (const CvGraphVtx *)hb_parptr(n)
+#define cv_cpar_CvGraphEdge(n) (const CvGraphEdge *)hb_parptr(n)
+#define cv_par_CvSeqBlock(n) (CvSeqBlock *)hb_parptr(n)
 
 // macros for return
 #define cv_ret_IplImage(x) hb_retptr(x)
