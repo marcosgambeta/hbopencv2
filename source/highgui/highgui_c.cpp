@@ -219,7 +219,7 @@ HB_FUNC(CVGETWINDOWNAME)
 {
   if (hb_pcount() == 1 && HB_ISPOINTER(1))
   {
-    hb_retc(cvGetWindowName((void *)hb_parptr(1)));
+    hb_retc(cvGetWindowName(cv_par_voidptr(1)));
   }
   else
   {
