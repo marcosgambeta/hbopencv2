@@ -2662,7 +2662,7 @@ HB_FUNC(CVMAKESEQHEADERFORARRAY) // TODO: fix parameter 4
       HB_ISPOINTER(6) && HB_ISPOINTER(7))
   {
     cv_ret_CvSeq(cvMakeSeqHeaderForArray(cv_par_int(1), cv_par_int(2), cv_par_int(3), cv_par_voidptr(4), cv_par_int(5),
-                                         cv_par_CvSeq(6), (CvSeqBlock *)hb_parptr(7)));
+                                         cv_par_CvSeq(6), cv_par_CvSeqBlock(7)));
   }
   else
   {
@@ -2791,7 +2791,7 @@ HB_FUNC(CVSETADD) // TODO: fix parameter 3
   if (hb_pcount() >= 1 && hb_pcount() <= 3 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)) &&
       (HB_ISPOINTER(3) && HB_ISNIL(3)))
   {
-    cv_ret_int(cvSetAdd(cv_par_CvSet(1), HB_ISNIL(2) ? NULL : (CvSetElem *)hb_parptr(2),
+    cv_ret_int(cvSetAdd(cv_par_CvSet(1), HB_ISNIL(2) ? NULL : cv_par_CvSetElem(2),
                         HB_ISNIL(3) ? NULL : (CvSetElem **)hb_parptr(3)));
   }
   else
@@ -2880,12 +2880,12 @@ HB_FUNC(CVCREATEGRAPH)
 
 // CVAPI(int) cvGraphAddVtx( CvGraph* graph, const CvGraphVtx* vtx CV_DEFAULT(NULL), CvGraphVtx** inserted_vtx
 // CV_DEFAULT(NULL) )
-HB_FUNC(CVGRAPHADDVTX)
+HB_FUNC(CVGRAPHADDVTX) // TODO: fix parameter 3
 {
   if (hb_pcount() >= 1 && hb_pcount() <= 3 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) && HB_ISNIL(2)) &&
       (HB_ISPOINTER(3) && HB_ISNIL(3)))
   {
-    cv_ret_int(cvGraphAddVtx((CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (const CvGraphVtx *)hb_parptr(2),
+    cv_ret_int(cvGraphAddVtx(cv_par_CvGraph(1), HB_ISNIL(2) ? NULL : cv_cpar_CvGraphVtx(2),
                              HB_ISNIL(3) ? NULL : (CvGraphVtx **)hb_parptr(3)));
   }
   else
@@ -2899,7 +2899,7 @@ HB_FUNC(CVGRAPHREMOVEVTX)
 {
   if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
   {
-    cv_ret_int(cvGraphRemoveVtx((CvGraph *)hb_parptr(1), cv_par_int(2)));
+    cv_ret_int(cvGraphRemoveVtx(cv_par_CvGraph(1), cv_par_int(2)));
   }
   else
   {
@@ -2912,7 +2912,7 @@ HB_FUNC(CVGRAPHREMOVEVTXBYPTR)
 {
   if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
   {
-    cv_ret_int(cvGraphRemoveVtxByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2)));
+    cv_ret_int(cvGraphRemoveVtxByPtr(cv_par_CvGraph(1), cv_par_CvGraphVtx(2)));
   }
   else
   {
@@ -2922,13 +2922,13 @@ HB_FUNC(CVGRAPHREMOVEVTXBYPTR)
 
 // CVAPI(int) cvGraphAddEdge( CvGraph* graph, int start_idx, int end_idx, const CvGraphEdge* edge CV_DEFAULT(NULL),
 // CvGraphEdge** inserted_edge CV_DEFAULT(NULL) )
-HB_FUNC(CVGRAPHADDEDGE)
+HB_FUNC(CVGRAPHADDEDGE) // TODO: fix parameter 5
 {
   if (hb_pcount() >= 3 && hb_pcount() <= 5 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3) &&
       (HB_ISPOINTER(4) || HB_ISNIL(4)) && (HB_ISPOINTER(5) || HB_ISNIL(5)))
   {
-    cv_ret_int(cvGraphAddEdge((CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3),
-                              HB_ISNIL(4) ? NULL : (const CvGraphEdge *)hb_parptr(4),
+    cv_ret_int(cvGraphAddEdge(cv_par_CvGraph(1), cv_par_int(2), cv_par_int(3),
+                              HB_ISNIL(4) ? NULL : cv_cpar_CvGraphEdge(4),
                               HB_ISNIL(5) ? NULL : (CvGraphEdge **)hb_parptr(5)));
   }
   else
@@ -2939,13 +2939,13 @@ HB_FUNC(CVGRAPHADDEDGE)
 
 // CVAPI(int) cvGraphAddEdgeByPtr( CvGraph* graph, CvGraphVtx* start_vtx, CvGraphVtx* end_vtx, const CvGraphEdge* edge
 // CV_DEFAULT(NULL), CvGraphEdge** inserted_edge CV_DEFAULT(NULL) )
-HB_FUNC(CVGRAPHADDEDGEBYPTR)
+HB_FUNC(CVGRAPHADDEDGEBYPTR) // TODO: fix parameter 5
 {
   if (hb_pcount() >= 3 && hb_pcount() <= 5 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) &&
       (HB_ISPOINTER(4) || HB_ISNIL(4)) && (HB_ISPOINTER(5) || HB_ISNIL(5)))
   {
-    cv_ret_int(cvGraphAddEdgeByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2), (CvGraphVtx *)hb_parptr(3),
-                                   HB_ISNIL(4) ? NULL : (const CvGraphEdge *)hb_parptr(4),
+    cv_ret_int(cvGraphAddEdgeByPtr(cv_par_CvGraph(1), cv_par_CvGraphVtx(2), cv_par_CvGraphVtx(3),
+                                   HB_ISNIL(4) ? NULL : cv_cpar_CvGraphEdge(4),
                                    HB_ISNIL(5) ? NULL : (CvGraphEdge **)hb_parptr(5)));
   }
   else
@@ -2959,7 +2959,7 @@ HB_FUNC(CVGRAPHREMOVEEDGE)
 {
   if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3))
   {
-    cvGraphRemoveEdge((CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3));
+    cvGraphRemoveEdge(cv_par_CvGraph(1), cv_par_int(2), cv_par_int(3));
   }
   else
   {
@@ -2972,7 +2972,7 @@ HB_FUNC(CVGRAPHREMOVEEDGEBYPTR)
 {
   if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
   {
-    cvGraphRemoveEdgeByPtr((CvGraph *)hb_parptr(1), (CvGraphVtx *)hb_parptr(2), (CvGraphVtx *)hb_parptr(3));
+    cvGraphRemoveEdgeByPtr(cv_par_CvGraph(1), cv_par_CvGraphVtx(2), cv_par_CvGraphVtx(3));
   }
   else
   {
@@ -2985,7 +2985,7 @@ HB_FUNC(CVFINDGRAPHEDGE)
 {
   if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3))
   {
-    cv_ret_CvGraphEdge(cvFindGraphEdge((const CvGraph *)hb_parptr(1), cv_par_int(2), cv_par_int(3)));
+    cv_ret_CvGraphEdge(cvFindGraphEdge(cv_cpar_CvGraph(1), cv_par_int(2), cv_par_int(3)));
   }
   else
   {
@@ -2999,8 +2999,8 @@ HB_FUNC(CVFINDGRAPHEDGEBYPTR)
 {
   if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
   {
-    cv_ret_CvGraphEdge(cvFindGraphEdgeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2),
-                                            (const CvGraphVtx *)hb_parptr(3)));
+    cv_ret_CvGraphEdge(cvFindGraphEdgeByPtr(cv_cpar_CvGraph(1), cv_cpar_CvGraphVtx(2),
+                                            cv_cpar_CvGraphVtx(3)));
   }
   else
   {
@@ -3013,7 +3013,7 @@ HB_FUNC(CVCLEARGRAPH)
 {
   if (hb_pcount() == 1 && HB_ISPOINTER(1))
   {
-    cvClearGraph((CvGraph *)hb_parptr(1));
+    cvClearGraph(cv_par_CvGraph(1));
   }
   else
   {
@@ -3026,7 +3026,7 @@ HB_FUNC(CVGRAPHVTXDEGREE)
 {
   if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
   {
-    cv_ret_int(cvGraphVtxDegree((const CvGraph *)hb_parptr(1), cv_par_int(2)));
+    cv_ret_int(cvGraphVtxDegree(cv_cpar_CvGraph(1), cv_par_int(2)));
   }
   else
   {
@@ -3039,7 +3039,7 @@ HB_FUNC(CVGRAPHVTXDEGREEBYPTR)
 {
   if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
   {
-    cv_ret_int(cvGraphVtxDegreeByPtr((const CvGraph *)hb_parptr(1), (const CvGraphVtx *)hb_parptr(2)));
+    cv_ret_int(cvGraphVtxDegreeByPtr(cv_cpar_CvGraph(1), cv_cpar_CvGraphVtx(2)));
   }
   else
   {
@@ -3054,7 +3054,7 @@ HB_FUNC(CVCREATEGRAPHSCANNER)
   if (hb_pcount() >= 1 && hb_pcount() <= 3 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) || HB_ISNIL(2)) &&
       (HB_ISNUM(3) || HB_ISNIL(3)))
   {
-    cv_ret_CvGraphScanner(cvCreateGraphScanner((CvGraph *)hb_parptr(1), HB_ISNIL(2) ? NULL : (CvGraphVtx *)hb_parptr(2),
+    cv_ret_CvGraphScanner(cvCreateGraphScanner(cv_par_CvGraph(1), HB_ISNIL(2) ? NULL : cv_par_CvGraphVtx(2),
                                                cv_dpar_int(3, CV_GRAPH_ALL_ITEMS)));
   }
   else
@@ -3068,7 +3068,7 @@ HB_FUNC(CVRELEASEGRAPHSCANNER)
 {
   if (hb_pcount() == 1 && HB_ISPOINTER(1))
   {
-    CvGraphScanner *scanner = (CvGraphScanner *)hb_parptr(1);
+    CvGraphScanner *scanner = cv_par_CvGraphScanner(1);
     cvReleaseGraphScanner(&scanner);
   }
   else
@@ -3082,7 +3082,7 @@ HB_FUNC(CVNEXTGRAPHITEM)
 {
   if (hb_pcount() == 1 && HB_ISPOINTER(1))
   {
-    cv_ret_int(cvNextGraphItem((CvGraphScanner *)hb_parptr(1)));
+    cv_ret_int(cvNextGraphItem(cv_par_CvGraphScanner(1)));
   }
   else
   {
@@ -3095,7 +3095,7 @@ HB_FUNC(CVCLONEGRAPH)
 {
   if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
   {
-    cv_ret_CvGraph(cvCloneGraph((const CvGraph *)hb_parptr(1), cv_par_CvMemStorage(2)));
+    cv_ret_CvGraph(cvCloneGraph(cv_cpar_CvGraph(1), cv_par_CvMemStorage(2)));
   }
   else
   {
@@ -3259,7 +3259,7 @@ HB_FUNC(CVINITLINEITERATOR)
     CvPoint point3;
     point3.x = hb_arrayGetNI(pPoint3, 1);
     point3.y = hb_arrayGetNI(pPoint3, 2);
-    cv_ret_int(cvInitLineIterator(cv_cpar_CvArr(1), point2, point3, (CvLineIterator *)hb_parptr(4), cv_dpar_int(5, 8),
+    cv_ret_int(cvInitLineIterator(cv_cpar_CvArr(1), point2, point3, cv_par_CvLineIterator(4), cv_dpar_int(5, 8),
                                   cv_dpar_int(6, 0)));
   }
   else
@@ -3569,7 +3569,7 @@ HB_FUNC(CVGETFILENODE)
       (HB_ISNUM(4) || HB_ISNIL(4)))
   {
     cv_ret_CvFileNode(cvGetFileNode(cv_par_CvFileStorage(1), cv_par_CvFileNode(2),
-                                    (const CvStringHashNode *)hb_parptr(3), cv_dpar_int(4, 0)));
+                                    cv_cpar_CvStringHashNode(3), cv_dpar_int(4, 0)));
   }
   else
   {
@@ -3745,7 +3745,7 @@ HB_FUNC(CVREGISTERTYPE)
 {
   if (hb_pcount() == 1 && HB_ISPOINTER(1))
   {
-    cvRegisterType((const CvTypeInfo *)hb_parptr(1));
+    cvRegisterType(cv_cpar_CvTypeInfo(1));
   }
   else
   {
