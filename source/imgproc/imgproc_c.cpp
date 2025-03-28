@@ -679,7 +679,7 @@ HB_FUNC(CVCONVEXHULL2)
   if (hb_pcount() >= 1 && hb_pcount() <= 4 && HB_ISPOINTER(1) && (HB_ISPOINTER(2) || HB_ISNIL(2)) &&
       (HB_ISNUM(3) || HB_ISNIL(3)) && (HB_ISNUM(4) || HB_ISNIL(4)))
   {
-    cv_ret_CvSeq(cvConvexHull2(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : (void *)hb_parptr(2),
+    cv_ret_CvSeq(cvConvexHull2(cv_cpar_CvArr(1), HB_ISNIL(2) ? NULL : cv_par_voidptr(2),
                                cv_dpar_int(3, CV_CLOCKWISE), cv_dpar_int(4, 0)));
   }
   else
@@ -708,7 +708,7 @@ HB_FUNC(CVCONVEXITYDEFECTS)
   if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && (HB_ISPOINTER(3) || HB_ISNIL(3)))
   {
     cv_ret_CvSeq(
-        cvConvexityDefects(cv_cpar_CvArr(1), cv_cpar_CvArr(2), HB_ISNIL(3) ? NULL : (CvMemStorage *)hb_parptr(3)));
+        cvConvexityDefects(cv_cpar_CvArr(1), cv_cpar_CvArr(2), HB_ISNIL(3) ? NULL : cv_par_CvMemStorage(3)));
   }
   else
   {
