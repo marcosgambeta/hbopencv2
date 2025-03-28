@@ -2999,8 +2999,7 @@ HB_FUNC(CVFINDGRAPHEDGEBYPTR)
 {
   if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3))
   {
-    cv_ret_CvGraphEdge(cvFindGraphEdgeByPtr(cv_cpar_CvGraph(1), cv_cpar_CvGraphVtx(2),
-                                            cv_cpar_CvGraphVtx(3)));
+    cv_ret_CvGraphEdge(cvFindGraphEdgeByPtr(cv_cpar_CvGraph(1), cv_cpar_CvGraphVtx(2), cv_cpar_CvGraphVtx(3)));
   }
   else
   {
@@ -3568,8 +3567,8 @@ HB_FUNC(CVGETFILENODE)
   if (hb_pcount() >= 3 && hb_pcount() <= 4 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && HB_ISPOINTER(3) &&
       (HB_ISNUM(4) || HB_ISNIL(4)))
   {
-    cv_ret_CvFileNode(cvGetFileNode(cv_par_CvFileStorage(1), cv_par_CvFileNode(2),
-                                    cv_cpar_CvStringHashNode(3), cv_dpar_int(4, 0)));
+    cv_ret_CvFileNode(
+        cvGetFileNode(cv_par_CvFileStorage(1), cv_par_CvFileNode(2), cv_cpar_CvStringHashNode(3), cv_dpar_int(4, 0)));
   }
   else
   {
