@@ -87,12 +87,9 @@ HB_FUNC(CVSTOPLOOP)
 // CVAPI(int) cvStartWindowThread( void )
 HB_FUNC(CVSTARTWINDOWTHREAD)
 {
-  if (hb_pcount() == 0)
-  {
+  if (hb_pcount() == 0) {
     cv_ret_int(cvStartWindowThread());
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -100,12 +97,9 @@ HB_FUNC(CVSTARTWINDOWTHREAD)
 // CVAPI(int) cvNamedWindow( const char* name, int flags CV_DEFAULT(CV_WINDOW_AUTOSIZE) )
 HB_FUNC(CVNAMEDWINDOW)
 {
-  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISCHAR(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
-  {
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISCHAR(1) && (HB_ISNUM(2) || HB_ISNIL(2))) {
     cv_ret_int(cvNamedWindow(hb_parc(1), cv_dpar_int(2, CV_WINDOW_AUTOSIZE)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -113,12 +107,9 @@ HB_FUNC(CVNAMEDWINDOW)
 // CVAPI(void) cvSetWindowProperty( const char* name, int prop_id, double prop_value )
 HB_FUNC(CVSETWINDOWPROPERTY)
 {
-  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3))
-  {
+  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3)) {
     cvSetWindowProperty(hb_parc(1), cv_par_int(2), cv_par_double(3));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -126,12 +117,9 @@ HB_FUNC(CVSETWINDOWPROPERTY)
 // CVAPI(double) cvGetWindowProperty( const char* name, int prop_id )
 HB_FUNC(CVGETWINDOWPROPERTY)
 {
-  if (hb_pcount() == 2 && HB_ISCHAR(1) && HB_ISNUM(2))
-  {
+  if (hb_pcount() == 2 && HB_ISCHAR(1) && HB_ISNUM(2)) {
     cv_ret_double(cvGetWindowProperty(hb_parc(1), cv_par_int(2)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -139,12 +127,9 @@ HB_FUNC(CVGETWINDOWPROPERTY)
 // CVAPI(void) cvShowImage( const char* name, const CvArr* image )
 HB_FUNC(CVSHOWIMAGE)
 {
-  if (hb_pcount() == 2 && HB_ISCHAR(1) && HB_ISPOINTER(2))
-  {
+  if (hb_pcount() == 2 && HB_ISCHAR(1) && HB_ISPOINTER(2)) {
     cvShowImage(hb_parc(1), cv_cpar_CvArr(2));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -152,12 +137,9 @@ HB_FUNC(CVSHOWIMAGE)
 // CVAPI(void) cvResizeWindow( const char* name, int width, int height )
 HB_FUNC(CVRESIZEWINDOW)
 {
-  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3))
-  {
+  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3)) {
     cvResizeWindow(hb_parc(1), cv_par_int(2), cv_par_int(3));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -165,12 +147,9 @@ HB_FUNC(CVRESIZEWINDOW)
 // CVAPI(void) cvMoveWindow( const char* name, int x, int y )
 HB_FUNC(CVMOVEWINDOW)
 {
-  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3))
-  {
+  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3)) {
     cvMoveWindow(hb_parc(1), cv_par_int(2), cv_par_int(3));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -178,12 +157,9 @@ HB_FUNC(CVMOVEWINDOW)
 // CVAPI(void) cvDestroyWindow( const char* name )
 HB_FUNC(CVDESTROYWINDOW)
 {
-  if (hb_pcount() == 1 && HB_ISCHAR(1))
-  {
+  if (hb_pcount() == 1 && HB_ISCHAR(1)) {
     cvDestroyWindow(hb_parc(1));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -191,12 +167,9 @@ HB_FUNC(CVDESTROYWINDOW)
 // CVAPI(void) cvDestroyAllWindows( void )
 HB_FUNC(CVDESTROYALLWINDOWS)
 {
-  if (hb_pcount() == 0)
-  {
+  if (hb_pcount() == 0) {
     cvDestroyAllWindows();
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -204,12 +177,9 @@ HB_FUNC(CVDESTROYALLWINDOWS)
 // CVAPI(void*) cvGetWindowHandle( const char* name )
 HB_FUNC(CVGETWINDOWHANDLE)
 {
-  if (hb_pcount() == 1 && HB_ISCHAR(1))
-  {
+  if (hb_pcount() == 1 && HB_ISCHAR(1)) {
     cv_ret_voidptr(cvGetWindowHandle(hb_parc(1)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -217,12 +187,9 @@ HB_FUNC(CVGETWINDOWHANDLE)
 // CVAPI(const char*) cvGetWindowName( void* window_handle )
 HB_FUNC(CVGETWINDOWNAME)
 {
-  if (hb_pcount() == 1 && HB_ISPOINTER(1))
-  {
+  if (hb_pcount() == 1 && HB_ISPOINTER(1)) {
     hb_retc(cvGetWindowName(cv_par_voidptr(1)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -230,12 +197,9 @@ HB_FUNC(CVGETWINDOWNAME)
 // CVAPI(int) cvGetTrackbarPos( const char* trackbar_name, const char* window_name )
 HB_FUNC(CVGETTRACKBARPOS)
 {
-  if (hb_pcount() == 2 && HB_ISCHAR(1) && HB_ISCHAR(2))
-  {
+  if (hb_pcount() == 2 && HB_ISCHAR(1) && HB_ISCHAR(2)) {
     cv_ret_int(cvGetTrackbarPos(hb_parc(1), hb_parc(2)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -243,12 +207,9 @@ HB_FUNC(CVGETTRACKBARPOS)
 // CVAPI(void) cvSetTrackbarPos( const char* trackbar_name, const char* window_name, int pos )
 HB_FUNC(CVSETTRACKBARPOS)
 {
-  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISCHAR(2) && HB_ISNUM(3))
-  {
+  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISCHAR(2) && HB_ISNUM(3)) {
     cvSetTrackbarPos(hb_parc(1), hb_parc(2), cv_par_int(3));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -256,12 +217,9 @@ HB_FUNC(CVSETTRACKBARPOS)
 // CVAPI(void) cvSetTrackbarMax( const char* trackbar_name, const char* window_name, int maxval )
 HB_FUNC(CVSETTRACKBARMAX)
 {
-  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISCHAR(2) && HB_ISNUM(3))
-  {
+  if (hb_pcount() == 3 && HB_ISCHAR(1) && HB_ISCHAR(2) && HB_ISNUM(3)) {
     cvSetTrackbarMax(hb_parc(1), hb_parc(2), cv_par_int(3));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -269,12 +227,9 @@ HB_FUNC(CVSETTRACKBARMAX)
 // CVAPI(IplImage*) cvLoadImage( const char* filename, int iscolor CV_DEFAULT(CV_LOAD_IMAGE_COLOR) )
 HB_FUNC(CVLOADIMAGE)
 {
-  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISCHAR(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
-  {
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISCHAR(1) && (HB_ISNUM(2) || HB_ISNIL(2))) {
     cv_ret_IplImage(cvLoadImage(hb_parc(1), cv_dpar_int(2, CV_LOAD_IMAGE_COLOR)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -282,12 +237,9 @@ HB_FUNC(CVLOADIMAGE)
 // CVAPI(CvMat*) cvLoadImageM( const char* filename, int iscolor CV_DEFAULT(CV_LOAD_IMAGE_COLOR) )
 HB_FUNC(CVLOADIMAGEM)
 {
-  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISCHAR(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
-  {
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISCHAR(1) && (HB_ISNUM(2) || HB_ISNIL(2))) {
     cv_ret_CvMat(cvLoadImageM(hb_parc(1), cv_dpar_int(2, CV_LOAD_IMAGE_COLOR)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -295,28 +247,22 @@ HB_FUNC(CVLOADIMAGEM)
 // CVAPI(int) cvSaveImage( const char* filename, const CvArr* image, const int* params CV_DEFAULT(0) )
 HB_FUNC(CVSAVEIMAGE)
 {
-  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISCHAR(1) && HB_ISPOINTER(2) && (HB_ISARRAY(3) || HB_ISNIL(3)))
-  {
+  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISCHAR(1) && HB_ISPOINTER(2) && (HB_ISARRAY(3) || HB_ISNIL(3))) {
     PHB_ITEM a3 = hb_param(3, HB_IT_ARRAY);
     int *values3 = NULL;
-    if (a3)
-    {
+    if (a3) {
       const int lenght = hb_arrayLen(a3);
       values3 = new int[lenght + 1];
-      for (int i = 0; i < lenght; ++i)
-      {
+      for (int i = 0; i < lenght; ++i) {
         values3[i] = hb_arrayGetNI(a3, i + 1);
       }
       values3[lenght] = 0;
     }
     cv_ret_int(cvSaveImage(hb_parc(1), cv_cpar_CvArr(2), HB_ISNIL(3) ? 0 : (const int *)values3));
-    if (a3)
-    {
+    if (a3) {
       delete[] values3;
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -324,12 +270,9 @@ HB_FUNC(CVSAVEIMAGE)
 // CVAPI(IplImage*) cvDecodeImage( const CvMat* buf, int iscolor CV_DEFAULT(CV_LOAD_IMAGE_COLOR) )
 HB_FUNC(CVDECODEIMAGE)
 {
-  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
-  {
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2))) {
     cv_ret_IplImage(cvDecodeImage(cv_cpar_CvMat(1), cv_dpar_int(2, CV_LOAD_IMAGE_COLOR)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -337,12 +280,9 @@ HB_FUNC(CVDECODEIMAGE)
 // CVAPI(CvMat*) cvDecodeImageM( const CvMat* buf, int iscolor CV_DEFAULT(CV_LOAD_IMAGE_COLOR) )
 HB_FUNC(CVDECODEIMAGEM)
 {
-  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
-  {
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2))) {
     cv_ret_CvMat(cvDecodeImageM(cv_cpar_CvMat(1), cv_dpar_int(2, CV_LOAD_IMAGE_COLOR)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -350,28 +290,22 @@ HB_FUNC(CVDECODEIMAGEM)
 // CVAPI(CvMat*) cvEncodeImage( const char* ext, const CvArr* image, const int* params CV_DEFAULT(0) )
 HB_FUNC(CVENCODEIMAGE)
 {
-  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISCHAR(1) && HB_ISPOINTER(2) && (HB_ISARRAY(3) || HB_ISNIL(3)))
-  {
+  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISCHAR(1) && HB_ISPOINTER(2) && (HB_ISARRAY(3) || HB_ISNIL(3))) {
     PHB_ITEM a3 = hb_param(3, HB_IT_ARRAY);
     int *values3 = NULL;
-    if (a3)
-    {
+    if (a3) {
       const int lenght = hb_arrayLen(a3);
       values3 = new int[lenght + 1];
-      for (int i = 0; i < lenght; ++i)
-      {
+      for (int i = 0; i < lenght; ++i) {
         values3[i] = hb_arrayGetNI(a3, i + 1);
       }
       values3[lenght] = 0;
     }
     cv_ret_CvMat(cvEncodeImage(hb_parc(1), cv_cpar_CvArr(2), HB_ISNIL(3) ? 0 : (const int *)values3));
-    if (a3)
-    {
+    if (a3) {
       delete[] values3;
     }
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -379,12 +313,9 @@ HB_FUNC(CVENCODEIMAGE)
 // CVAPI(void) cvConvertImage( const CvArr* src, CvArr* dst, int flags CV_DEFAULT(0) )
 HB_FUNC(CVCONVERTIMAGE)
 {
-  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && (HB_ISNUM(3) || HB_ISNIL(3)))
-  {
+  if (hb_pcount() >= 2 && hb_pcount() <= 3 && HB_ISPOINTER(1) && HB_ISPOINTER(2) && (HB_ISNUM(3) || HB_ISNIL(3))) {
     cvConvertImage(cv_cpar_CvArr(1), cv_par_CvArr(2), cv_dpar_int(3, 0));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -392,12 +323,9 @@ HB_FUNC(CVCONVERTIMAGE)
 // CVAPI(int) cvWaitKey( int delay CV_DEFAULT(0) )
 HB_FUNC(CVWAITKEY)
 {
-  if (hb_pcount() >= 0 && hb_pcount() <= 1 && (HB_ISNUM(1) || HB_ISNIL(1)))
-  {
+  if (hb_pcount() >= 0 && hb_pcount() <= 1 && (HB_ISNUM(1) || HB_ISNIL(1))) {
     cv_ret_int(cvWaitKey(cv_dpar_int(1, 0)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -405,12 +333,9 @@ HB_FUNC(CVWAITKEY)
 // CVAPI(void) cvSetOpenGlContext( const char* window_name )
 HB_FUNC(CVSETOPENGLCONTEXT)
 {
-  if (hb_pcount() == 1 && HB_ISCHAR(1))
-  {
+  if (hb_pcount() == 1 && HB_ISCHAR(1)) {
     cvSetOpenGlContext(hb_parc(1));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -418,12 +343,9 @@ HB_FUNC(CVSETOPENGLCONTEXT)
 // CVAPI(void) cvUpdateWindow( const char* window_name )
 HB_FUNC(CVUPDATEWINDOW)
 {
-  if (hb_pcount() == 1 && HB_ISCHAR(1))
-  {
+  if (hb_pcount() == 1 && HB_ISCHAR(1)) {
     cvUpdateWindow(hb_parc(1));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -431,12 +353,9 @@ HB_FUNC(CVUPDATEWINDOW)
 // CVAPI(CvCapture*) cvCreateFileCapture( const char* filename )
 HB_FUNC(CVCREATEFILECAPTURE)
 {
-  if (hb_pcount() == 1 && HB_ISCHAR(1))
-  {
+  if (hb_pcount() == 1 && HB_ISCHAR(1)) {
     cv_ret_CvCapture(cvCreateFileCapture(hb_parc(1)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -444,12 +363,9 @@ HB_FUNC(CVCREATEFILECAPTURE)
 // CVAPI(CvCapture*) cvCreateCameraCapture( int index )
 HB_FUNC(CVCREATECAMERACAPTURE)
 {
-  if (hb_pcount() == 1 && HB_ISNUM(1))
-  {
+  if (hb_pcount() == 1 && HB_ISNUM(1)) {
     cv_ret_CvCapture(cvCreateCameraCapture(cv_par_int(1)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -457,12 +373,9 @@ HB_FUNC(CVCREATECAMERACAPTURE)
 // CVAPI(int) cvGrabFrame( CvCapture* capture )
 HB_FUNC(CVGRABFRAME)
 {
-  if (hb_pcount() == 1 && HB_ISPOINTER(1))
-  {
+  if (hb_pcount() == 1 && HB_ISPOINTER(1)) {
     cv_ret_int(cvGrabFrame(cv_par_CvCapture(1)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -470,12 +383,9 @@ HB_FUNC(CVGRABFRAME)
 // CVAPI(IplImage*) cvRetrieveFrame( CvCapture* capture, int streamIdx CV_DEFAULT(0) )
 HB_FUNC(CVRETRIEVEFRAME)
 {
-  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2)))
-  {
+  if (hb_pcount() >= 1 && hb_pcount() <= 2 && HB_ISPOINTER(1) && (HB_ISNUM(2) || HB_ISNIL(2))) {
     cv_ret_IplImage(cvRetrieveFrame(cv_par_CvCapture(1), cv_dpar_int(2, 0)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -483,12 +393,9 @@ HB_FUNC(CVRETRIEVEFRAME)
 // CVAPI(IplImage*) cvQueryFrame( CvCapture* capture )
 HB_FUNC(CVQUERYFRAME)
 {
-  if (hb_pcount() == 1 && HB_ISPOINTER(1))
-  {
+  if (hb_pcount() == 1 && HB_ISPOINTER(1)) {
     cv_ret_IplImage(cvQueryFrame(cv_par_CvCapture(1)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -496,13 +403,10 @@ HB_FUNC(CVQUERYFRAME)
 // CVAPI(void) cvReleaseCapture( CvCapture** capture )
 HB_FUNC(CVRELEASECAPTURE)
 {
-  if (hb_pcount() == 1 && HB_ISPOINTER(1))
-  {
+  if (hb_pcount() == 1 && HB_ISPOINTER(1)) {
     CvCapture *capture = cv_par_CvCapture(1);
     cvReleaseCapture(&capture);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -510,12 +414,9 @@ HB_FUNC(CVRELEASECAPTURE)
 // CVAPI(double) cvGetCaptureProperty( CvCapture* capture, int property_id )
 HB_FUNC(CVGETCAPTUREPROPERTY)
 {
-  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2))
-  {
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISNUM(2)) {
     cv_ret_double(cvGetCaptureProperty(cv_par_CvCapture(1), cv_par_int(2)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -523,12 +424,9 @@ HB_FUNC(CVGETCAPTUREPROPERTY)
 // CVAPI(int) cvSetCaptureProperty( CvCapture* capture, int property_id, double value )
 HB_FUNC(CVSETCAPTUREPROPERTY)
 {
-  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3))
-  {
+  if (hb_pcount() == 3 && HB_ISPOINTER(1) && HB_ISNUM(2) && HB_ISNUM(3)) {
     cv_ret_int(cvSetCaptureProperty(cv_par_CvCapture(1), cv_par_int(2), cv_par_double(3)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -536,12 +434,9 @@ HB_FUNC(CVSETCAPTUREPROPERTY)
 // CVAPI(int) cvGetCaptureDomain( CvCapture* capture )
 HB_FUNC(CVGETCAPTUREDOMAIN)
 {
-  if (hb_pcount() == 1 && HB_ISPOINTER(1))
-  {
+  if (hb_pcount() == 1 && HB_ISPOINTER(1)) {
     cv_ret_int(cvGetCaptureDomain(cv_par_CvCapture(1)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -549,12 +444,9 @@ HB_FUNC(CVGETCAPTUREDOMAIN)
 // CV_INLINE int CV_FOURCC( char c1, char c2, char c3, char c4 )
 HB_FUNC(CV_FOURCC)
 {
-  if (hb_pcount() == 4 && HB_ISNUM(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISNUM(4))
-  {
+  if (hb_pcount() == 4 && HB_ISNUM(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISNUM(4)) {
     cv_ret_int(CV_FOURCC((char)hb_parni(1), (char)hb_parni(2), (char)hb_parni(3), (char)hb_parni(4)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -564,16 +456,13 @@ HB_FUNC(CV_FOURCC)
 HB_FUNC(CVCREATEVIDEOWRITER)
 {
   if (hb_pcount() >= 4 && hb_pcount() <= 5 && HB_ISCHAR(1) && HB_ISNUM(2) && HB_ISNUM(3) && HB_ISARRAY(4) &&
-      (HB_ISNUM(5) || HB_ISNIL(5)))
-  {
+      (HB_ISNUM(5) || HB_ISNIL(5))) {
     PHB_ITEM pSize4 = hb_param(4, HB_IT_ARRAY);
     CvSize size4;
     size4.width = hb_arrayGetNI(pSize4, 1);
     size4.height = hb_arrayGetNI(pSize4, 2);
     cv_ret_CvVideoWriter(cvCreateVideoWriter(hb_parc(1), cv_par_int(2), cv_par_double(3), size4, cv_dpar_int(5, 1)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -581,12 +470,9 @@ HB_FUNC(CVCREATEVIDEOWRITER)
 // CVAPI(int) cvWriteFrame( CvVideoWriter* writer, const IplImage* image )
 HB_FUNC(CVWRITEFRAME)
 {
-  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2))
-  {
+  if (hb_pcount() == 2 && HB_ISPOINTER(1) && HB_ISPOINTER(2)) {
     cv_ret_int(cvWriteFrame(cv_par_CvVideoWriter(1), cv_cpar_IplImage(2)));
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
@@ -594,13 +480,10 @@ HB_FUNC(CVWRITEFRAME)
 // CVAPI(void) cvReleaseVideoWriter( CvVideoWriter** writer )
 HB_FUNC(CVRELEASEVIDEOWRITER)
 {
-  if (hb_pcount() == 1 && HB_ISPOINTER(1))
-  {
+  if (hb_pcount() == 1 && HB_ISPOINTER(1)) {
     CvVideoWriter *writer = cv_par_CvVideoWriter(1);
     cvReleaseVideoWriter(&writer);
-  }
-  else
-  {
+  } else {
     hb_errRT_BASE(EG_ARG, 3012, NULL, HB_ERR_FUNCNAME, HB_ERR_ARGS_BASEPARAMS);
   }
 }
