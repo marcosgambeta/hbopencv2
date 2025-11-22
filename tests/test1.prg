@@ -1,7 +1,7 @@
 //
 // hbopencv2 test
 //
-// Copyright (c) 2021 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
+// Copyright (c) 2021 Marcos Antonio Gambeta <marcosgambeta@outlook.com>
 //
 
 // Compile with:
