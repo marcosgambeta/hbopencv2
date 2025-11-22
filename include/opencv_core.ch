@@ -1,7 +1,7 @@
 //
 // hbopencv2 - Binding library for Harbour++/Harbour/xHarbour and OpenCV2
 //
-// Copyright (c) 2025 Marcos Antonio Gambeta <marcosgambeta AT outlook DOT com>
+// Copyright (c) 2025 Marcos Antonio Gambeta <marcosgambeta@outlook.com>
 //
 
 #ifndef OPENCV_CORE_CH
