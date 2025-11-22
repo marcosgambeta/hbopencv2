@@ -142,10 +142,3 @@ opencv_videostab2413.dll
 ### Links
 
 https://opencv.org/
-
-### Donativos
-
-Se esta biblioteca for útil para você e desejar apoiar seu desenvolvimento através de donativos,
-basta utilizar a chave Pix abaixo:
-
-marcosgambeta@outlook.com
